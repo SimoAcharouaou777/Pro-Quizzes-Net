@@ -9,9 +9,15 @@ class MyClass extends Model
 {
     use HasFactory;
     protected $table = 'classes';
-
+    protected $fillable = ['name'];
+    
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+    
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
     }
 }
