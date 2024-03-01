@@ -20,4 +20,8 @@ class MyClass extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+    public function quizzes()
+    {
+        return $this->belongsToMany(Quize::class);
+    }
 }
