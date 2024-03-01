@@ -67,4 +67,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(MyClass::class);
     }
+    public function quizzes()
+    {
+        return $this->belongsToMany(Quize::class);
+    }
+    public function representatives()
+    {
+        return $this->hasOne(representative::class);
+    }
+    public function teachers()
+    {
+        return $this->hasOne(Teacher::class);
+    }
 }
