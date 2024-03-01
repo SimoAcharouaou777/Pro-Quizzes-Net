@@ -23,4 +23,8 @@ class Company extends Model
     {
         return $this->hasOne(Representative::class);
     }
+    public function quizzes()
+    {
+        return $this->hasMany(Quize::class);
+    }
 }
