@@ -4,7 +4,7 @@
 
 <section id="hero" class="hero">
 
-    <img src="{{asset('assets/img/portfolio/burgundy and White corporate Portfolio Cover.png')}}" alt="" data-aos="fade-in">
+    <img src="{{asset('assets/img/portfolio/Cover.png')}}" alt="" data-aos="fade-in">
 
 
 
