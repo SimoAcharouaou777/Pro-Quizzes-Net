@@ -37,10 +37,9 @@
                                         <h4 class="mt-1 mb-5 pb-1">Welcome to ProQuizzesNet</h4>
                                     </div>
                                     <form>
-                                        <p>Please login to your account</p>
+                                        
                                         <div class="form-outline mb-4">
-                                            <input type="email" id="form2Example11" class="form-control"
-                                                placeholder="Email address" />
+                                            <input type="email" id="form2Example11" class="form-control"/>
                                             <label class="form-label" for="form2Example11">Email</label>
                                         </div>
                                         <div class="form-outline mb-4">
