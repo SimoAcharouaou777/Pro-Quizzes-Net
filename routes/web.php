@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +21,10 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('auth.UserLogin');
 });
-
-Route::get('register', function () {
-    return view('auth.UserRegister');
-});
-
-Route::get('/CompanyRegister', function () {
-    return view('auth.CompanyRegister');
-});
+// handle view for user registration
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::get('CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
+// handle user authentication
+Route::post('store', [AuthController::class, 'store'])->name('store');
+Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
