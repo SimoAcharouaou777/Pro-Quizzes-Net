@@ -26,27 +26,29 @@
                                         <img src="{{asset('assets/img/portfolio/Logo.png')}}" style="width: 185px;" alt="ProQuizzesNet Logo">
                                         <h4 class="mt-1 mb-5 pb-1">Register for ProQuizzesNet</h4>
                                     </div>
-                                    <form>
+                                    <form method="POST" action="{{route('store')}}">
+                                        @csrf
+                                        @method('POST')
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="username" class="form-control" placeholder="">
+                                            <input type="text" id="username" name="username" class="form-control" >
                                             <label class="form-label" for="username">Username</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="email" id="email" class="form-control" placeholder="">
+                                            <input type="email" id="email" name="email" class="form-control" >
                                             <label class="form-label" for="email">Email</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="password" class="form-control" placeholder="">
+                                            <input type="password" name="password" id="password" class="form-control" >
                                             <label class="form-label" for="password">Password</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="confirm_password" class="form-control" placeholder="">
+                                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" >
                                             <label class="form-label" for="confirm_password">Confirm Password</label>
                                         </div>
                                         <div class="mb-4">
-                                            <a href="{{url('CompanyRegister')}}">Register as a company</a>
+                                            <a href="{{route('CompanyRegister')}}">Register as a company</a>
                                         </div>
-                                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Register</button>
+                                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Register</button>
                                     </form>
                                 </div>
                             </div>
@@ -88,20 +90,7 @@
   
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const companyCheckbox = document.getElementById('register_as_company');
-            const companyModal = new bootstrap.Modal(document.getElementById('companyModal'));
     
-            companyCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    companyModal.show();
-                } else {
-                    companyModal.hide();
-                }
-            });
-        });
-    </script>
     
 </body>
 </html>
