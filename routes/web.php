@@ -18,5 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('login', function () {
-    return view('auth.login');
+    return view('auth.UserLogin');
+});
+
+Route::get('register', function () {
+    return view('auth.UserRegister');
+});
+
+Route::get('/CompanyRegister', function () {
+    return view('auth.CompanyRegister');
 });
