@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +21,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', function () {
-    return view('auth.UserLogin');
-});
+// home route
+Route::get('/home',[HomeController::class, 'index'])->name('home');
 // handle view for user registration
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::get('register', [AuthController::class, 'register'])->name('register');
-Route::get('CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
 // handle user authentication
 Route::post('store', [AuthController::class, 'store'])->name('store');
 Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
+Route::get('/assign-role/{role}', [AuthController::class, 'assignRole'])->name('assignRole');
+Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+// handle user password reset
+Route::get('/forgot-password', [ForgetPasswordController::class, 'index'])->name('password.forget');
+Route::post('/forgot-password', [ForgetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [ForgetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name('password.update');
