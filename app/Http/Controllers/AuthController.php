@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -58,10 +59,25 @@ class AuthController extends Controller
             'password' => 'required',
             'confirm_password' => 'required|same:password'
         ]);
-        $data = $request->except('confirm-password', 'password');
-        $data['password'] = Hash::make($request->password);
-        $user = User::create($data);
+    
+        try {
+            $data = $request->except('confirm-password', 'password');
+            $data['password'] = Hash::make($request->password);
+            $user = User::create($data);
+            $request->session()->put('user_id', $user->id);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while creating the user.');
+        }
+    
         return redirect(route('UserRole'));
+    }
+
+    public function assignRole($role){
+        $user = User::find(session('user_id'));
+        $user->roles()->attach($role);
+        session()->forget('user_id');
+        return redirect(route('login'));
     }
 
     public function logout(Request $request)
