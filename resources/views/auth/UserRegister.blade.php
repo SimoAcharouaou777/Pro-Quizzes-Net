@@ -29,6 +29,11 @@
                                     <form method="POST" action="{{route('store')}}">
                                         @csrf
                                         @method('POST')
+                                        @if (session('error'))
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
                                         <div class="form-outline mb-4">
                                             <input type="text" id="username" name="username" class="form-control" >
                                             <label class="form-label" for="username">Username</label>
@@ -36,14 +41,23 @@
                                         <div class="form-outline mb-4">
                                             <input type="email" id="email" name="email" class="form-control" >
                                             <label class="form-label" for="email">Email</label>
+                                            @error('email')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-outline mb-4">
                                             <input type="password" name="password" id="password" class="form-control" >
                                             <label class="form-label" for="password">Password</label>
+                                            @error('password')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-outline mb-4">
                                             <input type="password" name="confirm_password" id="confirm_password" class="form-control" >
                                             <label class="form-label" for="confirm_password">Confirm Password</label>
+                                            @error('confirm_password')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-4">
                                             <a href="{{route('CompanyRegister')}}">Register as a company</a>
