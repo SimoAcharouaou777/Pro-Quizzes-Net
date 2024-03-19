@@ -15,19 +15,19 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <a href="{{ route('register') }}" class="btn btn-primary">
+                                <a href="{{ route('assignRole', ['role' => 3]) }}" class="btn btn-primary">
                                     <i class="fas fa-user-graduate fa-3x"></i>
                                     <h5>Student</h5>
                                 </a>
                             </div>
                             <div class="col-md-4 text-center">
-                                <a href="{{ route('register') }}" class="btn btn-primary">
+                                <a href="{{ route('assignRole', ['role' => 4]) }}" class="btn btn-primary">
                                     <i class="fas fa-chalkboard-teacher fa-3x"></i>
                                     <h5>Teacher</h5>
                                 </a>
                             </div>
                             <div class="col-md-4 text-center">
-                                <a href="{{ route('register') }}" class="btn btn-primary">
+                                <a href="{{ route('assignRole', ['role' => 2]) }}" class="btn btn-primary">
                                     <i class="fas fa-user fa-3x"></i>
                                     <h5>Normal User</h5>
                                 </a>
