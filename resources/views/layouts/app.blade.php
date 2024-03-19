@@ -59,8 +59,8 @@
             <a class="btn-getstarted" href="">Dashboard</a>
             <a class="btn-getstarted" href="">Profile</a>
             @else
-            <a class="btn-getstarted" href="">Login</a>
-            <a class="btn-getstarted" href="">Sign Up</a>
+            <a class="btn-getstarted" href="{{route('login')}}">Login</a>
+            <a class="btn-getstarted" href="{{route('register')}}">Sign Up</a>
             @endif
         </div>
 
