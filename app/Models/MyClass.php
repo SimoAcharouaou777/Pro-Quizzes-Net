@@ -11,10 +11,7 @@ class MyClass extends Model
     protected $table = 'classes';
     protected $fillable = ['name'];
     
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
+    
     
     public function teacher()
     {
@@ -23,5 +20,9 @@ class MyClass extends Model
     public function quizzes()
     {
         return $this->belongsToMany(Quize::class);
+    }
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
     }
 }
