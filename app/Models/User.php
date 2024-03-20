@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'username',
         'headline',
         'email',
+        'status',
         'password',
     ];
 
@@ -62,11 +65,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Skill::class);
     }
-
-    public function classes()
-    {
-        return $this->belongsToMany(MyClass::class);
-    }
     public function quizzes()
     {
         return $this->belongsToMany(Quize::class);
@@ -78,5 +76,9 @@ class User extends Authenticatable
     public function teachers()
     {
         return $this->hasOne(Teacher::class);
+    }
+    public function students()
+    {
+        return $this->hasOne(Student::class);
     }
 }
