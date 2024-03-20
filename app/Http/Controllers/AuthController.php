@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,6 +78,19 @@ class AuthController extends Controller
     public function assignRole($role){
         $user = User::find(session('user_id'));
         $user->roles()->attach($role);
+    
+        if ($role == 3) {
+            Student::create([
+                'username' => $user->username,
+                'user_id' => $user->id
+            ]);
+        } elseif ($role == 4) {
+            Teacher::create([
+                'username' => $user->username,
+                'user_id' => $user->id
+            ]);
+        }
+    
         session()->forget('user_id');
         return redirect(route('login'));
     }
