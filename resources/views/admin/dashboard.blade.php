@@ -183,10 +183,10 @@
                         <span class="text-secondary text-xs font-weight-bold">{{$user->created_at}}</span>
                       </td>
                       <td class="d-flex gap-2">
-                        <form action="" method="post">
+                        <form action="{{route('banuser', $user->id)}}" method="post">
                           @csrf
                           @method('PUT')
-                          <button type="submit" class="btn btn-primary btn-sm">ban user</button>
+                          <button type="submit" class="btn btn-primary btn-sm">{{ $user->status == 'banned' ? 'Unban User' : 'Ban User' }}</button>
                         </form>
                   
                       <form action="" method="post">
