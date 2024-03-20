@@ -36,6 +36,36 @@ return [
             'throw' => false,
         ],
 
+        'media' => [
+            'driver' => 'local',
+            'root'   => public_path('media'),
+            'url'    => env('APP_URL').'/media',
+        ],
+
+        'media_users' => [
+            'driver' => 'local',
+            'root'   => public_path('media/users'),
+            'url'    => env('APP_URL').'/media/users',
+        ],
+
+        'media_quizzes' => [
+            'driver' => 'local',
+            'root'   => public_path('media/quizzes'),
+            'url'    => env('APP_URL').'/media/quizzes',
+        ],
+
+        'media_questions' => [
+            'driver' => 'local',
+            'root'   => public_path('media/questions'),
+            'url'    => env('APP_URL').'/media/questions',
+        ],
+
+        'media_classes' => [
+            'driver' => 'local',
+            'root'   => public_path('media/classes'),
+            'url'    => env('APP_URL').'/media/classes',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
