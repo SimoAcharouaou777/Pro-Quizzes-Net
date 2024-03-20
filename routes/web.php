@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BaneUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
@@ -40,3 +41,4 @@ Route::get('/reset-password/{token}', [ForgetPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name('password.update');
 // admin dashboard
 Route::resource('admin', AdminController::class);
+Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser');
