@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BaneUserController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
@@ -42,3 +43,4 @@ Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name
 // admin dashboard
 Route::resource('admin', AdminController::class);
 Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser');
+Route::resource('category', CategoryController::class);
