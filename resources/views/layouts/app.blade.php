@@ -49,20 +49,50 @@
         </a>
 
         <nav class="navmenu">
+          <ul class="d-flex">
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#about">About</a></li>
+            <li><a class="nav-link scrollto" href="#services">Services</a></li>
+            <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
+            <li><a class="nav-link scrollto" href="#team">Team</a></li>
+            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+              </ul>
+            </li>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            <div class="mx-auto">
+            @if (auth()->check())
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="path_to_your_image" width="30" height="30" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#">My Statistiques</a></li>
+                  <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+              </ul>
+          </li>
+          @else
+          <i><a class=" scrollto btn-getstarted" href="{{route('login')}}">Login</a></i>
+          @endif
+        </div>
+          </ul>
+          
             
         </nav>
-
-        <div>
-            @if(auth()->check())
-            <a class="btn-getstarted" href="">Logout</a>
-            <a class="btn-getstarted" href="">Dashboard</a>
-            <a class="btn-getstarted" href="">Profile</a>
-            @else
-            <a class="btn-getstarted" href="{{route('login')}}">Login</a>
-            <a class="btn-getstarted" href="{{route('register')}}">Sign Up</a>
-            @endif
-        </div>
 
     </div>
 </header>
