@@ -77,11 +77,10 @@
             @if (auth()->check())
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="path_to_your_image" width="30" height="30" class="rounded-circle">
+                  <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><a class="dropdown-item" href="#">My Statistiques</a></li>
+                  <li><a class="dropdown-item" href="#">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
               </ul>
           </li>
