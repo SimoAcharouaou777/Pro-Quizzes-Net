@@ -22,6 +22,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/userdashboard',function(){
+    return view('users.UserDashboard');
+});
+Route::get('/userprofile',function(){
+    return view('users.UserProfile');
+});
 
 // home route
 Route::get('/home',[HomeController::class, 'index'])->name('home');
