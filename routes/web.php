@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\User\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,3 +56,4 @@ Route::resource('category', CategoryController::class);
 // user dashboard
 Route::resource('userdashboard', UserDashboardController::class);
 Route::resource('userprofile', UserProfileController::class);
+Route::resource('usersettings', UserSettingsController::class);
