@@ -98,8 +98,13 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" /> <span
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(Auth::user()->hasMedia('media/users'))
+                                  <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="">
+                                @else
+                                   <img src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" />
+                                @endif
+                            <span
                                     class="hidden-md-down">{{$user->username}} &nbsp;</span> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
@@ -125,8 +130,8 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('userprofile.index')}}" aria-expanded="false"><i
                                     class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
-                                    class="fa fa-table"></i><span class="hide-menu">Tables</span></a>
+                        <li> <a class="waves-effect waves-dark" href="{{route('usersettings.index')}}" aria-expanded="false"><i
+                                    class="fa fa-table"></i><span class="hide-menu">Settings</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false"><i
                                     class="fa fa-smile-o"></i><span class="hide-menu">Icons</span></a>
@@ -233,28 +238,10 @@
                                                 id="example-email">
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label class="col-md-12">Current Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password"  class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">New Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password"  class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Confirm New Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password"  class="form-control form-control-line">
-                                        </div>
-                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-12">Phone No</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="phone_number" placeholder="place your phone number here"
+                                            <input type="text" value="{{$user->phone_number}}" name="phone_number" placeholder="place your phone number here"
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
