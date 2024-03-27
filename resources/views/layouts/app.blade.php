@@ -80,7 +80,7 @@
                   <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                  <li><a class="dropdown-item" href="{{route('userdashboard.index')}}">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
               </ul>
           </li>
