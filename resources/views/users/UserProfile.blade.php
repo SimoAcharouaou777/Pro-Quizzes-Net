@@ -176,13 +176,24 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
+    <form class="form-horizontal form-material mx-2" method="POST" action="{{route('userprofile.update',$user->id)}}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <center class="mt-4"> <img src="{{asset('assets/images/users/5.jpg')}}" class="img-circle"
-                                        width="150" />
+                                <center class="mt-4">
+                            @if(Auth::user()->hasMedia('media/users'))
+                                <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
+                            @else
+                            <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                            width="150" />
+                             @endif
+                            <div class="form-group">
+                                <input type="file" name="image" class="form-control">
+                            </div>
                                     <h4 class="card-title mt-2">{{$user->username}}</h4>
                                     @foreach($user->roles as $role)
                                     <h6 class="card-subtitle">{{$role->name}}</h6>
@@ -207,65 +218,59 @@
                         <div class="card">
                             <!-- Tab panes -->
                             <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="place your full name here"
+                                            <input type="text" name="username" value="{{$user->username}}" placeholder="place your full name here"
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" placeholder="place your email here"
+                                            <input type="email" name="email" value="{{$user->email}}" placeholder="place your email here"
                                                 class="form-control form-control-line" name="example-email"
                                                 id="example-email">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Password</label>
+                                    {{-- <div class="form-group">
+                                        <label class="col-md-12">Current Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" value="password"
-                                                class="form-control form-control-line">
+                                            <input type="password"  class="form-control form-control-line">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">New Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password"  class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Confirm New Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password"  class="form-control form-control-line">
+                                        </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-12">Phone No</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="place your phone number here"
+                                            <input type="text" name="phone_number" placeholder="place your phone number here"
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Message</label>
-                                        <div class="col-md-12">
-                                            <textarea rows="5" class="form-control form-control-line"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12">Select Country</label>
-                                        <div class="col-sm-12">
-                                            <select class="form-control form-control-line">
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Thailand</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Update Profile</button>
+                                            <button type="submit" class="btn btn-success">Update Profile</button>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </div>
+                
                     <!-- Column -->
                 </div>
+    </form>
                 <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
