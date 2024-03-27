@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,3 +52,6 @@ Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name
 Route::resource('admin', AdminController::class);
 Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser');
 Route::resource('category', CategoryController::class);
+// user dashboard
+Route::resource('userdashboard', UserDashboardController::class);
+Route::resource('userprofile', UserProfileController::class);
