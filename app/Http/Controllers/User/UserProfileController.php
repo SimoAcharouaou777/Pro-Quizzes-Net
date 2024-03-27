@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
@@ -53,7 +54,28 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+        if ($request->has('username')) {
+            $user->username = $request->input('username');
+        }
+        
+        if ($request->has('email')) {
+            $user->email = $request->input('email');
+        }
+        
+        if ($request->has('phone_number')) {
+            $user->phone_number = $request->input('phone_number');
+        }
+
+        if ($request->hasFile('image')) {
+            $user->clearMediaCollection('media/users');
+            $user->addMediaFromRequest('image')->toMediaCollection('media/users', 'media_users');
+        }
+        
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+
     }
 
     /**
