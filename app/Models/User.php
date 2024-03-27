@@ -21,7 +21,7 @@ class User extends Authenticatable implements HasMedia
      */
     protected $fillable = [
         'username',
-        'headline',
+        'phone_number',
         'email',
         'status',
         'password',
