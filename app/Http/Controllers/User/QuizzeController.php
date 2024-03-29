@@ -32,36 +32,34 @@ class QuizzeController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
        $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            
 
         ]);
+        $QuizeData['user_id'] = $user->id;
+        $QuizeData['category_id'] = 1;
         $quiz = Quize::create($QuizeData);
 
-        foreach($request->input('questions', []) as $index => $question) {
-            $request->validate([
-                'questions.{$index}.text' => 'required',
-                'questions.{$index}.choices' => 'required|array|min:3',
-                'questions.{$index}.choices.*' => 'required|integer',
-                'questions.{$index}.correct_answer'=>'required|array',
-                'questions.{$index}.correct_answer.*'=>'required|integer|in:'.implode(',', $question['choices']),
-            ]);
-        
-        $question = Question::creat([
-            'question' => $question['text'],
-            'quize_id' => $quiz->id,
+    foreach($request->input('question') as $questionData){
+        $question = $quiz->questions()->create([
+            'question' => $questionData['text'],
+            'quize_id' => $quiz->id, 
         ]);
-
-        foreach($question['choices'] as $choiceIndex => $choiceText){
-        $choice = Answer::create([
-            'response' => $choiceText,
-            'question_id' => $question->id,
-            'status' => in_array($choiceIndex, $question['correct_answer']) ? 'true' : 'false',
-    ]);
-        }
-      }
     }
+        foreach($questionData['choices'] as $index => $choice){
+            $isCorrect = $index === (int)$questionData['correct_answers'];
+            $question->answers()->create([
+                'response' => $choice,
+                'is_correct' => $isCorrect,
+                'question_id' => $question->id,
+                'status' => $isCorrect ? 'true' : 'false'
+            ]);
+        }
+       }
+    
 
     /**
      * Display the specified resource.
