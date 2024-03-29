@@ -182,7 +182,12 @@
                 <!-- ============================================================== -->
                 <!-- Row -->
                 <div class="row">
-                    <h1>Create Quiz</h1>
+                    
+
+                    <form action="{{route('userquizzes.store')}}" method="POST" >
+                        @csrf
+                        @method('POST')
+                        <h1>Create Quiz</h1>
                 
                 
                         <div class="form-group">
@@ -198,10 +203,7 @@
                             <button type="button" id="multipleChoiceButton" class="btn btn-primary">Multiple Choice</button>
                             <button type="button" id="trueFalseButton" class="btn btn-primary">True/False</button>
                         </div>
-
-                    <form action="{{route('userdashboard.store')}}" method="POST" id="multiplechoice" style="display: none;">
-                        @csrf
-                        @method('POST')
+                    <div class="form-group" id="multiplechoice" style="display: none;">
                         <div id="questions-container">
                             <div class="question">
                                 <div class="form-group">
@@ -241,6 +243,7 @@
                         <button type="button" class="btn btn-secondary" id="addQuestion">Add More Question</button>
                 
                         <button type="submit" class="btn btn-primary" id="saveQuestion">Save Question</button>
+                    </div>
                     </form>
                 </div>   
                 <!-- Row -->
