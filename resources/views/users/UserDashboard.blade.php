@@ -82,18 +82,16 @@
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
                                 href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
                         <!-- ============================================================== -->
-                        <!-- Search -->
+                        <!-- ADD QUIZZE -->
                         <!-- ============================================================== -->
-                        <li class="nav-item hidden-xs-down search-box"> <a
-                                class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
-                                    class="fa fa-search"></i></a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a
-                                    class="srh-btn"><i class="fa fa-times"></i></a></form>
-                        </li>
+                        {{-- <li class="nav-item hidden-xs-down">
+                            <a class="nav-link hidden-sm-down waves-effect waves-dark" data-toggle="modal" data-target="#createQuizModal">
+                                <i class="fa fa-plus"> Create Quizze</i>
+                            </a>
+                        </li> --}}
                     </ul>
                     <!-- ============================================================== -->
-                    <!-- User profile and search -->
+                    <!-- User profile and QUIZZE -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
                         <!-- ============================================================== -->
@@ -452,7 +450,10 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+        
     </div>
+    <!-- create quize modal -->
+
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -481,6 +482,13 @@
     <script src="{{asset('assets/node_modules/c3-master/c3.min.js')}}"></script>
     <!-- Chart JS -->
     <script src="{{asset('assets/js/dashboard1.js')}}"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JavaScript library -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+
 </body>
 
 </html>
