@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Quize extends Model
 {
     use HasFactory;
+    protected $table = 'quizzes';
+    protected $fillable = ['title', 'description', 'category_id', 'user_id'];
 
     public function users()
     {
