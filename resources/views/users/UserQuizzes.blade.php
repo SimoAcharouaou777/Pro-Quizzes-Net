@@ -181,82 +181,68 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
+                <div class="row">
+                    <h1>Create Quiz</h1>
                 
-                    <div class="form-group">
-                        <label for="type">Quiz Type</label>
-                        <div id="type" class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-primary" data-value="multiple_choice" id="multipleChoiceButton">Multiple Choice</button>
-                            <button type="button" class="btn btn-outline-primary" data-value="true_false">True/False</button>
+                
+                        <div class="form-group">
+                            <label for="title">Quiz Title</label>
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Enter quiz title">
                         </div>
-                        <input type="hidden" name="type" id="type-input">
-                    </div>
-                    {{-- multiple choise modal --}}
-                <form action="{{route('userquizzes.store')}}">
-                    <div class="modal fade" id="multipleChoiceModal" tabindex="-1" role="dialog" aria-labelledby="multipleChoiceModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="multipleChoiceModalLabel">Create Multiple Choice Question</h5>
-                                    <button type="button" id="closebutton" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <div class="form-group">
+                            <label for="description">Quiz Description</label>
+                            <textarea name="description" class="form-control" id="description" placeholder="Enter quiz description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizType">Quiz Type</label>
+                            <button type="button" id="multipleChoiceButton" class="btn btn-primary">Multiple Choice</button>
+                            <button type="button" id="trueFalseButton" class="btn btn-primary">True/False</button>
+                        </div>
+
+                    <form action="{{route('userdashboard.store')}}" method="POST" id="multiplechoice" style="display: none;">
+                        @csrf
+                        @method('POST')
+                        <div id="questions-container">
+                            <div class="question">
+                                <div class="form-group">
+                                    <label for="question1">Question 1</label>
+                                    <input type="text" id="question1" name="question[0][text]" class="form-control" placeholder="Enter question">
                                 </div>
-                                <div class="modal-body">
+                                <div id="choices-container1">
                                     <div class="form-group">
-                                        <label for="title">Quiz Title</label>
-                                        <input type="text" name="title" class="form-control" id="title" placeholder="Enter quiz title">
+                                        <label for="choice1-1">Choice 1</label>
+                                        <input type="text" id="choice1-1" name="question[0][choices][]" class="form-control" placeholder="Enter choice">
                                     </div>
-                                        <div id="questions-container">
-                                            <div class="question">
-                                                <div class="form-group">
-                                                    <label for="question1">Question 1</label>
-                                                    <input type="text" id="question1" class="form-control" placeholder="Enter question">
-                                                </div>
-                                                <div id="choices-container1">
-                                                    <div class="form-group">
-                                                        <label for="choice1-1">Choice 1</label>
-                                                        <input type="text" id="choice1-1" class="form-control" placeholder="Enter choice">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="choice1-2">Choice 2</label>
-                                                        <input type="text" id="choice1-2" class="form-control" placeholder="Enter choice">
-                                                    </div>
-                                                </div>
-                                                <button type="button"  class="btn btn-secondary addChoice" data-question="1">Add More Choice</button>
-                                                <div class="form-group">
-                                                    <label>Correct Answers</label>
-                                                    <div id="answers1">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="choice1-1" id="answer1-1">
-                                                            <label class="form-check-label" for="answer1-1">
-                                                                Choice 1
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="choice1-2" id="answer1-2">
-                                                            <label class="form-check-label" for="answer1-2">
-                                                                Choice 2
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-secondary" id="addQuestion">Add More Question</button>
+                                    <div class="form-group">
+                                        <label for="choice1-2">Choice 2</label>
+                                        <input type="text" id="choice1-2" name="question[0][choices][]" class="form-control" placeholder="Enter choice">
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" id="saveQuestion">Save Question</button>
+                                <button type="button"  class="btn btn-secondary addChoice" data-question="1">Add More Choice</button>
+                                <div class="form-group">
+                                    <label>Correct Answers</label>
+                                    <div id="answers1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="choice1-1" id="answer1-1" name="question[0][correct_answers][]">
+                                            <label class="form-check-label" for="answer1-1">
+                                                Choice 1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="choice1-2" id="answer1-2" name="question[0][correct_answers][]">
+                                            <label class="form-check-label" for="answer1-2">
+                                                Choice 2
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-
-                    {{-- end modal --}}
+                        <button type="button" class="btn btn-secondary" id="addQuestion">Add More Question</button>
                 
-
-               
+                        <button type="submit" class="btn btn-primary" id="saveQuestion">Save Question</button>
+                    </form>
+                </div>   
                 <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -294,93 +280,89 @@
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
-    <!-- modal script -->
     <script>
-            document.getElementById('multipleChoiceButton').addEventListener('click', function() {
-                $('#multipleChoiceModal').modal('show');
-            });
-
-            document.getElementById('closebutton').addEventListener('click', function() {
-                $('#multipleChoiceModal').modal('hide');
-            });
-            var choiceCount = {1: 2};
-            var questionCount = 1;
-            document.getElementById('addQuestion').addEventListener('click', function() {
-                questionCount++;
-                choiceCount[questionCount] = 2;
-                var container = document.getElementById('questions-container');
-                var questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
-                questionDiv.innerHTML = `
-            <div class="form-group">
-                <label for="question${questionCount}">Question ${questionCount}</label>
-                <input type="text" id="question${questionCount}" class="form-control" placeholder="Enter question">
-            </div>
-            <div id="choices-container${questionCount}">
-                <div class="form-group">
-                    <label for="choice${questionCount}-1">Choice 1</label>
-                    <input type="text" id="choice${questionCount}-1" class="form-control" placeholder="Enter choice">
-                </div>
-                <div class="form-group">
-                    <label for="choice${questionCount}-2">Choice 2</label>
-                    <input type="text" id="choice${questionCount}-2" class="form-control" placeholder="Enter choice">
-                </div>
-            </div>
-            <button type="button" class="btn btn-secondary addChoice" data-question="${questionCount}">Add More Choice</button>
-            <div class="form-group">
-                <label>Correct Answers</label>
-                <div id="answers${questionCount}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="choice${questionCount}-1" id="answer${questionCount}-1">
-                        <label class="form-check-label" for="answer${questionCount}-1">
-                            Choice 1
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="choice${questionCount}-2" id="answer${questionCount}-2">
-                        <label class="form-check-label" for="answer${questionCount}-2">
-                            Choice 2
-                        </label>
-                    </div>
-                </div>
-            </div>
-        `;
-                container.appendChild(questionDiv);
-            });
-
-            document.getElementById('questions-container').addEventListener('click', function(event) {
-                if(event.target.classList.contains('addChoice')) {
-                    var questionNumber = event.target.getAttribute('data-question');
-                    choiceCount[questionNumber]++;
-                    var container = document.getElementById(`choices-container${questionNumber}`);
-                    var choiceDiv = document.createElement('div');
-                    choiceDiv.className = 'form-group';
-                    choiceDiv.innerHTML = `
-                <label for="choice${questionNumber}-${choiceCount[questionNumber]}">Choice ${choiceCount[questionNumber]}</label>
-                <input type="text" id="choice${questionNumber}-${choiceCount[questionNumber]}" class="form-control" placeholder="Enter choice">
-            `;
-                    container.appendChild(choiceDiv);
-
-                    var answersDiv = document.getElementById(`answers${questionNumber}`);
-                    var answerDiv = document.createElement('div');
-                    answerDiv.className = 'form-check';
-                    answerDiv.innerHTML = `
-                <input class="form-check-input" type="checkbox" value="choice${questionNumber}-${choiceCount[questionNumber]}" id="answer${questionNumber}-${choiceCount[questionNumber]}">
-                <label class="form-check-label" for="answer${questionNumber}-${choiceCount[questionNumber]}">
-                    Choice ${choiceCount[questionNumber]}
-                </label>
-            `;
-                    answersDiv.appendChild(answerDiv);
-                }
-            });
-
-            var correctAnswers = [];
-            document.querySelectorAll('#answers .form-check-input:checked').forEach(function(checkbox) {
-                correctAnswers.push(checkbox.value);
-            });
+        document.getElementById('multipleChoiceButton').addEventListener('click', function() {
+            document.getElementById('multiplechoice').style.display = 'block';
+            document.getElementById('truefalse').style.display = 'none';
+        });
     </script>
+    <script>
+         var choiceCount = {1: 2};
+        var questionCount = 1;
+        document.getElementById('addQuestion').addEventListener('click', function() {
+            questionCount++;
+            choiceCount[questionCount] = 2;
+            var container = document.getElementById('questions-container');
+            var questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+        <div class="form-group">
+            <label for="question${questionCount}">Question ${questionCount}</label>
+            <input type="text" id="question${questionCount}" class="form-control" placeholder="Enter question">
+        </div>
+        <div id="choices-container${questionCount}">
+            <div class="form-group">
+                <label for="choice${questionCount}-1">Choice 1</label>
+                <input type="text" id="choice${questionCount}-1" class="form-control" placeholder="Enter choice">
+            </div>
+            <div class="form-group">
+                <label for="choice${questionCount}-2">Choice 2</label>
+                <input type="text" id="choice${questionCount}-2" class="form-control" placeholder="Enter choice">
+            </div>
+        </div>
+        <button type="button" class="btn btn-secondary addChoice" data-question="${questionCount}">Add More Choice</button>
+        <div class="form-group">
+            <label>Correct Answers</label>
+            <div id="answers${questionCount}">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-1" id="answer${questionCount}-1">
+                    <label class="form-check-label" for="answer${questionCount}-1">
+                        Choice 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-2" id="answer${questionCount}-2">
+                    <label class="form-check-label" for="answer${questionCount}-2">
+                        Choice 2
+                    </label>
+                </div>
+            </div>
+        </div>
+        `;
+            container.appendChild(questionDiv);
+        });
 
-    
+        document.getElementById('questions-container').addEventListener('click', function(event) {
+            if(event.target.classList.contains('addChoice')) {
+                var questionNumber = event.target.getAttribute('data-question');
+                choiceCount[questionNumber]++;
+                var container = document.getElementById(`choices-container${questionNumber}`);
+                var choiceDiv = document.createElement('div');
+                choiceDiv.className = 'form-group';
+                choiceDiv.innerHTML = `
+            <label for="choice${questionNumber}-${choiceCount[questionNumber]}">Choice ${choiceCount[questionNumber]}</label>
+            <input type="text" id="choice${questionNumber}-${choiceCount[questionNumber]}" class="form-control" placeholder="Enter choice">
+        `;
+                container.appendChild(choiceDiv);
+
+                var answersDiv = document.getElementById(`answers${questionNumber}`);
+                var answerDiv = document.createElement('div');
+                answerDiv.className = 'form-check';
+                answerDiv.innerHTML = `
+            <input class="form-check-input" type="checkbox" value="choice${questionNumber}-${choiceCount[questionNumber]}" id="answer${questionNumber}-${choiceCount[questionNumber]}">
+            <label class="form-check-label" for="answer${questionNumber}-${choiceCount[questionNumber]}">
+                Choice ${choiceCount[questionNumber]}
+            </label>
+        `;
+                answersDiv.appendChild(answerDiv);
+            }
+        });
+
+        var correctAnswers = [];
+        document.querySelectorAll('#answers .form-check-input:checked').forEach(function(checkbox) {
+            correctAnswers.push(checkbox.value);
+        });
+    </script>
 </body>
 
 </html>
