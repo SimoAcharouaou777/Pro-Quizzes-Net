@@ -32,33 +32,36 @@ class QuizzeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $user = auth()->user();
-       $QuizeData = $request->validate([
+        $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            
-
         ]);
         $QuizeData['user_id'] = $user->id;
         $QuizeData['category_id'] = 1;
         $quiz = Quize::create($QuizeData);
 
-    foreach($request->input('question') as $questionData){
-        $question = $quiz->questions()->create([
-            'question' => $questionData['text'],
-            'quize_id' => $quiz->id, 
-        ]);
-    }
-        foreach($questionData['choices'] as $index => $choice){
-            $isCorrect = $index === (int)$questionData['correct_answers'];
-            $question->answers()->create([
-                'response' => $choice,
-                'is_correct' => $isCorrect,
-                'question_id' => $question->id,
-                'status' => $isCorrect ? 'true' : 'false'
+        foreach($request->input('question') as $questionData){
+            $question = $quiz->questions()->create([
+                'question' => $questionData['text'],
+                'quize_id' => $quiz->id, 
             ]);
+        
+            foreach($questionData['choices'] as $index => $choice){
+                $isCorrect = false;
+                if(isset($questionData['correct_answers'])){
+                    $isCorrect = in_array($index, $questionData['correct_answers']);
+                }
+                $question->answers()->create([
+                    'response' => $choice,
+                    'is_correct' => $isCorrect,
+                    'question_id' => $question->id,
+                    'status' => $isCorrect ? 'false' : 'true'
+                ]);
+            }
         }
-       }
+    }
     
 
     /**
