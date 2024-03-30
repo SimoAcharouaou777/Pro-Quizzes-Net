@@ -293,24 +293,24 @@
          var choiceCount = {1: 2};
         var questionCount = 1;
         document.getElementById('addQuestion').addEventListener('click', function() {
-            questionCount++;
-            choiceCount[questionCount] = 2;
-            var container = document.getElementById('questions-container');
-            var questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.innerHTML = `
+    questionCount++;
+    choiceCount[questionCount] = 2; // Defaulting to 2 choices for each new question
+    var container = document.getElementById('questions-container');
+    var questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+    questionDiv.innerHTML = `
         <div class="form-group">
             <label for="question${questionCount}">Question ${questionCount}</label>
-            <input type="text" id="question${questionCount}" class="form-control" placeholder="Enter question">
+            <input type="text" id="question${questionCount}" name="question[${questionCount - 1}][text]" class="form-control" placeholder="Enter question">
         </div>
         <div id="choices-container${questionCount}">
             <div class="form-group">
                 <label for="choice${questionCount}-1">Choice 1</label>
-                <input type="text" id="choice${questionCount}-1" class="form-control" placeholder="Enter choice">
+                <input type="text" id="choice${questionCount}-1" name="question[${questionCount - 1}][choices][]" class="form-control" placeholder="Enter choice">
             </div>
             <div class="form-group">
                 <label for="choice${questionCount}-2">Choice 2</label>
-                <input type="text" id="choice${questionCount}-2" class="form-control" placeholder="Enter choice">
+                <input type="text" id="choice${questionCount}-2" name="question[${questionCount - 1}][choices][]" class="form-control" placeholder="Enter choice">
             </div>
         </div>
         <button type="button" class="btn btn-secondary addChoice" data-question="${questionCount}">Add More Choice</button>
@@ -318,48 +318,50 @@
             <label>Correct Answers</label>
             <div id="answers${questionCount}">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-1" id="answer${questionCount}-1">
+                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-1" id="answer${questionCount}-1" name="question[${questionCount - 1}][correct_answers][]">
                     <label class="form-check-label" for="answer${questionCount}-1">
                         Choice 1
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-2" id="answer${questionCount}-2">
+                    <input class="form-check-input" type="checkbox" value="choice${questionCount}-2" id="answer${questionCount}-2" name="question[${questionCount - 1}][correct_answers][]">
                     <label class="form-check-label" for="answer${questionCount}-2">
                         Choice 2
                     </label>
                 </div>
             </div>
         </div>
-        `;
-            container.appendChild(questionDiv);
-        });
+    `;
+    container.appendChild(questionDiv);
+});
 
-        document.getElementById('questions-container').addEventListener('click', function(event) {
-            if(event.target.classList.contains('addChoice')) {
-                var questionNumber = event.target.getAttribute('data-question');
-                choiceCount[questionNumber]++;
-                var container = document.getElementById(`choices-container${questionNumber}`);
-                var choiceDiv = document.createElement('div');
-                choiceDiv.className = 'form-group';
-                choiceDiv.innerHTML = `
+document.getElementById('questions-container').addEventListener('click', function(event) {
+    if(event.target.classList.contains('addChoice')) {
+        var questionNumber = event.target.getAttribute('data-question');
+        choiceCount[questionNumber]++;
+        var container = document.getElementById(`choices-container${questionNumber}`);
+        var choiceDiv = document.createElement('div');
+        choiceDiv.className = 'form-group';
+        choiceDiv.innerHTML = `
             <label for="choice${questionNumber}-${choiceCount[questionNumber]}">Choice ${choiceCount[questionNumber]}</label>
-            <input type="text" id="choice${questionNumber}-${choiceCount[questionNumber]}" class="form-control" placeholder="Enter choice">
+            <input type="text" id="choice${questionNumber}-${choiceCount[questionNumber]}" name="question[${questionNumber - 1}][choices][]" class="form-control" placeholder="Enter choice">
         `;
-                container.appendChild(choiceDiv);
+        container.appendChild(choiceDiv);
 
-                var answersDiv = document.getElementById(`answers${questionNumber}`);
-                var answerDiv = document.createElement('div');
-                answerDiv.className = 'form-check';
-                answerDiv.innerHTML = `
-            <input class="form-check-input" type="checkbox" value="choice${questionNumber}-${choiceCount[questionNumber]}" id="answer${questionNumber}-${choiceCount[questionNumber]}">
+        var answersDiv = document.getElementById(`answers${questionNumber}`);
+        var answerDiv = document.createElement('div');
+        answerDiv.className = 'form-check';
+        answerDiv.innerHTML = `
+            <input class="form-check-input" type="checkbox" value="choice${questionNumber}-${choiceCount[questionNumber]}" id="answer${questionNumber}-${choiceCount[questionNumber]}" name="question[${questionNumber - 1}][correct_answers][]">
             <label class="form-check-label" for="answer${questionNumber}-${choiceCount[questionNumber]}">
                 Choice ${choiceCount[questionNumber]}
             </label>
         `;
-                answersDiv.appendChild(answerDiv);
-            }
-        });
+        answersDiv.appendChild(answerDiv);
+    }
+});
+
+
 
         var correctAnswers = [];
         document.querySelectorAll('#answers .form-check-input:checked').forEach(function(checkbox) {
