@@ -32,16 +32,19 @@ class QuizzeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         $user = auth()->user();
         $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            
         ]);
         $QuizeData['user_id'] = $user->id;
         $QuizeData['category_id'] = 1;
+        $QuizeData['quiz_type'] = $request->input('quize_type');
         $quiz = Quize::create($QuizeData);
 
+    if($request->input('quize_type') === 'multiple_choice'){
         foreach($request->input('question') as $questionData){
             $question = $quiz->questions()->create([
                 'question' => $questionData['text'],
@@ -61,7 +64,24 @@ class QuizzeController extends Controller
                 ]);
             }
         }
+    }else{
+        if($request->input('tf_question')) {
+        foreach($request->input('tf_question') as $questionData){
+            $question = $quiz->questions()->create([
+                'question' => $questionData['text'],
+                'quize_id' => $quiz->id, 
+            ]);
+
+            $question->answers()->create([
+                'response' => $questionData['answer'],
+                'is_correct' => $questionData['answer'] == 'true' ? true : false,
+                'question_id' => $question->id,
+                'status' => 'true'
+            ]);
+        }
     }
+    }
+}
     
 
     /**
