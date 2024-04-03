@@ -9,7 +9,7 @@ class MyClass extends Model
 {
     use HasFactory;
     protected $table = 'classes';
-    protected $fillable = ['name'];
+    protected $fillable = ['name','teacher_name','level','learners','campus','class_code','teacher_id'];
     
     
     
