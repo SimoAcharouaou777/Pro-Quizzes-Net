@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\User\QuizzeController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController;
@@ -59,3 +60,5 @@ Route::resource('userdashboard', UserDashboardController::class);
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('usersettings', UserSettingsController::class);
 Route::resource('userquizzes',QuizzeController::class);
+// teacher controller
+Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass');
