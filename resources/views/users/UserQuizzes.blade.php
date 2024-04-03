@@ -200,6 +200,7 @@
                         </div>
                         <div class="form-group">
                             <label for="quizType">Quiz Type</label>
+                            <input type="hidden" name="quize_type" id="quizeType" value="">
                             <button type="button" id="multipleChoiceButton" class="btn btn-primary">Multiple Choice</button>
                             <button type="button" id="trueFalseButton" class="btn btn-primary">True/False</button>
                         </div>
@@ -244,6 +245,25 @@
                 
                         <button type="submit" class="btn btn-primary" id="saveQuestion">Save Question</button>
                     </div>
+                    <div class="form-group" id="truefalse" style="display: none;">
+                        <div id="tf-questions-container">
+                            <div class="question">
+                                <div class="form-group">
+                                    <label for="tf-question1">Question 1</label>
+                                    <input type="text" id="tf-question1" name="tf_question[0][text]" class="form-control" placeholder="Enter question">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tf-answer1">Answer</label>
+                                    <select id="tf-answer1" name="tf_question[0][answer]" class="form-control">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="addTFQuestion">Add More Question</button>
+                        <button type="submit" class="btn btn-primary" id="saveTFQuestion">Save Question</button>
+                    </div>
                     </form>
                 </div>   
                 <!-- Row -->
@@ -273,32 +293,33 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="{{asset('assets/node_modules/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="{{asset('assets/node_modules/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{asset('assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
-    <!--Wave Effects -->
     <script src="{{asset('assets/js/waves.js')}}"></script>
-    <!--Menu sidebar -->
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
-    <!--Custom JavaScript -->
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
     <script>
         document.getElementById('multipleChoiceButton').addEventListener('click', function() {
             document.getElementById('multiplechoice').style.display = 'block';
             document.getElementById('truefalse').style.display = 'none';
+            document.getElementById('quizeType').value = 'multiple_choice';
+        });
+        document.getElementById('trueFalseButton').addEventListener('click', function() {
+            document.getElementById('multiplechoice').style.display = 'none';
+            document.getElementById('truefalse').style.display = 'block';
+            document.getElementById('quizeType').value = 'true_false';
         });
     </script>
     <script>
          var choiceCount = {1: 2};
         var questionCount = 1;
         document.getElementById('addQuestion').addEventListener('click', function() {
-    questionCount++;
-    choiceCount[questionCount] = 2; // Defaulting to 2 choices for each new question
-    var container = document.getElementById('questions-container');
-    var questionDiv = document.createElement('div');
-    questionDiv.className = 'question';
-    questionDiv.innerHTML = `
+        questionCount++;
+        choiceCount[questionCount] = 2; // Defaulting to 2 choices for each new question
+        var container = document.getElementById('questions-container');
+        var questionDiv = document.createElement('div');
+        questionDiv.className = 'question';
+        questionDiv.innerHTML = `
         <div class="form-group">
             <label for="question${questionCount}">Question ${questionCount}</label>
             <input type="text" id="question${questionCount}" name="question[${questionCount - 1}][text]" class="form-control" placeholder="Enter question">
@@ -331,12 +352,12 @@
                 </div>
             </div>
         </div>
-    `;
-    container.appendChild(questionDiv);
-});
+            `;
+            container.appendChild(questionDiv);
+        });
 
-document.getElementById('questions-container').addEventListener('click', function(event) {
-    if(event.target.classList.contains('addChoice')) {
+        document.getElementById('questions-container').addEventListener('click', function(event) {
+        if(event.target.classList.contains('addChoice')) {
         var questionNumber = event.target.getAttribute('data-question');
         choiceCount[questionNumber]++;
         var container = document.getElementById(`choices-container${questionNumber}`);
@@ -358,8 +379,8 @@ document.getElementById('questions-container').addEventListener('click', functio
             </label>
         `;
         answersDiv.appendChild(answerDiv);
-    }
-});
+         }
+         });
 
 
 
@@ -367,6 +388,29 @@ document.getElementById('questions-container').addEventListener('click', functio
         document.querySelectorAll('#answers .form-check-input:checked').forEach(function(checkbox) {
             correctAnswers.push(checkbox.value);
         });
+    </script>
+    <script>
+        var tfQuestionCount = 1;
+        document.getElementById('addTFQuestion').addEventListener('click', function() {
+        tfQuestionCount++;
+        var container = document.getElementById('tf-questions-container');
+        var questionDiv = document.createElement('div');
+        questionDiv.className = 'question';
+        questionDiv.innerHTML = `
+        <div class="form-group">
+            <label for="tf-question${tfQuestionCount}">Question ${tfQuestionCount}</label>
+            <input type="text" id="tf-question${tfQuestionCount}" name="tf_question[${tfQuestionCount - 1}][text]" class="form-control" placeholder="Enter question">
+        </div>
+        <div class="form-group">
+            <label for="tf-answer${tfQuestionCount}">Answer</label>
+            <select id="tf-answer${tfQuestionCount}" name="tf_question[${tfQuestionCount - 1}][answer]" class="form-control">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+        </div>
+     `;
+     container.appendChild(questionDiv);
+      });
     </script>
 </body>
 
