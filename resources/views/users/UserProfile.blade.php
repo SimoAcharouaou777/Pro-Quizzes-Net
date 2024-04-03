@@ -30,27 +30,27 @@
 </head>
 
 <body class="fix-header card-no-border fix-sidebar">
-    <!-- ============================================================== -->
+    
     <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">Admin Wrap</p>
         </div>
     </div>
-    <!-- ============================================================== -->
+    
     <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    
     <div id="main-wrapper">
-        <!-- ============================================================== -->
+        
         <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
+        
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- ============================================================== -->
+                
                 <!-- Logo -->
-                <!-- ============================================================== -->
+                
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon --><b>
@@ -68,19 +68,19 @@
                             <img src="{{asset('assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span>
                     </a>
                 </div>
-                <!-- ============================================================== -->
+                
                 <!-- End Logo -->
-                <!-- ============================================================== -->
+                
                 <div class="navbar-collapse">
-                    <!-- ============================================================== -->
+                    
                     <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
+                    
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
                                 href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
-                        <!-- ============================================================== -->
+                        
                         <!-- Search -->
-                        <!-- ============================================================== -->
+                        
                         <li class="nav-item hidden-xs-down search-box"> <a
                                 class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
                                     class="fa fa-search"></i></a>
@@ -89,13 +89,13 @@
                                     class="srh-btn"><i class="fa fa-times"></i></a> </form>
                         </li>
                     </ul>
-                    <!-- ============================================================== -->
+                    
                     <!-- User profile and search -->
-                    <!-- ============================================================== -->
+                    
                     <ul class="navbar-nav my-lg-0">
-                        <!-- ============================================================== -->
+                        
                         <!-- Profile -->
-                        <!-- ============================================================== -->
+                        
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,12 +112,12 @@
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
+        
         <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        
+        
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+        
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
@@ -133,11 +133,11 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('usersettings.index')}}" aria-expanded="false"><i
                                     class="fa fa-table"></i><span class="hide-menu">Settings</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false"><i
-                                    class="fa fa-smile-o"></i><span class="hide-menu">Icons</span></a>
+                        <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
+                                    class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
-                                    class="fa fa-globe"></i><span class="hide-menu">Map</span></a>
+                                    class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
                                     class="fa fa-bookmark-o"></i><span class="hide-menu">Blank</span></a>
@@ -151,20 +151,20 @@
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
+        
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        
+        
         <!-- Page wrapper  -->
-        <!-- ============================================================== -->
+        
         <div class="page-wrapper">
-            <!-- ============================================================== -->
+            
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
+            
             <div class="container-fluid">
-                <!-- ============================================================== -->
+                
                 <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
+                
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
                         <h3 class="text-themecolor">Profile</h3>
@@ -174,12 +174,12 @@
                         </ol>
                     </div>
                 </div>
-                <!-- ============================================================== -->
+                
                 <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
+                
+                
                 <!-- Start Page Content -->
-                <!-- ============================================================== -->
+                
                 <!-- Row -->
     <form class="form-horizontal form-material mx-2" method="POST" action="{{route('userprofile.update',$user->id)}}" enctype="multipart/form-data">
         @csrf
@@ -249,52 +249,80 @@
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button type="submit" class="btn btn-success">Update Profile</button>
+                                            <button type="button" class="btn btn-success" id="addClassButton" >Add Class</button>
                                         </div>
                                     </div>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Column -->
                 </div>
     </form>
-                <!-- Row -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
+
+    <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer"> © 2021 Adminwrap by <a href="https://www.wrappixel.com/">wrappixel.com</a> </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+            <form method="POST" action="{{route('addClass')}}" enctype="multipart/form-data">
+              @csrf
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="className">Class Name</label>
+                  <input type="text" class="form-control" id="className" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="classImage">Class Image</label>
+                  <input type="file" class="form-control" id="classImage" name="image">
+                </div>
+                <div class="form-group">
+                  <label for="classUsers">Number of Users</label>
+                  <input type="number" class="form-control" id="classUsers" name="learners">
+                </div>
+                <div class="form-group">
+                  <label for="classLevel">Level</label>
+                  <input type="text" class="form-control" id="classLevel" name="level">
+                </div>
+                <div class="form-group">
+                  <label for="classCampus">Campus</label>
+                  <input type="text" class="form-control" id="classCampus" name="campus">
+                </div>
+                <div class="form-group">
+                    <label for="class_code">Class Code</label>
+                    <input type="number" class="form-control" id="class_code" name="class_code">
+                </div>
+              </div>
+              <div class="modal-footer">
+                
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+      </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+    </div>
+  </div>
+
     <script src="{{asset('assets/node_modules/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="{{asset('assets/node_modules/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{asset('assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
-    <!--Wave Effects -->
     <script src="{{asset('assets/js/waves.js')}}"></script>
-    <!--Menu sidebar -->
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
-    <!--Custom JavaScript -->
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
+    <script>
+        var btn = document.getElementById('addClassButton');
+        btn.onclick = function() {
+            $('#addClassModal').modal('show');
+        }
+        $('#addClassModal').on('click', function(e) {
+            if($(e.target).is('#addClassModal'))
+            $(this).modal('hide');
+        });
+    </script>
 </body>
 
 </html>
