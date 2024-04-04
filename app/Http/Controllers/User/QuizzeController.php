@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Question;
 use App\Models\Quize;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class QuizzeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view('users.UserQuizzes', compact('user'));
+        $categories = Category::all();
+        $classes = auth()->user()->teacher->classes;
+        return view('users.UserQuizzes', compact('user', 'categories','classes'));
     }
 
     /**
@@ -32,15 +35,16 @@ class QuizzeController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // dd($request->all());
         $user = auth()->user();
         $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'category_id' => 'required',
             
         ]);
         $QuizeData['user_id'] = $user->id;
-        $QuizeData['category_id'] = 1;
+        $QuizeData['category_id'] = $request->input('category_id');
         $QuizeData['quiz_type'] = $request->input('quize_type');
         $quiz = Quize::create($QuizeData);
 
@@ -79,8 +83,9 @@ class QuizzeController extends Controller
                 'status' => 'true'
             ]);
         }
+      }
     }
-    }
+    return redirect()->back()->with('success', 'Quiz created successfully');
 }
     
 
