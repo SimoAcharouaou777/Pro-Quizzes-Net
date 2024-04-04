@@ -52,13 +52,13 @@ Route::post('/forgot-password', [ForgetPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ForgetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name('password.update');
 // admin dashboard
-Route::resource('admin', AdminController::class);
-Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser');
-Route::resource('category', CategoryController::class);
+Route::resource('admin', AdminController::class)->middleware('role:admin');
+Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser')->middleware('role:admin');
+Route::resource('category', CategoryController::class)->middleware('role:admin');
 // user dashboard
 Route::resource('userdashboard', UserDashboardController::class);
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('usersettings', UserSettingsController::class);
 Route::resource('userquizzes',QuizzeController::class);
 // teacher controller
-Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass');
+Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
