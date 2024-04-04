@@ -73,7 +73,7 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasOne(representative::class);
     }
-    public function teachers()
+    public function teacher()
     {
         return $this->hasOne(Teacher::class);
     }
