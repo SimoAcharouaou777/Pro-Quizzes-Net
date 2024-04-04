@@ -199,6 +199,22 @@
                             <textarea name="description" class="form-control" id="description" placeholder="Enter quiz description"></textarea>
                         </div>
                         <div class="form-group">
+                            <label for="category_id">Category</label>
+                            <select name="category_id" id="category_id" class="form-control">
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="class_id">Class</label>
+                            <select name="class_id" id="class_id" class="form-control">
+                                @foreach($classes as $class)
+                                    <option value="{{$class->id}}">{{$class->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="quizType">Quiz Type</label>
                             <input type="hidden" name="quize_type" id="quizeType" value="">
                             <button type="button" id="multipleChoiceButton" class="btn btn-primary">Multiple Choice</button>
