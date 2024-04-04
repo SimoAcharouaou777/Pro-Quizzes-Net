@@ -249,7 +249,9 @@
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button type="submit" class="btn btn-success">Update Profile</button>
-                                            <button type="button" class="btn btn-success" id="addClassButton" >Add Class</button>
+                                            @if(Auth::user()->hasRole('teacher'))
+                                            <button type="button" class="btn btn-success" id="addClassButton" >Add Class</button>   
+                                            @endif
                                         </div>
                                     </div>
                             </div>
@@ -257,13 +259,13 @@
                     </div>
                 </div>
     </form>
-
+    @if(Auth::user()->hasRole('teacher'))
     <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog"  >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="closebutton" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -304,6 +306,7 @@
         </div>
       </div>
     </div>
+    @endif
     </div>
   </div>
 
@@ -322,6 +325,12 @@
             if($(e.target).is('#addClassModal'))
             $(this).modal('hide');
         });
+    </script>
+    <script>
+        var btn = document.getElementById('closebutton');
+        btn.onclick = function(){
+            $('#addClassModal').modal('hide');
+        }
     </script>
 </body>
 
