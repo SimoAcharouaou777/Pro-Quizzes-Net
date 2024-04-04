@@ -11,6 +11,7 @@ class TeacherController extends Controller
 {
     public function addClass(Request $request){
         $user = Auth::user();
+        
         // dd($user);
         $data = $request->validate([
             'name' => 'required',
@@ -19,7 +20,7 @@ class TeacherController extends Controller
             'campus' => 'required',
             'class_code' => 'required',
         ]);
-        $data['teacher_id'] = $user->id;
+        $data['teacher_id'] = $user->teacher->id;
         $data['teacher_name'] = $user->username;
 
         $class = MyClass::create($data);
