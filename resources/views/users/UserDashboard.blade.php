@@ -132,7 +132,7 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
                                     class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="{{route('teacherClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
