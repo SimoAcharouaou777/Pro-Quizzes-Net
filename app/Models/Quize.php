@@ -21,7 +21,7 @@ class Quize extends Model
     }
     public function classes()
     {
-        return $this->belongsToMany(MyClass::class);
+        return $this->belongsToMany(MyClass::class, 'classe_quize', 'quize_id', 'class_id');
     }
     public function companies()
     {
