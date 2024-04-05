@@ -136,7 +136,7 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
                                     class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="{{route('teacherClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
@@ -249,9 +249,6 @@
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button type="submit" class="btn btn-success">Update Profile</button>
-                                            @if(Auth::user()->hasRole('teacher'))
-                                            <button type="button" class="btn btn-success" id="addClassButton" >Add Class</button>   
-                                            @endif
                                         </div>
                                     </div>
                             </div>
@@ -259,54 +256,7 @@
                     </div>
                 </div>
     </form>
-    @if(Auth::user()->hasRole('teacher'))
-    <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog"  >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
-              <button type="button" id="closebutton" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form method="POST" action="{{route('addClass')}}" enctype="multipart/form-data">
-              @csrf
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="className">Class Name</label>
-                  <input type="text" class="form-control" id="className" name="name">
-                </div>
-                <div class="form-group">
-                  <label for="classImage">Class Image</label>
-                  <input type="file" class="form-control" id="classImage" name="image">
-                </div>
-                <div class="form-group">
-                  <label for="classUsers">Number of Users</label>
-                  <input type="number" class="form-control" id="classUsers" name="learners">
-                </div>
-                <div class="form-group">
-                  <label for="classLevel">Level</label>
-                  <input type="text" class="form-control" id="classLevel" name="level">
-                </div>
-                <div class="form-group">
-                  <label for="classCampus">Campus</label>
-                  <input type="text" class="form-control" id="classCampus" name="campus">
-                </div>
-                <div class="form-group">
-                    <label for="class_code">Class Code</label>
-                    <input type="number" class="form-control" id="class_code" name="class_code">
-                </div>
-              </div>
-              <div class="modal-footer">
-                
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    @endif
+
     </div>
   </div>
 
