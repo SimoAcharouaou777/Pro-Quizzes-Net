@@ -34,6 +34,7 @@ Route::get('/userprofile',function(){
     return view('users.UserProfile');
 });
 
+
 // home route
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 // handle view for user registration
@@ -62,3 +63,4 @@ Route::resource('usersettings', UserSettingsController::class);
 Route::resource('userquizzes',QuizzeController::class);
 // teacher controller
 Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
+Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherClass')->middleware('role:teacher');
