@@ -68,9 +68,18 @@ class UserProfileController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $user->clearMediaCollection('media/users');
-            $user->addMediaFromRequest('image')->toMediaCollection('media/users', 'media_users');
+            $image = $request->file('image');
+            if ($image->isValid()) {
+                if ($user->hasRole('student')) {
+                    $user->clearMediaCollection('media/students');
+                    $user->addMediaFromRequest('image')->toMediaCollection('media/students', 'media_students');
+                } else {
+                    $user->clearMediaCollection('media/users');
+                    $user->addMediaFromRequest('image')->toMediaCollection('media/users', 'media_users');
+                }
+            }
         }
+        
         
         $user->save();
         
