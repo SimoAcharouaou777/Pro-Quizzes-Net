@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\User\QuizzeController;
 use App\Http\Controllers\User\UserDashboardController;
@@ -64,3 +65,8 @@ Route::resource('userquizzes',QuizzeController::class);
 // teacher controller
 Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
 Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherClass')->middleware('role:teacher');
+Route::get('/classDetials\{id}', [TeacherController::class, 'showDetails'])->name('classDetials')->middleware('role:teacher');
+// student controller
+Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
+Route::post('/joinClass', [StudentController::class, 'joinClass'])->name('joinClass')->middleware('role:student');
+Route::get('/MyclassDetails\{id}', [StudentController::class, 'showDetails'])->name('MyclassDetails')->middleware('role:student');
