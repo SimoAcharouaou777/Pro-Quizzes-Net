@@ -82,6 +82,7 @@ class AuthController extends Controller
         if ($role == 3) {
             Student::create([
                 'username' => $user->username,
+                'email' => $user->email,
                 'user_id' => $user->id
             ]);
         } elseif ($role == 4) {
