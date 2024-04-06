@@ -18,7 +18,11 @@ class QuizzeController extends Controller
     {
         $user = auth()->user();
         $categories = Category::all();
-        $classes = auth()->user()->teacher->classes;
+        $classes = null;
+        if($user->hasRole('teacher')){
+            $classes = auth()->user()->teacher->classes;
+        }
+        
         return view('users.UserQuizzes', compact('user', 'categories','classes'));
     }
 
