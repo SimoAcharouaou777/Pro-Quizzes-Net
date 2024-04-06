@@ -206,6 +206,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @if(Auth::user()->hasRole('teacher'))
                         <div class="form-group">
                             <label for="class_id">Class</label>
                             <select name="class_id[]" id="class_id" class="form-control" multiple>
@@ -214,6 +215,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                         <div class="form-group">
                             <label for="quizType">Quiz Type</label>
                             <input type="hidden" name="quize_type" id="quizeType" value="">
