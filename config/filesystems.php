@@ -48,6 +48,12 @@ return [
             'url'    => env('APP_URL').'/media/users',
         ],
 
+        'media_students' => [
+            'driver' => 'local',
+            'root'   => public_path('media/students'),
+            'url'    => env('APP_URL').'/media/students',
+        ],
+
         'media_quizzes' => [
             'driver' => 'local',
             'root'   => public_path('media/quizzes'),
