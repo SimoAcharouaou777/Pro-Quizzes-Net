@@ -37,4 +37,11 @@ class TeacherController extends Controller
             $class->addMediaFromRequest('image')->toMediaCollection('media/classes', 'media_classes');
         }
     }
+
+    public function showDetails($id){
+        $class = MyClass::find($id);
+        $user = Auth::user();
+        $students = $class->students;
+        return view('users.teacher.ClassDetails', compact('class', 'user', 'students'));
+    }
 }
