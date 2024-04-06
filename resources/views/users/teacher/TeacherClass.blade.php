@@ -189,29 +189,36 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Left column for class info -->
-            <div class="col-md-6">
-                <div class="card" style="border: 1px solid #f0f0f0;;">
-                    @foreach ($classes as $class)
-                    @if($class->hasMedia('media/classes'))
-                    <img class="card-img-top" src="{{$class->getFirstMediaUrl('media/classes')}}" alt="Class image">
-                    @else
-                    <img class="card-img-top" src="{{asset('assets/img2/logos/ClassDefaultLogo.jpeg')}}" alt="Class image" style="width: 100%; height: auto; max-height: 300px;">
-                    @endif
-                    <div class="card-body">
-                        <h3 class="card-title">{{$class->name}}</h3>
-                        <p class="card-text">
-                            <h4><i class="fas fa-users"></i> Learners: {{$class->learners}} </h4><br>
-                            <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
-                            <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
-                            <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
-                        </p>
-                    </div>
+            <div class="row">
+                @foreach ($classes->chunk(3) as $chunk)
+                    @foreach ($chunk as $class)
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100" style="border: 1px solid #f0f0f0;">
+                                <a href="{{ route('classDetials', ['id' => $class->id]) }}"> 
+                                @if($class->hasMedia('media/classes'))
+                                    <img class="card-img-top" src="{{$class->getFirstMediaUrl('media/classes')}}" alt="Class image">
+                                @else
+                                    <img class="card-img-top" src="{{asset('assets/img2/logos/ClassDefaultLogo.jpeg')}}" alt="Class image">
+                                @endif
+                                </a>
+                                <div class="card-body">
+                                    <h3 class="card-title">{{$class->name}}</h3>
+                                    <p class="card-text">
+                                        <h4><i class="fas fa-users"></i> Learners: {{$class->learners}} </h4><br>
+                                        <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
+                                        <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
+                                        <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
-                </div>
+                @endforeach
             </div>
             
+            
             <!-- Right column for learners info -->
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 <div class="card" style="border: 1px solid #f0f0f0;;">
                     <div class="card-body">
                         <h5 class="card-title">Learners</h5>
@@ -239,7 +246,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             @if(Auth::user()->hasRole('teacher'))
             <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog"  >
                 <div class="modal-dialog" role="document">
