@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('level');
             $table->string('learners');
             $table->string('campus');
-            $table->string('class_code')->nullable();
+            $table->string('class_code')->nullable()->unique();
             $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
