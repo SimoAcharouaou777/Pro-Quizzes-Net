@@ -66,6 +66,8 @@ Route::resource('userquizzes',QuizzeController::class);
 Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
 Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherClass')->middleware('role:teacher');
 Route::get('/classDetials\{id}', [TeacherController::class, 'showDetails'])->name('classDetials')->middleware('role:teacher');
+// Route::delete('/deleteClass\{id}', [TeacherController::class, 'deleteClass'])->name('deleteClass')->middleware('role:teacher');
+Route::delete('/deleteStudent\{id}', [TeacherController::class, 'deleteStudent'])->name('deleteStudent')->middleware('role:teacher');
 // student controller
 Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
 Route::post('/joinClass', [StudentController::class, 'joinClass'])->name('joinClass')->middleware('role:student');
