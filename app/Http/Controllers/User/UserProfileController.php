@@ -14,7 +14,8 @@ class UserProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view('users.UserProfile', compact('user'));
+        $student = $user->student;
+        return view('users.UserProfile', compact('user', 'student'));
     }
 
     /**
