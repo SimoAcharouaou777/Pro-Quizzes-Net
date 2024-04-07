@@ -196,7 +196,7 @@
                     <div class="card-body">
                         <h3 class="card-title">{{$class->name}}</h3>
                         <p class="card-text">
-                            <h4><i class="fas fa-users"></i> Learners: {{$class->learners}} </h4><br>
+                            <h4><i class="fas fa-users"></i> Learners: {{$class->students->count()}}/{{$class->learners}} </h4><br>
                             <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
                             <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
                             <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
@@ -229,7 +229,7 @@
                                             <p class="mb-0 text-muted">{{$student->email}}</p>
                                         </div>
                                         <div class="mt-3">
-                                            <form action="" method="POST">
+                                            <form action="{{route('deleteStudent', $student->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
