@@ -222,15 +222,15 @@
                             <div class="card h-100" style="border: 1px solid #f0f0f0;">
                                 <a href="{{ route('classDetials', ['id' => $class->id]) }}"> 
                                 @if($class->hasMedia('media/classes'))
-                                    <img class="card-img-top" src="{{$class->getFirstMediaUrl('media/classes')}}" alt="Class image">
+                                    <img class="card-img-top" src="{{$class->getFirstMediaUrl('media/classes')}}" alt="Class image" height="160px">
                                 @else
-                                    <img class="card-img-top" src="{{asset('assets/img2/logos/ClassDefaultLogo.jpeg')}}" alt="Class image">
+                                    <img class="card-img-top" src="{{asset('assets/img2/logos/ClassDefaultLogo.jpeg')}}" alt="Class image" height="160px">
                                 @endif
                                 </a>
                                 <div class="card-body">
                                     <h3 class="card-title">{{$class->name}}</h3>
                                     <p class="card-text">
-                                        <h4><i class="fas fa-users"></i> Learners: {{$class->learners}} </h4><br>
+                                        <h4><i class="fas fa-users"></i> Learners: {{$class->students->count()}}/{{$class->learners}} </h4><br>
                                         <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
                                         <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
                                         <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
