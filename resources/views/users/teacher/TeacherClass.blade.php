@@ -185,7 +185,33 @@
                 <!-- Start Page Content -->
                 
                 <!-- Row -->
-
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('class_code'))
+        <div class="modal" id="classCodeModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Class Code</h5>
+                        <button type="button" id="closebuttoncode" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 2em;">{{ session('class_code') }}</p>
+                        <button class="btn btn-primary" onclick="copyToClipboard('{{ session('class_code') }}')">Copy to clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <!-- Left column for class info -->
@@ -317,6 +343,40 @@
         btn.onclick = function(){
             $('#addClassModal').modal('hide');
         }
+    </script>
+    <script>
+    @if (session('class_code'))
+        var classCodeModal = document.getElementById('classCodeModal');
+
+        classCodeModal.style.display = 'block';
+        classCodeModal.addEventListener('click', function(e) {
+            if (e.target == classCodeModal) {
+                classCodeModal.style.display = 'none';
+            }
+        });
+        var closeButton = document.getElementById('closebuttoncode');
+        closeButton.onclick = function() {
+            classCodeModal.style.display = 'none';
+        }
+    @endif
+    </script>
+    <script>
+         function copyToClipboard(text) {
+        var textarea = document.createElement('textarea');
+        textarea.textContent = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            var successful = document.execCommand('copy');
+            if(successful) alert('Copied to clipboard');
+            return successful; // true if successful
+        } catch (ex) {
+            console.warn('Copy to clipboard failed.', ex);
+            return false;
+        } finally {
+            document.body.removeChild(textarea);
+        }
+    }
     </script>
 </body>
 
