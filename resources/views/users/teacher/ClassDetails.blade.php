@@ -200,6 +200,7 @@
                             <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
                             <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
                             <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
+                            <h4><i class="fas fa-key"></i> PassCode : {{$class->class_code}}</h4><br>
                         </p>
                     </div>
                 </div>
@@ -210,22 +211,29 @@
                 <div class="card" style="border: 1px solid #f0f0f0;;">
                     <div class="card-body">
                         <h5 class="card-title">Learners</h5>
-                        <div class="row">
+                        <div class="row ">
                             <!-- Repeat this block for each learner -->
                             @foreach($students as $student)
-                            <div class="col-md-4">
+                            <div class="col-md-4 ">
                                 <div class="card">
-                                    <div class="d-flex px-2 py-1">
+                                    <div class="d-flex px-2 py-1 ">
                                         <div>
                                             @if($user->hasMedia('media/students'))
-                                            <img src="{{$student->getFirstMediaUrl('media/students')}}" class="avatar avatar-sm me-3" alt="" style="width: 50px; height: 50px; border-radius: 50%">
+                                            <img src="{{$user->getFirstMediaUrl('media/students')}}" class="avatar avatar-sm me-3" alt="" style="width: 50px; height: 50px; border-radius: 50%">
                                             @else
                                             <img src="{{asset('assets/img2/team-2.jpg')}}" class="avatar avatar-sm me-3 " alt="" style="width: 50px; height: 50px; border-radius :50%">
                                             @endif
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
+                                        <div class="d-flex flex-column justify-content-center ">
                                             <h6 class="mb-0">{{$student->username}}</h6>
-                                            <p class="mb-0 text-muted">{{$student->users()->email}}</p>
+                                            <p class="mb-0 text-muted">{{$student->email}}</p>
+                                        </div>
+                                        <div class="mt-3">
+                                            <form action="" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
