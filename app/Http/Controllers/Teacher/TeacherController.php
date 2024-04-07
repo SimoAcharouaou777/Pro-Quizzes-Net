@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\MyClass;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -55,5 +56,11 @@ class TeacherController extends Controller
         $user = Auth::user();
         $students = $class->students;
         return view('users.teacher.ClassDetails', compact('class', 'user', 'students'));
+    }
+
+    public function deleteStudent($id){
+        $student = Student::find($id);
+        $student->delete();
+        return redirect()->back()->with('success', 'Student deleted successfully');
     }
 }
