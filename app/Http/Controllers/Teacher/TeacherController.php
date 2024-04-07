@@ -25,6 +25,16 @@ class TeacherController extends Controller
             'level' => 'required',
             'learners' => 'required',
             'campus' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ],[
+            'name.required' => 'Please enter class name',
+            'level.required' => 'Please enter class level',
+            'learners.required' => 'Please enter class learners',
+            'campus.required' => 'Please enter class campus',
+            'image.image' => 'Please upload an image',
+            'image.mimes' => 'Image must be of type jpeg, png, jpg, gif, svg',
+            'image.max' => 'Image must not be greater than 2MB'
+        
         ]);
         $data['teacher_id'] = $user->teacher->id;
         $data['teacher_name'] = $user->username;
@@ -36,6 +46,8 @@ class TeacherController extends Controller
         if ($request->hasFile('image')) {
             $class->addMediaFromRequest('image')->toMediaCollection('media/classes', 'media_classes');
         }
+        session()->flash('class_code', $class_code);
+        return redirect()->back()->withInput();
     }
 
     public function showDetails($id){
