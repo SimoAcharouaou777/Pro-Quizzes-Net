@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class UserProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $student = $user->student;
+        $student = Student::where('user_id', $user->id)->first();
         return view('users.UserProfile', compact('user', 'student'));
     }
 
@@ -56,6 +57,7 @@ class UserProfileController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
+        $student = Student::where('user_id', $user->id)->first();
         if ($request->has('username')) {
             $user->username = $request->input('username');
         }
@@ -67,13 +69,17 @@ class UserProfileController extends Controller
         if ($request->has('phone_number')) {
             $user->phone_number = $request->input('phone_number');
         }
-
+        if($request->has('student_id')){
+            $student = Student::where('user_id', $user->id)->first();
+            $student->student_id = $request->input('student_id');
+            $student->save();
+        }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             if ($image->isValid()) {
                 if ($user->hasRole('student')) {
-                    $user->clearMediaCollection('media/students');
-                    $user->addMediaFromRequest('image')->toMediaCollection('media/students', 'media_students');
+                    $student->clearMediaCollection('media/students');
+                    $student->addMediaFromRequest('image')->toMediaCollection('media/students', 'media_students');
                 } else {
                     $user->clearMediaCollection('media/users');
                     $user->addMediaFromRequest('image')->toMediaCollection('media/users', 'media_users');
