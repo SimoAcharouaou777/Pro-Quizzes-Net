@@ -100,13 +100,13 @@
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(Auth::user()->hasMedia('media/users'))
-                                  <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="">
+                                @if($student->hasMedia('media/students'))
+                                  <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="">
                                 @else
                                    <img src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" />
                                 @endif
                             <span
-                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> </a>
+                                    class="hidden-md-down">{{$student->username}} &nbsp;</span> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
                     </ul>
@@ -205,7 +205,7 @@
                                 <div class="card-body">
                                     <h3 class="card-title">{{$class->name}}</h3>
                                     <p class="card-text">
-                                        <h4><i class="fas fa-users"></i> Learners: {{$class->learners}} </h4><br>
+                                        <h4><i class="fas fa-users"></i> Learners: {{$class->students->count()}}/{{$class->learners}} </h4><br>
                                         <h4><i class="fas fa-school"></i> Campus: {{$class->campus}} </h4><br>
                                         <h4><i class="fas fa-chalkboard-teacher"></i> Teacher: {{$class->teacher_name}} </h4><br>
                                         <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
