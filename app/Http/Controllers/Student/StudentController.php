@@ -13,7 +13,8 @@ class StudentController extends Controller
     public function index(){
         $user =  Auth::user();
         $classes = $user->students->classes;
-        return view('users.student.studentClass', compact( 'classes', 'user'));
+        $student = Student::where('user_id', $user->id)->first();
+        return view('users.student.studentClass', compact( 'classes', 'student'));
     }
 
     public function joinClass(Request $request){
@@ -35,6 +36,7 @@ class StudentController extends Controller
         $class = MyClass::find($id);
         $user = Auth::user();
         $students = $class->students;
-        return view('users.student.StudentClassDetails', compact('class', 'user', 'students'));
+        $student = Student::where('user_id', $user->id)->first();
+        return view('users.student.StudentClassDetails', compact('class',  'students','student'));
     }   
 }
