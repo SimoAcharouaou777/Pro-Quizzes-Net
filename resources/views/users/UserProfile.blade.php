@@ -100,8 +100,8 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if($user->hasRole('student'))
-                                @if(Auth::user()->hasMedia('media/students'))
-                                  <img src="{{Auth::user()->getFirstMediaUrl('media/students')}}" alt="profile_image" class="">
+                                @if($student->hasMedia('media/students'))
+                                  <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="">
                                 @else
                                    <img src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" />
                                 @endif
@@ -205,19 +205,19 @@
                             <div class="card-body">
                                 <center class="mt-4">
                             @if($user->hasRole('student'))
-                               @if(Auth::user()->hasMedia('media/students'))
-                                <img src="{{Auth::user()->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
+                               @if($student->hasMedia('media/students'))
+                                <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
                                 @else
                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
                                 width="150" />
                                 @endif
                             @else
-                            @if(Auth::user()->hasMedia('media/users'))
-                                <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
-                            @else
-                            <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
-                            width="150" />
-                             @endif
+                                @if(Auth::user()->hasMedia('media/users'))
+                                    <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
+                                @else
+                                <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                                width="150" />
+                                @endif
                             @endif
                             <div class="form-group">
                                 <input type="file" name="image" class="form-control">
@@ -272,7 +272,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Student ID</label>
                                         <div class="col-md-12">
-                                            <input type="text" value="{{$user->students->student_id}}" name="student_id" placeholder=""
+                                            <input type="text" value="{{$student->student_id}}" name="student_id" placeholder=""
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
