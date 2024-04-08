@@ -41,18 +41,28 @@ class QuizzeController extends Controller
     {
         // dd($request->all());
         $user = auth()->user();
+        // dd($user->id);
         $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'class_id' => 'required',
+            'class_id' => 'sometimes',
         ]);
+       
         $QuizeData['user_id'] = $user->id;
         $QuizeData['category_id'] = $request->input('category_id');
         $QuizeData['quiz_type'] = $request->input('quize_type');
         $quiz = Quize::create($QuizeData);
         $quiz->classes()->attach($request->input('class_id'));
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if ($image->isValid()) {
+                    $quiz->clearMediaCollection('media/quizzes');
+                    $quiz->addMediaFromRequest('image')->toMediaCollection('media/quizzes', 'media_quizzes');
+            }
+        }
+        
     if($request->input('quize_type') === 'multiple_choice'){
         foreach($request->input('question') as $questionData){
             $question = $quiz->questions()->create([
