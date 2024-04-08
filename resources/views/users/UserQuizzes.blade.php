@@ -190,7 +190,7 @@
                 <div class="row">
                     
 
-                    <form action="{{route('userquizzes.store')}}" method="POST" >
+                    <form action="{{route('userquizzes.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <h1>Create Quiz</h1>
@@ -203,6 +203,10 @@
                         <div class="form-group">
                             <label for="description">Quiz Description</label>
                             <textarea name="description" class="form-control" id="description" placeholder="Enter quiz description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Quiz Image</label>
+                            <input type="file" name="image" class="form-control" id="quiz_image">
                         </div>
                         <div class="form-group">
                             <label for="category_id">Category</label>
