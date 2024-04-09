@@ -13,9 +13,9 @@ class Quize extends Model implements HasMedia
     protected $table = 'quizzes';
     protected $fillable = ['title', 'description', 'category_id', 'user_id', 'quiz_type','status'];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
     public function teachers()
     {
