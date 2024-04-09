@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BaneUserController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Quize\ValidateQuizeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
@@ -57,6 +58,9 @@ Route::post('/reset-password', [ForgetPasswordController::class, 'reset'])->name
 Route::resource('admin', AdminController::class)->middleware('role:admin');
 Route::put('banned/{user}', [BaneUserController::class, 'banUser'])->name('banuser')->middleware('role:admin');
 Route::resource('category', CategoryController::class)->middleware('role:admin');
+Route::get('quizevalidate', [ValidateQuizeController::class, 'index'])->name('quizevalidate')->middleware('role:admin');
+Route::put('/publishQuize/{id}', [ValidateQuizeController::class, 'publishQuize'])->name('publishQuize')->middleware('role:admin');
+Route::put('/unpublishQuize/{id}', [ValidateQuizeController::class, 'unpublishQuize'])->name('unpublishQuize')->middleware('role:admin');
 // user dashboard
 Route::resource('userdashboard', UserDashboardController::class);
 Route::resource('userprofile', UserProfileController::class);
