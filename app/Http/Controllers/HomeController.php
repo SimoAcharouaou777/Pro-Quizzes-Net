@@ -13,6 +13,6 @@ class HomeController extends Controller
         $quizzes = Quize::all();
         $categories = Category::all();
         $quizzes = Quize::where('status', 'published')->get();
-        return view('home', compact('quizzes', 'categories'));
+        return view('home', compact('quizzes', 'categories', 'quizzes'));
     }   
 }
