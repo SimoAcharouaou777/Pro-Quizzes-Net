@@ -52,24 +52,17 @@
           <ul class="d-flex">
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">About</a></li>
-            <li><a class="nav-link scrollto" href="#services">Services</a></li>
-            <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
-            <li><a class="nav-link scrollto" href="#team">Team</a></li>
-            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            @if(Auth::user()->hasRole('student'))
+            <li><a class="nav-link scrollto" href="#services">My Class Quizzes</a></li>
+            @endif
+            @if(Auth::user()->hasRole('representative'))
+            <li><a class="nav-link scrollto" href="#services">Company Quizzes</a></li>
+            @endif
+            <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
+                @foreach($categories as $category)
+                <li><a href="#">{{$category->name}}</a></li>
+                @endforeach
               </ul>
             </li>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
