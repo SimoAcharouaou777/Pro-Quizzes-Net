@@ -49,6 +49,8 @@ Route::post('store', [AuthController::class, 'store'])->name('store');
 Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
 Route::get('/assign-role/{role}', [AuthController::class, 'assignRole'])->name('assignRole');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+// hande Company Registration
+Route::post('/CompanyStore', [AuthController::class, 'CompanyStore'])->name('CompanyStore');
 // handle user password reset
 Route::get('/forgot-password', [ForgetPasswordController::class, 'index'])->name('password.forget');
 Route::post('/forgot-password', [ForgetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
