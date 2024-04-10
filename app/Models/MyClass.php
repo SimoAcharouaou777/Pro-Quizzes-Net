@@ -21,7 +21,7 @@ class MyClass extends Model implements HasMedia
     }
     public function quizzes()
     {
-        return $this->belongsToMany(Quize::class);
+        return $this->belongsToMany(Quize::class, 'classe_quize', 'class_id', 'quize_id');
     }
     public function students()
     {
