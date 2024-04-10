@@ -76,3 +76,4 @@ Route::delete('/deleteStudent\{id}', [TeacherController::class, 'deleteStudent']
 Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
 Route::post('/joinClass', [StudentController::class, 'joinClass'])->name('joinClass')->middleware('role:student');
 Route::get('/MyclassDetails\{id}', [StudentController::class, 'showDetails'])->name('MyclassDetails')->middleware('role:student');
+Route::get('/MyClassQuizzes', [StudentController::class, 'showMyClassQuizzes'])->name('MyClassQuizzes')->middleware('role:student');
