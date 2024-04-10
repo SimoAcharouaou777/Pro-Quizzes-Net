@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\MyClass;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -39,4 +40,27 @@ class StudentController extends Controller
         $student = Student::where('user_id', $user->id)->first();
         return view('users.student.StudentClassDetails', compact('class',  'students','student'));
     }   
+
+   
+    public function showMyClassQuizzes()
+    {
+        $categories = Category::all();
+        $user = auth()->user();
+
+        if ($user->hasRole('student')) {
+            $student = Student::where('user_id', $user->id)->first();
+            $classes = $student->classes; 
+
+            $quizzes = collect();
+            foreach ($classes as $class) {
+                foreach ($class->quizzes as $quiz) {
+                    $quizzes->push($quiz);
+                }
+            }
+
+            return view('users.student.StudentClassQuizzes', compact('quizzes', 'categories'));
+        }
+    }
+
+
 }
