@@ -53,7 +53,7 @@
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">About</a></li>
             @if(Auth::check() && Auth::user()->hasRole('student'))
-            <li><a class="nav-link scrollto" href="#services">My Class Quizzes</a></li>
+            <li><a class="nav-link scrollto" href="{{route('MyClassQuizzes')}}">My Class Quizzes</a></li>
             @endif
             @if(Auth::user()->hasRole('representative'))
             <li><a class="nav-link scrollto" href="#services">Company Quizzes</a></li>
