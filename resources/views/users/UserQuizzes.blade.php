@@ -175,7 +175,7 @@
                     <div class="col-md-5 align-self-center">
                         <h3 class="text-themecolor">Profile</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                             <li class="breadcrumb-item active">Profile</li>
                         </ol>
                     </div>
@@ -217,6 +217,7 @@
                             </select>
                         </div>
                         @if(Auth::user()->hasRole('teacher'))
+                        @if($classes->isNotEmpty())
                         <div class="form-group">
                             <label for="class_id">Class</label>
                             <select name="class_id[]" id="class_id" class="form-control" multiple>
@@ -225,6 +226,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                         @endif
                         <div class="form-group">
                             <label for="quizType">Quiz Type</label>
@@ -254,13 +256,13 @@
                                     <label>Correct Answers</label>
                                     <div id="answers1">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="choice1-1" id="answer1-1" name="question[0][correct_answers][]">
+                                            <input class="form-check-input" type="checkbox" value="0" id="answer1-1" name="question[0][correct_answers][]">
                                             <label class="form-check-label" for="answer1-1">
                                                 Choice 1
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="choice1-2" id="answer1-2" name="question[0][correct_answers][]">
+                                            <input class="form-check-input" type="checkbox" value="1" id="answer1-2" name="question[0][correct_answers][]">
                                             <label class="form-check-label" for="answer1-2">
                                                 Choice 2
                                             </label>
@@ -401,7 +403,7 @@
         var answerDiv = document.createElement('div');
         answerDiv.className = 'form-check';
         answerDiv.innerHTML = `
-            <input class="form-check-input" type="checkbox" value="choice${questionNumber}-${choiceCount[questionNumber]}" id="answer${questionNumber}-${choiceCount[questionNumber]}" name="question[${questionNumber - 1}][correct_answers][]">
+            <input class="form-check-input" type="checkbox" value="${choiceCount[questionNumber] - 1}" id="answer${questionNumber}-${choiceCount[questionNumber]}" name="question[${questionNumber - 1}][correct_answers][]">
             <label class="form-check-label" for="answer${questionNumber}-${choiceCount[questionNumber]}">
                 Choice ${choiceCount[questionNumber]}
             </label>
