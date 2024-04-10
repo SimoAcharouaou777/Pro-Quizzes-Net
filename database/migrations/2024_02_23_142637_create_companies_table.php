@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('company_name');
-            $table->string('company_email');
+            $table->string('company_email')->nullable();
+            $table->foreignId('representative_id')->constrained('representatives')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description')->nullable();
-            $table->text('domaine');
-            $table->text('location');
-            $table->date('founded_date');
+            $table->text('domaine')->nullable();
+            $table->text('location')->nullable();
+            $table->date('founded_date')->nullable();
             $table->timestamps();
         });
     }
