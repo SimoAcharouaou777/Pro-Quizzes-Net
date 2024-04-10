@@ -26,6 +26,11 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-4 posts-list">
+          @if($quizzes->isEmpty())
+          <div class="d-flex justify-content-center align-items-center" style="height: 200px; background-color: #e0f7fa;">
+            <h1>No Quizzes Yet</h1>
+        </div>
+          @else
           @foreach($quizzes as $quize)
           <div class="col-xl-4 col-lg-6">
             <article>
@@ -59,10 +64,10 @@
             </article>
           </div><!-- End post list item -->
           @endforeach
-
+          @endif
 
         </div><!-- End blog posts list -->
-
+        @if($quizzes->isNotEmpty())
         <div class="pagination d-flex justify-content-center">
           <ul>
             <li><a href="#">1</a></li>
@@ -70,7 +75,7 @@
             <li><a href="#">3</a></li>
           </ul>
         </div><!-- End pagination -->
-
+        @endif
       </div>
 
     </section><!-- End Blog Section -->
