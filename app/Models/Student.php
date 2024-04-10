@@ -22,4 +22,6 @@ class Student extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    
 }
