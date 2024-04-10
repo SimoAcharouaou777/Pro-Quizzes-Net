@@ -43,7 +43,11 @@
               </h2>
 
               <div class="d-flex align-items-center">
-                <img src="assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
+                @if($quize->user->hasRole('students'))
+                <img src="{{$quize->user->getFirstMediaUrl('media/students')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
+                @else
+                <img src="{{$quize->user->getFirstMediaUrl('media/users')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
+                @endif
                 <div class="post-meta">
                   <p class="post-author">{{$quize->user->username}}</p>
                   <p class="post-date">
