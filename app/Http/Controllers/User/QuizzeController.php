@@ -79,7 +79,7 @@ class QuizzeController extends Controller
                     'response' => $choice,
                     'is_correct' => $isCorrect,
                     'question_id' => $question->id,
-                    'status' => $isCorrect ? 'false' : 'true'
+                    'status' => $isCorrect ? 'true' : 'false'
                 ]);
             }
         }
