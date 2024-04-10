@@ -11,7 +11,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $quizzes = Quize::where('status', 'published')->get();
+        $quizzes = Quize::where('status', 'published')->with('user')->get();
+        
         return view('home', compact('quizzes', 'categories', 'quizzes'));
     }   
 }
