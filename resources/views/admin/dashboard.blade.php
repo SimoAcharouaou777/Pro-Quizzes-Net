@@ -163,6 +163,8 @@
                           <div>
                             @if($user->hasMedia('media/users'))
                             <img src="{{ $user->getFirstMediaUrl('media/users') }}" class="avatar avatar-sm me-3" alt="user1">
+                            @elseif($user->hasRole('student') && $user->students->hasMedia('media/students'))
+                            <img src="{{ $user->students->getFirstMediaUrl('media/students')}}" class="avatar avatar-sm me-3" alt="user1">
                             @else
                             <img src="{{asset('assets/img2/team-2.jpg')}}" class="avatar avatar-sm me-3" alt="user1">
                             @endif
