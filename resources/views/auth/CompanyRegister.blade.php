@@ -25,30 +25,32 @@
                                     <div class="text-center">
                                         <h4 class="mt-1 mb-5 pb-1">Company Registration</h4>
                                     </div>
-                                    <form>
+                                    <form method="post" action="{{route('CompanyStore')}}">
+                                        @csrf
+                                        @method('post')
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="Representative" class="form-control" >
+                                            <input type="text" name="username" id="Representative" class="form-control" >
                                             <label class="form-label" for="companyName">Reprisentative Name</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="companyName" class="form-control" >
+                                            <input type="text" name="company_name" id="companyName" class="form-control" >
                                             <label class="form-label" for="companyName">Company Name</label>
                                         </div>
                                         
                                         <div class="form-outline mb-4">
-                                            <input type="email" id="email" class="form-control" >
+                                            <input type="email" name="email" id="email" class="form-control" >
                                             <label class="form-label" for="email">Email</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="password" class="form-control" >
+                                            <input type="password" name="password" id="password" class="form-control" >
                                             <label class="form-label" for="password">Password</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="confirmPassword" class="form-control" >
+                                            <input type="password" name="password_confirmation" id="confirmPassword" class="form-control" >
                                             <label class="form-label" for="confirmPassword">Confirm Password</label>
                                         </div>
-                                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Register</button>
+                                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Register</button>
                                     </form>
                                 </div>
                             </div>
