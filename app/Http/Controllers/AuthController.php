@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\representative;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -104,5 +106,35 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect(route('home'));
+    }
+
+    public function CompanyStore(Request $request){
+        $validateData = $request->validate([
+            'username' => 'required',
+            'company_name' => 'required',
+            'email' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+
+        $user = User::create([
+            'username' => $validateData['username'],
+            'email' => $validateData['email'],
+            'password' => Hash::make($validateData['password']),
+        ]);
+        $user->roles()->attach(5);
+        $representative = representative::create([
+            'name' => $validateData['username'],
+            'user_id' => $user->id,
+        ]);
+        
+        $company = Company::create([
+            'company_name' => $validateData['company_name'],
+            'representative_id' => $representative->id,
+        ]);
+
+        return redirect(route('login'));
+
+        
     }
 }
