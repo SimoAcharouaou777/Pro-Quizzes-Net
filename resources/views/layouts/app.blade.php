@@ -50,7 +50,7 @@
 
         <nav class="navmenu">
           <ul class="d-flex">
-            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto active" href="{{route('home')}}">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">About</a></li>
             @if(Auth::check() && Auth::user()->hasRole('student'))
             <li><a class="nav-link scrollto" href="{{route('MyClassQuizzes')}}">My Class Quizzes</a></li>
