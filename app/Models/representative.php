@@ -12,7 +12,6 @@ class representative extends Model
 
     protected $fillable = [
         'name',
-        'company_id',
         'user_id',
     ];
 
@@ -20,7 +19,7 @@ class representative extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function companies()
+    public function company()
     {
         return $this->belongsTo(Company::class);
     }
