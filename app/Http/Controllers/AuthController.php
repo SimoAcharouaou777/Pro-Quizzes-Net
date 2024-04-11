@@ -123,14 +123,15 @@ class AuthController extends Controller
             'password' => Hash::make($validateData['password']),
         ]);
         $user->roles()->attach(5);
-        $representative = representative::create([
-            'name' => $validateData['username'],
-            'user_id' => $user->id,
-        ]);
         
         $company = Company::create([
             'company_name' => $validateData['company_name'],
-            'representative_id' => $representative->id,
+        ]);
+
+        $representative = representative::create([
+            'name' => $validateData['username'],
+            'user_id' => $user->id,
+            'company_id' => $company->id,
         ]);
 
         return redirect(route('login'));
