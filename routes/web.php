@@ -37,6 +37,9 @@ Route::get('/userprofile',function(){
 });
 
 
+
+
+
 // home route
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 // handle view for user registration
