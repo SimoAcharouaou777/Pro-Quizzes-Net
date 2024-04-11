@@ -7,6 +7,8 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Quize;
+use App\Models\representative;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class QuizzeController extends Controller
@@ -17,13 +19,15 @@ class QuizzeController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $student = Student::where('user_id', $user->id)->first();
+        $representative = representative::where('user_id', $user->id)->first();
         $categories = Category::all();
         $classes = null;
         if($user->hasRole('teacher')){
             $classes = auth()->user()->teacher->classes;
         }
         
-        return view('users.UserQuizzes', compact('user', 'categories','classes'));
+        return view('users.UserQuizzes', compact('user', 'categories','classes', 'student','representative'));
     }
 
     /**
