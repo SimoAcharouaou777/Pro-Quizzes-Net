@@ -148,7 +148,7 @@
                             @if(Auth::user()->hasRole('teacher'))
                             <a class="waves-effect waves-dark" href="{{route('teacherClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
-                            @else
+                            @elseif(Auth::user()->hasRole('student'))
                             <a class="waves-effect waves-dark" href="{{route('studentClass')}}" aria-expanded="false"><i
                                 class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                             @endif
@@ -211,6 +211,12 @@
                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
                                 width="150" />
                                 @endif
+                            @elseif($user->hasRole('representative'))
+                                @if($representative->hasMedia('media/representatives'))
+                                    <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
+                                @else
+                                    <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
+                                @endif
                             @else
                                 @if(Auth::user()->hasMedia('media/users'))
                                     <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
@@ -247,14 +253,22 @@
                             <!-- Tab panes -->
                             <div class="card-body">
                                     <div class="form-group">
+                                        @if($user->hasRole('representative'))
+                                        <label class="col-md-12">Representative Name</label>
+                                        @else
                                         <label class="col-md-12">Full Name</label>
+                                        @endif
                                         <div class="col-md-12">
                                             <input type="text" name="username" value="{{$user->username}}" placeholder="place your full name here"
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        @if($user->hasRole('representative'))
+                                        <label for="example-email" class="col-md-12">Representative Email</label>
+                                        @else
                                         <label for="example-email" class="col-md-12">Email</label>
+                                        @endif
                                         <div class="col-md-12">
                                             <input type="email" name="email" value="{{$user->email}}" placeholder="place your email here"
                                                 class="form-control form-control-line" name="example-email"
@@ -277,6 +291,51 @@
                                         </div>
                                     </div>
                                     @endif
+                                    @if($user->hasRole('representative') )
+                                    <div class="form-group">
+                                        <label class="col-md-12">Company Name</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{$representative->company->company_name}}" name="company_name" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Company Email</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{$representative->company->company_email}}" name="company_email" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Bio</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{$representative->company->description}}" name="description" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Company Domain</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{$representative->company->domaine}}" name="domaine" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Company Location</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{$representative->company->location}}" name="location" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Founded Date</label>
+                                        <div class="col-md-12">
+                                            <input type="date" value="{{$representative->company->founded_date}}" name="founded_date" placeholder=""
+                                                class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button type="submit" class="btn btn-success">Update Profile</button>
