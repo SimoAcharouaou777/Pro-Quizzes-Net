@@ -49,7 +49,9 @@
 
               <div class="d-flex align-items-center">
                 @if($quize->user->hasRole('students'))
-                <img src="{{$quize->user->getFirstMediaUrl('media/students')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
+                <img src="{{$quize->user->students->getFirstMediaUrl('media/students')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
+                @elseif($quize->user->hasRole('representatives'))
+                <img src="{{$quize->user->representatives->getFirstMediaUrl('media/representatives')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
                 @else
                 <img src="{{$quize->user->getFirstMediaUrl('media/users')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
                 @endif
