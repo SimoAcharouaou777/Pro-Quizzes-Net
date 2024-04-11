@@ -67,9 +67,37 @@
             <div class="mx-auto">
             @if (auth()->check())
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
-              </a>
+              @if($user->hasRole('student'))
+              @if($student->hasMedia('media/students'))
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{$student->getFirstMediaUrl('media/students')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @else
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @endif
+          @elseif($user->hasRole('representative'))
+              @if($representative->hasMedia('media/representatives'))
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @else
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @endif
+          @else
+              @if($user->hasMedia('media/users'))
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{$user->getFirstMediaUrl('media/users')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @else
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{asset('assets/img/clients/profile.jpg')}}" width="30" height="30" class="rounded-circle">
+                  </a>
+              @endif
+          @endif
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 
                   <li>
