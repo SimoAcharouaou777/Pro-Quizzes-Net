@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\representative;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -15,7 +17,9 @@ class UserSettingsController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view('users.UserSettings', compact('user'));
+        $student = Student::where('user_id', $user->id)->first();
+        $representative = representative::where('user_id', $user->id)->first();
+        return view('users.UserSettings', compact('user', 'student','representative'));
     }
 
     /**
