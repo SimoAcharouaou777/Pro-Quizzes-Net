@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Quize;
+use App\Models\representative;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
@@ -15,7 +17,10 @@ class UserDashboardController extends Controller
      */
     public function index()
     {
-        return view('users.UserDashboard');
+        $user = auth()->user();
+        $student = Student::where('user_id', $user->id)->first();
+        $representative = representative::where('user_id', $user->id)->first();
+        return view('users.UserDashboard', compact('user', 'student','representative'));
     }
 
     /**
