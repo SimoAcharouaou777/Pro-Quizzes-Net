@@ -140,7 +140,7 @@
                             @if(Auth::user()->hasRole('teacher'))
                             <a class="waves-effect waves-dark" href="{{route('teacherClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
-                            @else
+                            @elseif(Auth::user()->hasRole('student'))
                             <a class="waves-effect waves-dark" href="{{route('studentClass')}}" aria-expanded="false"><i
                                 class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                             @endif
