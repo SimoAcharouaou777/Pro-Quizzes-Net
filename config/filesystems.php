@@ -66,6 +66,12 @@ return [
             'url'    => env('APP_URL').'/media/questions',
         ],
 
+        'media_representatives' => [
+            'driver' => 'local',
+            'root'   => public_path('media/representatives'),
+            'url'    => env('APP_URL').'/media/representatives',
+        ],
+
         'media_classes' => [
             'driver' => 'local',
             'root'   => public_path('media/classes'),
