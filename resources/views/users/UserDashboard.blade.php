@@ -98,10 +98,31 @@
                         <!-- Profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown u-pro">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
-                                id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" /> <span
-                                    class="hidden-md-down">User name &nbsp;</span> </a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if($user->hasRole('student'))
+                                @if($student->hasMedia('media/students'))
+                                 <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                                 width="150" />
+                                 @endif
+                             @elseif($user->hasRole('representative'))
+                                 @if($representative->hasMedia('media/representatives'))
+                                     <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                     <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
+                                 @endif
+                             @else
+                                 @if(Auth::user()->hasMedia('media/users'))
+                                     <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                                 width="150" />
+                                 @endif
+                             @endif
+                            <span
+                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
                     </ul>
