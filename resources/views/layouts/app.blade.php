@@ -55,9 +55,7 @@
             @if(Auth::check() && Auth::user()->hasRole('student'))
             <li><a class="nav-link scrollto" href="{{route('MyClassQuizzes')}}">My Class Quizzes</a></li>
             @endif
-            @if(Auth::user()->hasRole('representative'))
             <li><a class="nav-link scrollto" href="#services">Company Quizzes</a></li>
-            @endif
             <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 @foreach($categories as $category)
