@@ -1,20 +1,54 @@
-@if($quiz->quiz_type == 'multiple_choice')
-    <form action="" method="POST">
-        @csrf
-        <h2>{{ $quiz->title }}</h2>
-        @foreach($quiz->questions as $question)
-            <div class="mb-3">
-                <label class="form-label">{{ $question->question }}</label>
-                @foreach($question->options as $option)
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]" value="{{ $option->id }}">
-                        <label class="form-check-label">{{ $option->text }}</label>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+
+        .question {
+            color: #007bff; 
+            font-weight: bold;
+        }
+
+        .answer {
+            color: #6c757d; 
+        }
+    </style>
+  
+
+    @if($quiz->quiz_type == 'multiple_choice')
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Questionnaire</h5>
+    
+                <form action="" method="POST">
+                    @csrf
+                    <h2>{{ $quiz->title }}</h2>
+                    @foreach($quiz->questions as $question)
+                    <div class="form-group">
+                        <label for="question{{ $question->id }}" class="question">Question {{ $loop->iteration }}: {{ $question->question }}</label>
+                        @foreach($question->answers as $answer)
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" id="q{{ $question->id }}_choice{{ $answer->id }}" name="question{{ $question->id }}[]" class="custom-control-input">
+                            <label class="custom-control-label answer" for="q{{ $question->id }}_choice{{ $answer->id }}">{{ $answer->response }}</label>
+                        </div>
+                        @endforeach
                     </div>
-                @endforeach
+                    @endforeach
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
-        @endforeach
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        </div>
+    </div>
+    
 @elseif($quiz->quiz_type == 'true_false')
     <form action="" method="POST">
         @csrf
@@ -35,3 +69,9 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endif
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
