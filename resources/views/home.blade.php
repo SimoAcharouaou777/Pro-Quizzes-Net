@@ -32,39 +32,34 @@
         </div>
           @else
           @foreach($quizzes as $quize)
-          <div class="col-xl-4 col-lg-6">
-            <article>
+            <div class="col-xl-4 col-lg-6">
+                <article>
+                    <div class="post-img">
+                        @if($quize->hasMedia('media/quizzes'))
+                        <a href="{{ route('userquizzes.show', $quize->id) }}">
+                            <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+                        </a>
+                        @endif
+                    </div>
 
-              <div class="post-img">
-                @if($quize->hasMedia('media/quizzes'))
-                <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
-                @endif
-              </div>
+                    <p class="post-category" style="font-size: 2em;">{{$quize->category->name}}</p>
 
-              <p class="post-category">{{$quize->category->name}}</p>
+                    <h2 class="title">
+                        <a href="{{ route('userquizzes.show', $quize->id) }}">{{$quize->title}}</a>
+                    </h2>
 
-              <h2 class="title">
-                <a href="blog-details.html">{{$quize->title}}</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                @if($quize->user->hasRole('students'))
-                <img src="{{$quize->user->students->getFirstMediaUrl('media/students')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
-                @elseif($quize->user->hasRole('representatives'))
-                <img src="{{$quize->user->representatives->getFirstMediaUrl('media/representatives')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
-                @else
-                <img src="{{$quize->user->getFirstMediaUrl('media/users')}}" alt="" class="img-fluid post-author-img flex-shrink-0">
-                @endif
-                <div class="post-meta">
-                  <p class="post-author">{{$quize->user->username}}</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">{{$quize->created_at}}</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
+                    <div class="d-flex align-items-center">
+                        <div class="post-meta">
+                            <p class="post-author">
+                                <i class="fa fa-user"></i> {{$quize->user->username}}
+                            </p>
+                            <p class="post-date">
+                                <i class="fa fa-calendar"></i> <time datetime="2022-01-01">{{$quize->created_at}}</time>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
           @endforeach
           @endif
 
