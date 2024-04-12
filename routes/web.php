@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\User\QuizeTakeController;
 use App\Http\Controllers\User\QuizzeController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController;
@@ -82,3 +83,5 @@ Route::get('/studentClass', [StudentController::class, 'index'])->name('studentC
 Route::post('/joinClass', [StudentController::class, 'joinClass'])->name('joinClass')->middleware('role:student');
 Route::get('/MyclassDetails\{id}', [StudentController::class, 'showDetails'])->name('MyclassDetails')->middleware('role:student');
 Route::get('/MyClassQuizzes', [StudentController::class, 'showMyClassQuizzes'])->name('MyClassQuizzes')->middleware('role:student');
+// Quize controller
+Route::get('/QuizTake/{id}', [QuizeTakeController::class, 'take'])->name('QuizTake');
