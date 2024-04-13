@@ -323,7 +323,6 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2021 Adminwrap by <a href="https://www.wrappixel.com/">wrappixel.com</a> </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -400,10 +399,15 @@
         </div>
             `;
             container.appendChild(questionDiv);
+            var answerDiv = document.getElementById(`answers${questionCount}`);
+            var checkboxes = answerDiv.querySelectorAll('.form-check-input');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].value = i;
+            }
         });
 
         document.getElementById('questions-container').addEventListener('click', function(event) {
-        if(event.target.classList.contains('addChoice')) {
+     if(event.target.classList.contains('addChoice')) {
         var questionNumber = event.target.getAttribute('data-question');
         choiceCount[questionNumber]++;
         var container = document.getElementById(`choices-container${questionNumber}`);
@@ -425,15 +429,25 @@
             </label>
         `;
         answersDiv.appendChild(answerDiv);
-         }
-         });
 
-
-
-        var correctAnswers = [];
-        document.querySelectorAll('#answers .form-check-input:checked').forEach(function(checkbox) {
-            correctAnswers.push(checkbox.value);
+        // Update the value of all the checkboxes for the correct answers for this question
+        var answersDiv = document.getElementById(`answers${questionNumber}`);
+        var checkboxes = answersDiv.querySelectorAll('.form-check-input');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].value = i;
+        }
+            } else if (event.target.type === 'checkbox') {
+                var checkbox = event.target;
+                var isChecked = checkbox.checked;
+                var value = checkbox.value;
+                if (isChecked) {
+                    checkbox.value = value; // Set the value to the index of the choice
+                } else {
+                    checkbox.value = '';
+                }
+            }
         });
+
     </script>
     <script>
         var tfQuestionCount = 1;
