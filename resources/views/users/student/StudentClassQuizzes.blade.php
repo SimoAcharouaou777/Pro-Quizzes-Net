@@ -35,14 +35,16 @@
 
               <div class="post-img">
                 @if($quize->hasMedia('media/quizzes'))
-                <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+                <a href="{{ route('QuizTake',$quize->id) }}">
+                  <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+              </a>
                 @endif
               </div>
 
               <p class="post-category">{{$quize->category->name}}</p>
 
               <h2 class="title">
-                <a href="blog-details.html">{{$quize->title}}</a>
+                <a href="{{route('QuizTake', $quize->id)}}">{{$quize->title}}</a>
               </h2>
 
               <div class="d-flex align-items-center">
