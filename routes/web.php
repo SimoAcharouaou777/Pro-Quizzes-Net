@@ -86,3 +86,5 @@ Route::get('/MyClassQuizzes', [StudentController::class, 'showMyClassQuizzes'])-
 // Quize controller
 Route::get('/QuizTake/{id}', [QuizeTakeController::class, 'take'])->name('QuizTake');
 Route::post('/QuizSubmit/{id}', [QuizeTakeController::class, 'QuizSubmit'])->name('QuizSubmit');
+Route::get('/MyQuizzes', [QuizeTakeController::class, 'showMyQuizzes'])->name('MyQuizzes');
+Route::get('/MyResults/{id}', [QuizeTakeController::class, 'showMyResults'])->name('showMyResults');
