@@ -85,3 +85,4 @@ Route::get('/MyclassDetails\{id}', [StudentController::class, 'showDetails'])->n
 Route::get('/MyClassQuizzes', [StudentController::class, 'showMyClassQuizzes'])->name('MyClassQuizzes')->middleware('role:student');
 // Quize controller
 Route::get('/QuizTake/{id}', [QuizeTakeController::class, 'take'])->name('QuizTake');
+Route::post('/QuizSubmit/{id}', [QuizeTakeController::class, 'QuizSubmit'])->name('QuizSubmit');
