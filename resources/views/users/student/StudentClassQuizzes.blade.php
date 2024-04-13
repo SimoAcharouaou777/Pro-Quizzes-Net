@@ -29,6 +29,12 @@
         @if(isset($message))
             <p>{{ $message }}</p>
         @else
+        @if($quizzes->count() == 0)
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No Quizzes Available</h4>
+            <p>There are no quizzes available at the moment. Please check back later.</p>
+        </div>
+        @endif
           @foreach($quizzes as $quize)
           <div class="col-xl-4 col-lg-6">
             <article>
@@ -69,13 +75,13 @@
 
         </div><!-- End blog posts list -->
 
-        <div class="pagination d-flex justify-content-center">
+        {{-- <div class="pagination d-flex justify-content-center">
           <ul>
             <li><a href="#">1</a></li>
             <li class="active"><a href="#">2</a></li>
             <li><a href="#">3</a></li>
           </ul>
-        </div><!-- End pagination -->
+        </div><!-- End pagination --> --}}
 
       </div>
 
