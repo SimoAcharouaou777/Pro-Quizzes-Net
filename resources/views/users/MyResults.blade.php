@@ -93,7 +93,13 @@
                     <div class="answer-card">
                         <div class="answer-text">{{ $answer->response }}</div>
                         @if($userAnswers[$question->id] == $answer->id)
-                            <div class="status {{ $answer->status == 'true' ? 'correct' : 'incorrect' }}">Your Answer</div>
+                            @if($answer->status == 'true')
+                                <div class="status correct">Your Answer (Correct)</div>
+                            @else
+                                <div class="status incorrect">Your Answer (Incorrect)</div>
+                            @endif
+                        @elseif($answer->status == 'true')
+                            <div class="status correct">Correct Answer</div>
                         @endif
                     </div>
                 @endforeach
