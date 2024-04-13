@@ -54,6 +54,7 @@ class StudentController extends Controller
             $quizzes = collect();
             foreach ($classes as $class) {
                 foreach ($class->quizzes as $quiz) {
+                    if($quiz->status == 'published')
                     $quizzes->push($quiz);
                 }
             }
