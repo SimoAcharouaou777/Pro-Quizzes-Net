@@ -43,9 +43,9 @@ class QuizzeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         $user = auth()->user();
-        // dd($user->id);
+    
         $QuizeData = $request->validate([
             'title' => 'required',
             'description' => 'required',
