@@ -58,7 +58,7 @@ class StudentController extends Controller
                 }
             }
 
-            return view('users.student.StudentClassQuizzes', compact('quizzes', 'categories'));
+            return view('users.student.StudentClassQuizzes', compact('quizzes', 'categories','user','student'));
         }
     }
 
