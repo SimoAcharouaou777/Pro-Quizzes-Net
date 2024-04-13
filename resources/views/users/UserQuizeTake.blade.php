@@ -27,7 +27,7 @@
             <div class="card-body">
                 <h5 class="card-title">Questionnaire</h5>
     
-                <form action="" method="POST">
+                <form action="{{route('QuizSubmit', $quiz->id)}}" method="POST">
                     @csrf
                     <h2>{{ $quiz->title }}</h2>
                     @foreach($quiz->questions as $question)
@@ -50,24 +50,34 @@
     </div>
     
 @elseif($quiz->quiz_type == 'true_false')
-    <form action="" method="POST">
-        @csrf
-        <h2>{{ $quiz->title }}</h2>
-        @foreach($quiz->questions as $question)
-            <div class="mb-3">
-                <label class="form-label">{{ $question->text }}</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]" value="true">
-                    <label class="form-check-label">True</label>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Questionnaire</h5>
+
+            <form action="" method="POST">
+                @csrf
+                <h2>{{ $quiz->title }}</h2>
+                @foreach($quiz->questions as $question)
+                <div class="form-group">
+                    <label for="question{{ $question->id }}" class="question">Question {{ $loop->iteration }}: {{ $question->question }}</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="q{{ $question->id }}_choiceTrue" name="question{{ $question->id }}" class="custom-control-input" value="true">
+                        <label class="custom-control-label answer" for="q{{ $question->id }}_choiceTrue">True</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="q{{ $question->id }}_choiceFalse" name="question{{ $question->id }}" class="custom-control-input" value="false">
+                        <label class="custom-control-label answer" for="q{{ $question->id }}_choiceFalse">False</label>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]" value="false">
-                    <label class="form-check-label">False</label>
+                @endforeach
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </div>
-        @endforeach
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            </form>
+        </div>
+    </div>
+</div>
 @endif
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
