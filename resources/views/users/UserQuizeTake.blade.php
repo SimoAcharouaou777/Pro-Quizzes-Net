@@ -27,7 +27,7 @@
             <div class="card-body">
                 <h5 class="card-title">Questionnaire</h5>
     
-                <form action="{{route('QuizSubmit', $quiz->id)}}" method="POST">
+                <form action="{{ route('QuizSubmit', $quiz->id) }}" method="POST">
                     @csrf
                     <h2>{{ $quiz->title }}</h2>
                     @foreach($quiz->questions as $question)
@@ -35,7 +35,7 @@
                         <label for="question{{ $question->id }}" class="question">Question {{ $loop->iteration }}: {{ $question->question }}</label>
                         @foreach($question->answers as $answer)
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" id="q{{ $question->id }}_choice{{ $answer->id }}" name="question{{ $question->id }}[]" class="custom-control-input">
+                            <input type="checkbox" id="q{{ $question->id }}_choice{{ $answer->id }}" name="question{{ $question->id }}[]" class="custom-control-input" value="{{ $answer->id }}">
                             <label class="custom-control-label answer" for="q{{ $question->id }}_choice{{ $answer->id }}">{{ $answer->response }}</label>
                         </div>
                         @endforeach
@@ -45,6 +45,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>
