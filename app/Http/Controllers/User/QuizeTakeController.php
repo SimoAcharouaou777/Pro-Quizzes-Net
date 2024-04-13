@@ -4,8 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Quize;
+use App\Models\representative;
 use Illuminate\Http\Request;
 use App\Models\Result;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class QuizeTakeController extends Controller
 {
@@ -17,27 +20,53 @@ class QuizeTakeController extends Controller
 
     public function QuizSubmit(Request $request, $id)
     {
-        $quiz= Quize::find($id);
-        if($quiz->quiz_type == 'multiple_choice'){
-            $score = 0;
-            foreach ($request->input('answers', []) as $questionId => $answerId) {
-                $question = $quiz->questions()->find($questionId);
-                $answer = $question->answers()->find($answerId);
-    
-                if ($answer->status == 'true') {
-                    $score++;
-                }
-    
-                Result::create([
-                    'user_id' => auth()->id(),
-                    'quiz_id' => $quiz->id,
-                    'question_id' => $questionId,
-                    'answer_id' => $answerId,
-                ]);
-            }
-    
-            return redirect()->route('home')->with('message', 'Your results can be found in your quizzes results');
-        }
+
+        $quiz = Quize::findOrFail($id);
         
+        $results = [];
+
+        foreach ($quiz->questions as $question) {
+            $questionId = $question->id;
+            
+            if ($request->has('question' . $questionId)) {
+        
+                $selectedAnswers = $request->input('question' . $questionId);
+
+            
+                foreach ($selectedAnswers as $selectedAnswerId) {
+                    $results[] = [
+                        'user_id' => auth()->id(),
+                        'quiz_id' => $quiz->id,
+                        'question_id' => $questionId,
+                        'answer_id' => $selectedAnswerId,
+                    ];
+                }
+            }
+        }
+
+        Result::insert($results);
+
+        return redirect()->route('home')->with('message', 'Your results have been submitted successfully.');
+    }
+
+    public function showMyQuizzes(){
+        $user = auth()->user();
+        $student = Student::where('user_id', $user->id)->first();
+        $representative = representative::where('user_id', $user->id)->first();
+        $userid = auth()->id();
+        $quizids = Result::where('user_id', $userid)->distinct('quiz_id')->pluck('quiz_id');
+        $quizzes = Quize::whereIn('id', $quizids)->get();
+        return view('users.MyQuizzes', compact('quizzes', 'user', 'student', 'representative'));
+    }
+
+    public function showMyResults($id){
+        $userId = auth()->id();
+        $quiz = Quize::find($id);
+        $questions = $quiz->questions;
+        $userAnswers = Result::where('user_id', $userId)
+        ->where('quiz_id', $id)
+        ->pluck('answer_id', 'question_id');
+        $results = Result::where('quiz_id', $id)->get();
+        return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
     }
 }
