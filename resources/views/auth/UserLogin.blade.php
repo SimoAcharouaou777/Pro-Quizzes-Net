@@ -39,23 +39,20 @@
                                     <form method="POST" action="{{route('authenticate')}}">
                                         @csrf
                                         @method('POST')
-                                        <div class="form-outline mb-4">
+                                        <div class="mb-4">
                                             @error('password')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                             @error('email')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
-                                            <input type="email" name="email" id="form2Example11" class="form-control"/>
-                                            <label class="form-label" for="form2Example11">Email</label>
+                                            <input type="email" name="email" id="form2Example11" class="form-control" placeholder="Email"/>
                                         </div>
-                                        <div class="form-outline mb-4">
-                                            <input type="password" name="password" id="form2Example22" class="form-control" />
-                                            <label class="form-label" for="form2Example22">Password</label>
+                                        <div class="mb-4">
+                                            <input type="password" name="password" id="form2Example22" class="form-control" placeholder="Password"/>
                                         </div>
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                                                type="submit">Log in</button>
+                                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
                                             <a class="text-muted" href="{{route('password.forget')}}">Forgot password?</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center pb-4">
@@ -63,6 +60,8 @@
                                             <button type="button" id="register" class="btn btn-outline-danger">Create new</button>
                                         </div>
                                     </form>
+                                    
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -89,5 +88,6 @@
             window.location.href = "{{route('register')}}";
         });
     </script>
+  
 </body>
 </html>
