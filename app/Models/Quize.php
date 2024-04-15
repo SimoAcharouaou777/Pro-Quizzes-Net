@@ -11,7 +11,12 @@ class Quize extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
     protected $table = 'quizzes';
-    protected $fillable = ['title', 'description', 'category_id', 'user_id', 'quiz_type','status'];
+    protected $fillable = ['title', 'description', 'category_id', 'user_id', 'quiz_type','status','start_time','end_time'];
+    protected $dates = ['start_time', 'end_time'];
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
 
     public function user()
     {
