@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\map;
+
 class TeacherController extends Controller
 {
     public function index(){
@@ -48,7 +50,7 @@ class TeacherController extends Controller
             $class->addMediaFromRequest('image')->toMediaCollection('media/classes', 'media_classes');
         }
         session()->flash('class_code', $class_code);
-        return redirect()->back()->withInput();
+        return redirect()->back();
     }
 
     public function showDetails($id){
@@ -63,4 +65,45 @@ class TeacherController extends Controller
         $student->delete();
         return redirect()->back()->with('success', 'Student deleted successfully');
     }
-}
+
+    public function updateClass(Request $request, $id)
+    {
+        $class = MyClass::find($id);
+        $request->validate([
+            'name' => 'sometimes|required',
+            'level' => 'sometimes|required',
+            'learners' => 'sometimes|required',
+            'campus' => 'sometimes|required',
+        ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if ($image->isValid()) {
+                $class->clearMediaCollection('media/classes');
+                $class->addMediaFromRequest('image')->toMediaCollection('media/classes', 'media_classes');
+                }
+            }
+        
+        if ($request->has('name')) {
+            $class->name = $request->input('name');
+        }
+        if($request->has('level')){
+            $class->level = $request->input('level');
+        }
+        if($request->has('learners')){
+            $class->learners = $request->input('learners');
+        }
+        if($request->has('campus')){
+            $class->campus = $request->input('campus');
+        }
+        $class->update();
+        }
+        
+        public function deleteClass($id){
+            $class = MyClass::find($id);
+            $class->delete();
+            return redirect()->back()->with('success', 'Class deleted successfully');
+        }
+
+    }
+    
+
