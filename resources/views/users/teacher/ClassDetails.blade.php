@@ -208,6 +208,14 @@
                             <h4><i class="fas fa-level-up-alt"></i> Level: {{$class->level}} </h4><br>
                             <h4><i class="fas fa-key"></i> PassCode : {{$class->class_code}}</h4><br>
                         </p>
+                        <div style="display: flex; gap:20px;">
+                            <a  class="btn btn-primary" id="updateButton">Update</a>
+                            <form action="{{route('deleteClass', $class->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -255,6 +263,50 @@
     </div>
   </div>
 
+  <div class="modal fade" id="updateClassModal" tabindex="-1" role="dialog"  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
+          <button type="button" id="closebutton" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="{{route('updateClass', $class->id)}}" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="className">Class Name</label>
+              <input type="text" class="form-control" id="className" name="name">
+            </div>
+            <div class="form-group">
+              <label for="classImage">Class Image</label>
+              <input type="file" class="form-control" id="classImage" name="image">
+            </div>
+            <div class="form-group">
+              <label for="classUsers">Number of Users</label>
+              <input type="number" class="form-control" id="classUsers" name="learners">
+            </div>
+            <div class="form-group">
+              <label for="classLevel">Level</label>
+              <input type="text" class="form-control" id="classLevel" name="level">
+            </div>
+            <div class="form-group">
+              <label for="classCampus">Campus</label>
+              <input type="text" class="form-control" id="classCampus" name="campus">
+            </div>
+          </div>
+          <div class="modal-footer">
+            
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
     <script src="{{asset('assets/node_modules/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/node_modules/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
@@ -262,21 +314,22 @@
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
     <script>
-        var btn = document.getElementById('addClassButton');
+        var btn = document.getElementById('updateButton');
         btn.onclick = function() {
-            $('#addClassModal').modal('show');
+            $('#updateClassModal').modal('show');
         }
-        $('#addClassModal').on('click', function(e) {
-            if($(e.target).is('#addClassModal'))
+        $('#updateClassModal').on('click', function(e) {
+            if($(e.target).is('#updateClassModal'))
             $(this).modal('hide');
         });
     </script>
     <script>
         var btn = document.getElementById('closebutton');
         btn.onclick = function(){
-            $('#addClassModal').modal('hide');
+            $('#updateClassModal').modal('hide');
         }
     </script>
+
 </body>
 
 </html>
