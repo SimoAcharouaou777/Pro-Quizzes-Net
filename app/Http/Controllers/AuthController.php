@@ -79,6 +79,10 @@ class AuthController extends Controller
 
     public function assignRole($role){
         $user = User::find(session('user_id'));
+        if($user->roles()->count() > 0){
+            return redirect()->back()->with('error', 'User already has a role.');
+        }
+        
         $user->roles()->attach($role);
     
         if ($role == 3) {
