@@ -8,6 +8,7 @@ use App\Models\representative;
 use Illuminate\Http\Request;
 use App\Models\Result;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class QuizeTakeController extends Controller
@@ -15,7 +16,12 @@ class QuizeTakeController extends Controller
     public function take($id)
     {
         $quiz = Quize::find($id);
-        return view('users.UserQuizeTake',compact('quiz'));
+        if($quiz->start_time && $quiz->end_time && Carbon::now()->between(new Carbon($quiz->start_time), new Carbon($quiz->end_time))){
+            return view('users.UserQuizeTake',compact('quiz'));
+        }else{
+            return back()->with('error', 'This quiz is not available at the moment.');
+        }
+        
     }
 
     public function QuizSubmit(Request $request, $id)
