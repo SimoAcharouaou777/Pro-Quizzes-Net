@@ -28,30 +28,31 @@
                                     <form method="post" action="{{route('CompanyStore')}}">
                                         @csrf
                                         @method('post')
-                                        <div class="form-outline mb-4">
-                                            <input type="text" name="username" id="Representative" class="form-control" >
-                                            <label class="form-label" for="companyName">Reprisentative Name</label>
+                                        <div class="form-group mb-4">
+                                            <label for="Representative">Representative Name</label>
+                                            <input type="text" name="username" id="Representative" class="form-control" placeholder="Enter representative name">
                                         </div>
-
-                                        <div class="form-outline mb-4">
-                                            <input type="text" name="company_name" id="companyName" class="form-control" >
-                                            <label class="form-label" for="companyName">Company Name</label>
+                                    
+                                        <div class="form-group mb-4">
+                                            <label for="companyName">Company Name</label>
+                                            <input type="text" name="company_name" id="companyName" class="form-control" placeholder="Enter company name">
                                         </div>
                                         
-                                        <div class="form-outline mb-4">
-                                            <input type="email" name="email" id="email" class="form-control" >
-                                            <label class="form-label" for="email">Email</label>
+                                        <div class="form-group mb-4">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
                                         </div>
-                                        <div class="form-outline mb-4">
-                                            <input type="password" name="password" id="password" class="form-control" >
-                                            <label class="form-label" for="password">Password</label>
+                                        <div class="form-group mb-4">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
                                         </div>
-                                        <div class="form-outline mb-4">
-                                            <input type="password" name="password_confirmation" id="confirmPassword" class="form-control" >
-                                            <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                        <div class="form-group mb-4">
+                                            <label for="confirmPassword">Confirm Password</label>
+                                            <input type="password" name="password_confirmation" id="confirmPassword" class="form-control" placeholder="Confirm your password">
                                         </div>
                                         <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Register</button>
                                     </form>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
