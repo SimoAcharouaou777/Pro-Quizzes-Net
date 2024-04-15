@@ -28,13 +28,7 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Append
-  * Updated: Feb 01 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/append-bootstrap-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
@@ -55,7 +49,7 @@
             @if(Auth::check() && Auth::user()->hasRole('student'))
             <li><a class="nav-link scrollto" href="{{route('MyClassQuizzes')}}">My Class Quizzes</a></li>
             @endif
-            <li><a class="nav-link scrollto" href="#services">Company Quizzes</a></li>
+            <li><a class="nav-link scrollto" href="{{route('companyQuizzes')}}">Company Quizzes</a></li>
             <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 @foreach($categories as $category)
