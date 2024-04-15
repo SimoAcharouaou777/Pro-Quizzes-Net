@@ -51,7 +51,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
 // handle user authentication
 Route::post('store', [AuthController::class, 'store'])->name('store');
-Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
+Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole')->middleware('auth');
 Route::get('/assign-role/{role}', [AuthController::class, 'assignRole'])->name('assignRole');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 // hande Company Registration
@@ -77,7 +77,8 @@ Route::resource('userquizzes',QuizzeController::class);
 Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
 Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherClass')->middleware('role:teacher');
 Route::get('/classDetials\{id}', [TeacherController::class, 'showDetails'])->name('classDetials')->middleware('role:teacher');
-// Route::delete('/deleteClass\{id}', [TeacherController::class, 'deleteClass'])->name('deleteClass')->middleware('role:teacher');
+Route::put('/updateClass/{id}', [TeacherController::class, 'updateClass'])->name('updateClass')->middleware('role:teacher');
+Route::delete('/deleteClass\{id}', [TeacherController::class, 'deleteClass'])->name('deleteClass')->middleware('role:teacher');
 Route::delete('/deleteStudent\{id}', [TeacherController::class, 'deleteStudent'])->name('deleteStudent')->middleware('role:teacher');
 // student controller
 Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
