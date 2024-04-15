@@ -244,6 +244,16 @@
                         </div>
                         @endif
                         @endif
+                        @if(Auth::user()->hasRole('representative'))
+                        <div class="form-group">
+                            <label for="start_time">Quiz Start Time</label>
+                            <input type="datetime-local" name="start_time" class="form-control" id="start_time">
+                        </div>
+                        <div class="form-group">
+                            <label for="end_time">Quiz End Time</label>
+                            <input type="datetime-local" name="end_time" class="form-control" id="end_time">
+                        </div>
+                        @endif
                         <div class="form-group">
                             <label for="quizType">Quiz Type</label>
                             <input type="hidden" name="quize_type" id="quizeType" value="">
