@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('quiz_type', ['multiple_choice', 'true_false']);
             $table->enum('status', ['published', 'draft','unpublished'])->default('draft'); 
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
         });
     }
