@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BaneUserController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Quize\ValidateQuizeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Company\CompanyQuizzesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Student\StudentController;
@@ -88,3 +89,5 @@ Route::get('/QuizTake/{id}', [QuizeTakeController::class, 'take'])->name('QuizTa
 Route::post('/QuizSubmit/{id}', [QuizeTakeController::class, 'QuizSubmit'])->name('QuizSubmit');
 Route::get('/MyQuizzes', [QuizeTakeController::class, 'showMyQuizzes'])->name('MyQuizzes');
 Route::get('/MyResults/{id}', [QuizeTakeController::class, 'showMyResults'])->name('showMyResults');
+// Company Quizzes
+Route::get('/companyQuizzes', [CompanyQuizzesController::class, 'index'])->name('companyQuizzes');
