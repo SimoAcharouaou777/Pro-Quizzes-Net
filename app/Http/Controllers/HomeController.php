@@ -16,7 +16,13 @@ class HomeController extends Controller
         $student = Student::where('user_id', $user->id)->first();
         $representative = representative::where('user_id', $user->id)->first();
         $categories = Category::all();
-        $quizzes = Quize::where('status', 'published')->with('user')->get();
+        $quizzes = Quize::where('status', 'published')
+        ->whereDoesntHave('user', function($query){
+            $query->whereHas('roles', function($query){
+                $query->where('name', 'representative');
+            });
+        })
+        ->with('user')->get();
         
         return view('home', compact('quizzes', 'categories', 'quizzes', 'student', 'representative', 'user'));
     }   
