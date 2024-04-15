@@ -10,6 +10,7 @@ use App\Models\Quize;
 use App\Models\representative;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class QuizzeController extends Controller
 {
@@ -51,11 +52,15 @@ class QuizzeController extends Controller
             'description' => 'required',
             'category_id' => 'required',
             'class_id' => 'sometimes',
+            'start_time' => 'sometimes|date',
+            'end_time' => 'sometimes|date',
         ]);
        
         $QuizeData['user_id'] = $user->id;
         $QuizeData['category_id'] = $request->input('category_id');
         $QuizeData['quiz_type'] = $request->input('quize_type');
+        $QuizeData['start_time'] = (new Carbon($request->input('start_time')))->setTimezone('Africa/Casablanca');
+        $QuizeData['end_time'] = (new Carbon($request->input('end_time')))->setTimezone('Africa/Casablanca');
         $quiz = Quize::create($QuizeData);
         $quiz->classes()->attach($request->input('class_id'));
 
