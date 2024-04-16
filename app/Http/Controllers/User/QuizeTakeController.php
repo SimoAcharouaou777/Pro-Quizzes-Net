@@ -18,8 +18,8 @@ class QuizeTakeController extends Controller
     public function take($id)
 {
     $quiz = Quize::find($id);
-
-    $currentTime = Carbon::now('Africa/Casablanca');
+    if($quiz->user->hasRole('representative')){
+        $currentTime = Carbon::now('Africa/Casablanca');
     $startTime = new Carbon($quiz->start_time, 'Africa/Casablanca');
     $endTime = new Carbon($quiz->end_time, 'Africa/Casablanca');
     if ($quiz->start_time && $quiz->end_time && $currentTime->gte($startTime) && $currentTime->lt($endTime)) {
@@ -28,6 +28,10 @@ class QuizeTakeController extends Controller
         
         return back()->with('error', 'This quiz is not available at the moment.');
     }
+    }else{
+        return view('users.UserQuizeTake', compact('quiz'));
+    }
+    
 }
 
     
@@ -56,17 +60,29 @@ class QuizeTakeController extends Controller
                         ];
                     }
                 } elseif($quiz->quiz_type == 'true_false') {
-                    $allAnswers = Answer::where('question_id', $questionId)->get();
-                    foreach($allAnswers as $answer) {
-                    $results[] = [
-                        'user_id' => auth()->id(),
-                        'quiz_id' => $quiz->id,
-                        'question_id' => $questionId,
-                        'answer_id' => $answer->id,
-                        'selected' => $request->input('question' . $questionId) == $answer->response
-                        ];
+
+                    $results = [];
+
+                    foreach ($quiz->questions as $question) {
+                        $questionId = $question->id;
+                        
+                        if ($request->has('question' . $questionId)) {
+                            $selectedAnswer = $request->input('question' . $questionId);
+                
+                            // Find the correct answer for the question
+                            $answer = Answer::where('question_id', $questionId)
+                                ->where('response', $selectedAnswer)
+                                ->first();
+                            if($answer){
+                                $results[] = [
+                                    'user_id' => auth()->id(),
+                                    'quiz_id' => $quiz->id,
+                                    'question_id' => $questionId,
+                                    'answer_id' => $answer->id,
+                                ];
+                            }
+                        }
                     }
-                    
                 }
             }
         }
