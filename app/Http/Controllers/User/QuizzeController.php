@@ -111,9 +111,8 @@ class QuizzeController extends Controller
 
             $question->answers()->create([
                 'response' => $questionData['answer'],
-                'is_correct' => $questionData['answer'] == 'true' ? true : false,
-                'question_id' => $question->id,
-                'status' => 'true'
+                'is_correct' => $questionData['answer'] == 'true', // Simplified logic
+                'status' => 'true',
             ]);
         }
       }
