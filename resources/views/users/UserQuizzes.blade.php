@@ -215,6 +215,9 @@
                         <div class="form-group">
                             <label for="title">Quiz Title</label>
                             <input type="text" name="title" class="form-control" id="title" placeholder="Enter quiz title">
+                            @error('title')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="description">Quiz Description</label>
@@ -248,10 +251,16 @@
                         <div class="form-group">
                             <label for="start_time">Quiz Start Time</label>
                             <input type="datetime-local" name="start_time" class="form-control" id="start_time">
+                            @error('start_time')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="end_time">Quiz End Time</label>
                             <input type="datetime-local" name="end_time" class="form-control" id="end_time">
+                            @error('end_time')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         @endif
                         <div class="form-group">
