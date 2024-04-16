@@ -56,7 +56,7 @@
         <div class="card-body">
             <h5 class="card-title">Questionnaire</h5>
 
-            <form action="" method="POST">
+            <form action="{{route('QuizSubmit', $quiz->id)}}" method="POST">
                 @csrf
                 <h2>{{ $quiz->title }}</h2>
                 @foreach($quiz->questions as $question)
