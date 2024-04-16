@@ -1,3 +1,6 @@
+@php
+ use App\Models\Result;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,35 +107,55 @@
                         @endif
                     </div>
                 @endforeach
-                @elseif($quiz->quiz_type == 'true_false')
-                    @php
-                        $answerTrue = $question->answers->where('response', 'true')->first();
-                        $answerFalse = $question->answers->where('response', 'false')->first();
-                        $userAnswer = $userAnswers->where('question_id', $question->id)->first();
-                    @endphp
-                    <div class="answer-card">
-                        <div class="answer-text">True</div>
-                        @if($userAnswer && $userAnswer->response == 'true')
-                            <div class="status {{ $answerTrue->response == 'true' ? 'correct' : 'incorrect' }}">You selected this</div>
+                @elseif($quiz->quiz_type == 'true_false')  
+                @php
+                    $userAnswer = Result::where('user_id', auth()->id())
+                        ->where('quiz_id', $quiz->id)
+                        ->where('question_id', $question->id)
+                        ->first();
+                @endphp
+                <div class="answer-card">
+                    <div class="answer-text">True</div>
+                    @if($userAnswer)
+                        @if($userAnswer->selected == 'true')
+                            @if($userAnswer->is_correct)
+                                <div class="status correct">You selected this (Correct)</div>
+                            @else
+                                <div class="status incorrect">You selected this (Incorrect)</div>
+                            @endif
                         @endif
-                        @if($answerTrue && $answerTrue->response == 'true')
+                        @if($userAnswer->is_correct)
                             <div class="status correct">Correct Answer</div>
                         @else
                             <div class="status incorrect">Incorrect Answer</div>
                         @endif
-                    </div>
-                    <div class="answer-card">
-                        <div class="answer-text">False</div>
-                        @if($userAnswer && $userAnswer->response == 'false')
-                            <div class="status {{ $answerFalse->response == 'false' ? 'correct' : 'incorrect' }}">You selected this</div>
+                    @else
+                        <div class="status">Not Selected</div>
+                    @endif
+                </div>
+                <div class="answer-card">
+                    <div class="answer-text">False</div>
+                    @if($userAnswer)
+                        @if($userAnswer->selected == 'false')
+                            @if(!$userAnswer->is_correct)
+                                <div class="status correct">You selected this (Correct)</div>
+                            @else
+                                <div class="status incorrect">You selected this (Incorrect)</div>
+                            @endif
                         @endif
-                        @if($answerFalse && $answerFalse->response == 'false')
+                        @if(!$userAnswer->is_correct)
                             <div class="status correct">Correct Answer</div>
                         @else
                             <div class="status incorrect">Incorrect Answer</div>
                         @endif
-                    </div>
-                @endif
+                    @else
+                        <div class="status">Not Selected</div>
+                    @endif
+                </div>
+            @endif
+            
+
+
             </div>
         @endforeach
     </div>
