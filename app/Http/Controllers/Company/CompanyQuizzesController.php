@@ -24,14 +24,10 @@ class CompanyQuizzesController extends Controller
             });
         })
         ->where('status', 'published')
-        ->where('start_time', '>=',Carbon::now())
-        
-        ->orderBy('start_time', 'asc')
+        ->where('start_time', '<=', Carbon::now('Africa/Casablanca'))
+        ->where('end_time', '>=', Carbon::now('Africa/Casablanca'))
         ->get();
-        foreach($quizzes as $quiz){
-            $quiz->start_time = $quiz->start_time->setTimezone('Africa/CasaBlanca');
-            $quiz->end_time = $quiz->end_time->setTimezone('Africa/CasaBlanca');
-        }
+    
         return view('Company.CompanyQuizzes', compact('quizzes', 'categories','student','representative','user'));
     }
 }
