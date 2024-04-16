@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Quize;
 use App\Models\representative;
 use Illuminate\Http\Request;
@@ -13,20 +14,28 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizeTakeController extends Controller
 {
+    
     public function take($id)
-    {
-        $quiz = Quize::find($id);
-        if($quiz->start_time && $quiz->end_time && Carbon::now()->between(new Carbon($quiz->start_time), new Carbon($quiz->end_time))){
-            return view('users.UserQuizeTake',compact('quiz'));
-        }else{
-            return back()->with('error', 'This quiz is not available at the moment.');
-        }
+{
+    $quiz = Quize::find($id);
+
+    $currentTime = Carbon::now('Africa/Casablanca');
+    $startTime = new Carbon($quiz->start_time, 'Africa/Casablanca');
+    $endTime = new Carbon($quiz->end_time, 'Africa/Casablanca');
+    if ($quiz->start_time && $quiz->end_time && $currentTime->gte($startTime) && $currentTime->lt($endTime)) {
+        return view('users.UserQuizeTake', compact('quiz'));
+    } else {
         
+        return back()->with('error', 'This quiz is not available at the moment.');
     }
+}
+
+    
+    
+
 
     public function QuizSubmit(Request $request, $id)
     {
-
         $quiz = Quize::findOrFail($id);
         
         $results = [];
@@ -35,17 +44,29 @@ class QuizeTakeController extends Controller
             $questionId = $question->id;
             
             if ($request->has('question' . $questionId)) {
-        
-                $selectedAnswers = $request->input('question' . $questionId);
+                if($quiz->quiz_type == 'multiple_choice') {
+                    $selectedAnswers = $request->input('question' . $questionId);
 
-            
-                foreach ($selectedAnswers as $selectedAnswerId) {
+                    foreach ($selectedAnswers as $selectedAnswerId) {
+                        $results[] = [
+                            'user_id' => auth()->id(),
+                            'quiz_id' => $quiz->id,
+                            'question_id' => $questionId,
+                            'answer_id' => $selectedAnswerId,
+                        ];
+                    }
+                } elseif($quiz->quiz_type == 'true_false') {
+                    $allAnswers = Answer::where('question_id', $questionId)->get();
+                    foreach($allAnswers as $answer) {
                     $results[] = [
                         'user_id' => auth()->id(),
                         'quiz_id' => $quiz->id,
                         'question_id' => $questionId,
-                        'answer_id' => $selectedAnswerId,
-                    ];
+                        'answer_id' => $answer->id,
+                        'selected' => $request->input('question' . $questionId) == $answer->response
+                        ];
+                    }
+                    
                 }
             }
         }
@@ -54,6 +75,7 @@ class QuizeTakeController extends Controller
 
         return redirect()->route('home')->with('message', 'Your results have been submitted successfully.');
     }
+
 
     public function showMyQuizzes(){
         $user = auth()->user();
