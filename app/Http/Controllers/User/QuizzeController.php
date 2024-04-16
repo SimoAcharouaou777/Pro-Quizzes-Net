@@ -47,20 +47,29 @@ class QuizzeController extends Controller
         
         $user = auth()->user();
     
-        $QuizeData = $request->validate([
+        $rules = [
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
             'class_id' => 'sometimes',
-            'start_time' => 'sometimes|date',
-            'end_time' => 'sometimes|date',
-        ]);
-       
+        ];
+        if($user->hasRole('representative')){
+            $rules['start_time'] = 'required|date';
+            $rules['end_time'] = 'required|date|after:start_time';
+        }
+        $QuizeData = $request->validate($rules);
         $QuizeData['user_id'] = $user->id;
         $QuizeData['category_id'] = $request->input('category_id');
         $QuizeData['quiz_type'] = $request->input('quize_type');
-        $QuizeData['start_time'] = (new Carbon($request->input('start_time')))->setTimezone('Africa/Casablanca');
-        $QuizeData['end_time'] = (new Carbon($request->input('end_time')))->setTimezone('Africa/Casablanca');
+        if($user->hasRole('representative')){
+            if($request->has('start_time')){
+                $QuizeData['start_time'] = (new Carbon($request->input('start_time')))->setTimezone('Africa/Casablanca');
+            }
+            if($request->has('end_time')){
+                $QuizeData['end_time'] = (new Carbon($request->input('end_time')))->setTimezone('Africa/Casablanca');
+            }
+        }
+        
         $quiz = Quize::create($QuizeData);
         $quiz->classes()->attach($request->input('class_id'));
 
