@@ -48,7 +48,11 @@
                         <li><strong>Quize Created Date</strong>{{$quiz->created_at->format('d-m-Y')}}</li>
                     </ul>
                 </div>
+                @if(Auth::id() != $quiz->user_id)
                     <a href="{{route('QuizTake', $quiz->id)}}" class="btn btn-primary d-flex flex-column align-items-center">Start Quize</a>
+                @else
+                    <div class="alert alert-info"> Your are the creator of this quiz and cannot participate.</div>
+                @endif
             </div>
         </div>
 
