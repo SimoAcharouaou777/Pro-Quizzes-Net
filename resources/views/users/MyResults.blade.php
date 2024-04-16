@@ -89,6 +89,7 @@
         @foreach($questions as $question)
             <div class="question">
                 <div class="question-text">Question: {{ $question->question }}</div>
+            @if($quiz->quiz_type == 'multiple_choice')
                 @foreach($question->answers as $answer)
                     <div class="answer-card">
                         <div class="answer-text">{{ $answer->response }}</div>
@@ -103,6 +104,35 @@
                         @endif
                     </div>
                 @endforeach
+                @elseif($quiz->quiz_type == 'true_false')
+                    @php
+                        $answerTrue = $question->answers->where('response', 'true')->first();
+                        $answerFalse = $question->answers->where('response', 'false')->first();
+                        $userAnswer = $userAnswers->where('question_id', $question->id)->first();
+                    @endphp
+                    <div class="answer-card">
+                        <div class="answer-text">True</div>
+                        @if($userAnswer && $userAnswer->response == 'true')
+                            <div class="status {{ $answerTrue->response == 'true' ? 'correct' : 'incorrect' }}">You selected this</div>
+                        @endif
+                        @if($answerTrue && $answerTrue->response == 'true')
+                            <div class="status correct">Correct Answer</div>
+                        @else
+                            <div class="status incorrect">Incorrect Answer</div>
+                        @endif
+                    </div>
+                    <div class="answer-card">
+                        <div class="answer-text">False</div>
+                        @if($userAnswer && $userAnswer->response == 'false')
+                            <div class="status {{ $answerFalse->response == 'false' ? 'correct' : 'incorrect' }}">You selected this</div>
+                        @endif
+                        @if($answerFalse && $answerFalse->response == 'false')
+                            <div class="status correct">Correct Answer</div>
+                        @else
+                            <div class="status incorrect">Incorrect Answer</div>
+                        @endif
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>
