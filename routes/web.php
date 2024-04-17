@@ -80,6 +80,7 @@ Route::get('/classDetials\{id}', [TeacherController::class, 'showDetails'])->nam
 Route::put('/updateClass/{id}', [TeacherController::class, 'updateClass'])->name('updateClass')->middleware('role:teacher');
 Route::delete('/deleteClass\{id}', [TeacherController::class, 'deleteClass'])->name('deleteClass')->middleware('role:teacher');
 Route::delete('/deleteStudent\{id}', [TeacherController::class, 'deleteStudent'])->name('deleteStudent')->middleware('role:teacher');
+Route::get('/showTeacherParticipants\{id}', [TeacherController::class, 'showparticipants'])->name('showTeacherParticipants')->middleware('role:teacher');
 // student controller
 Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
 Route::post('/joinClass', [StudentController::class, 'joinClass'])->name('joinClass')->middleware('role:student');
@@ -92,3 +93,4 @@ Route::get('/MyQuizzes', [QuizeTakeController::class, 'showMyQuizzes'])->name('M
 Route::get('/MyResults/{id}', [QuizeTakeController::class, 'showMyResults'])->name('showMyResults');
 // Company Quizzes
 Route::get('/companyQuizzes', [CompanyQuizzesController::class, 'index'])->name('companyQuizzes');
+Route::get('/showRepresentativeParticipants\{id}', [CompanyQuizzesController::class, 'showparticipants'])->name('showRepresentativeParticipants');
