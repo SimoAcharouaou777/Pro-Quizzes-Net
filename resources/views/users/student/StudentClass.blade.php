@@ -140,8 +140,8 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('studentClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
-                                    class="fa fa-bookmark-o"></i><span class="hide-menu">Blank</span></a>
+                        <li> <a class="waves-effect waves-dark" href="{{route('MyQuizzes')}}" aria-expanded="false"><i
+                            class="fa fa-bookmark-o"></i><span class="hide-menu">My Quizzes</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i
                                     class="fa fa-question-circle"></i><span class="hide-menu">404</span></a>
