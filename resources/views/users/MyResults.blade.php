@@ -74,11 +74,11 @@
         }
         .correct {
             color: #4CAF50;
-            background-color: rgba(76, 175, 80, 0.1);
+            /* background-color: rgba(76, 175, 80, 0.1); */
         }
         .incorrect {
             color: #F44336;
-            background-color: rgba(244, 67, 54, 0.1);
+            /* background-color: rgba(244, 67, 54, 0.1); */
         }
         .answer-card:hover .status {
             opacity: 1;
@@ -113,49 +113,25 @@
                         ->where('quiz_id', $quiz->id)
                         ->where('question_id', $question->id)
                         ->first();
+                    $correctAnswer = $question->answers->first()->response;
                 @endphp
                 <div class="answer-card">
                     <div class="answer-text">True</div>
-                    @if($userAnswer)
-                        @if($userAnswer->selected == 'true')
-                            @if($userAnswer->is_correct)
-                                <div class="status correct">You selected this (Correct)</div>
-                            @else
-                                <div class="status incorrect">You selected this (Incorrect)</div>
-                            @endif
-                        @endif
-                        @if($userAnswer->is_correct)
-                            <div class="status correct">Correct Answer</div>
-                        @else
-                            <div class="status incorrect">Incorrect Answer</div>
-                        @endif
-                    @else
-                        <div class="status">Not Selected</div>
+                    @if($userAnswer && $userAnswer->selected == $correctAnswer)
+                        <div class="status {{ $userAnswer->selected ==$correctAnswer ? 'correct' : 'incorrect' }}">
+                            You selected: True
+                        </div>
                     @endif
                 </div>
                 <div class="answer-card">
                     <div class="answer-text">False</div>
-                    @if($userAnswer)
-                        @if($userAnswer->selected == 'false')
-                            @if(!$userAnswer->is_correct)
-                                <div class="status correct">You selected this (Correct)</div>
-                            @else
-                                <div class="status incorrect">You selected this (Incorrect)</div>
-                            @endif
-                        @endif
-                        @if(!$userAnswer->is_correct)
-                            <div class="status correct">Correct Answer</div>
-                        @else
-                            <div class="status incorrect">Incorrect Answer</div>
-                        @endif
-                    @else
-                        <div class="status">Not Selected</div>
+                    @if($userAnswer && $userAnswer->selected != $correctAnswer)
+                        <div class="status {{ $userAnswer->selected == $correctAnswer ? 'correct' : 'incorrect' }}">
+                            You selected: False
+                        </div>
                     @endif
                 </div>
             @endif
-            
-
-
             </div>
         @endforeach
     </div>
