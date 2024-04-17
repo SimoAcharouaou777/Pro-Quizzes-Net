@@ -107,29 +107,31 @@
                         @endif
                     </div>
                 @endforeach
-                @elseif($quiz->quiz_type == 'true_false')  
+            @elseif($quiz->quiz_type == 'true_false')  
                 @php
                     $userAnswer = Result::where('user_id', auth()->id())
-                        ->where('quiz_id', $quiz->id)
                         ->where('question_id', $question->id)
                         ->first();
                     $correctAnswer = $question->answers->first()->response;
                 @endphp
+
+
                 <div class="answer-card">
                     <div class="answer-text">True</div>
                     @if($userAnswer && $userAnswer->selected == $correctAnswer)
                         <div class="status {{ $userAnswer->selected ==$correctAnswer ? 'correct' : 'incorrect' }}">
-                            You selected: True
+                            You selected: {{$userAnswer->selected}}
+                        </div>
+                    @endif
+                    @if($userAnswer && $userAnswer->selected != $correctAnswer)
+                        <div class="status {{ $userAnswer->selected == $correctAnswer ? 'correct' : 'incorrect' }}">
+                            You selected: {{$userAnswer->selected}}
                         </div>
                     @endif
                 </div>
                 <div class="answer-card">
                     <div class="answer-text">False</div>
-                    @if($userAnswer && $userAnswer->selected != $correctAnswer)
-                        <div class="status {{ $userAnswer->selected == $correctAnswer ? 'correct' : 'incorrect' }}">
-                            You selected: False
-                        </div>
-                    @endif
+                    
                 </div>
             @endif
             </div>
