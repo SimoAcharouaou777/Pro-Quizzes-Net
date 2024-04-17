@@ -68,8 +68,6 @@ class QuizeTakeController extends Controller
                         
                         if ($request->has('question' . $questionId)) {
                             $selectedAnswer = $request->input('question' . $questionId);
-                
-                            // Find the correct answer for the question
                             $answer = Answer::where('question_id', $questionId)
                                 ->where('response', $selectedAnswer)
                                 ->first();
@@ -79,6 +77,7 @@ class QuizeTakeController extends Controller
                                     'quiz_id' => $quiz->id,
                                     'question_id' => $questionId,
                                     'answer_id' => $answer->id,
+                                    'selected' => $selectedAnswer,
                                 ];
                             }
                         }
