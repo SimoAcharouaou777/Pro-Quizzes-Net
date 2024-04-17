@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\MyClass;
+use App\Models\Quize;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Result;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -102,6 +105,15 @@ class TeacherController extends Controller
             $class = MyClass::find($id);
             $class->delete();
             return redirect()->back()->with('success', 'Class deleted successfully');
+        }
+
+        public function showparticipants($id)
+        {
+            $quiz = Quize::find($id);
+            $user_ids = Result::where('quiz_id', $id)->pluck('user_id');
+            $users = User::whereIn('id', $user_ids)->get();
+            
+            return view('users.teacher.Participants', compact('users', 'quiz'));
         }
 
     }
