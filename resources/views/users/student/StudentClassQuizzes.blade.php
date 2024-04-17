@@ -41,7 +41,7 @@
 
               <div class="post-img">
                 @if($quize->hasMedia('media/quizzes'))
-                <a href="{{ route('QuizTake',$quize->id) }}">
+                <a href="{{ route('userquizzes.show',$quize->id) }}">
                   <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
               </a>
                 @endif
@@ -50,7 +50,7 @@
               <p class="post-category">{{$quize->category->name}}</p>
 
               <h2 class="title">
-                <a href="{{route('QuizTake', $quize->id)}}">{{$quize->title}}</a>
+                <a href="{{route('userquizzes.show', $quize->id)}}">{{$quize->title}}</a>
               </h2>
 
               <div class="d-flex align-items-center">
