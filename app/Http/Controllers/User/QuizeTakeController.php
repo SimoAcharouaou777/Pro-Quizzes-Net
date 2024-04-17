@@ -65,13 +65,11 @@ class QuizeTakeController extends Controller
 
                     foreach ($quiz->questions as $question) {
                         $questionId = $question->id;
-                        
                         if ($request->has('question' . $questionId)) {
                             $selectedAnswer = $request->input('question' . $questionId);
                             $answer = Answer::where('question_id', $questionId)
-                                ->where('response', $selectedAnswer)
+                                // ->where('response', $selectedAnswer)
                                 ->first();
-                            if($answer){
                                 $results[] = [
                                     'user_id' => auth()->id(),
                                     'quiz_id' => $quiz->id,
@@ -79,7 +77,6 @@ class QuizeTakeController extends Controller
                                     'answer_id' => $answer->id,
                                     'selected' => $selectedAnswer,
                                 ];
-                            }
                         }
                     }
                 }
