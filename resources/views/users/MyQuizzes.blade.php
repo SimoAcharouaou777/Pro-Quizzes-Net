@@ -212,9 +212,19 @@
                             <article>
                                 <div class="post-img">
                                     @if($quize->hasMedia('media/quizzes'))
+                                    @if($user->hasRole('teacher'))
+                                    <a href="{{ route('showTeacherParticipants', $quize->id) }}">
+                                        <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+                                    </a>
+                                    @elseif($user->hasRole('representative'))
+                                    <a href="{{ route('showRepresentativeParticipants', $quize->id) }}">
+                                        <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+                                    </a>
+                                    @else
                                     <a href="{{ route('showMyResults', $quize->id) }}">
                                         <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
                                     </a>
+                                    @endif
                                     @endif
                                 </div>
             
@@ -240,7 +250,7 @@
                       @endif
             
                     </div>
-        </div>
+                </div>
 
         
     </div>
