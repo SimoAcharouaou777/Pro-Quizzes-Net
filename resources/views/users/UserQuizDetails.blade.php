@@ -49,7 +49,17 @@
                     </ul>
                 </div>
                 @if(Auth::id() != $quiz->user_id)
+                @php
+                // use App\Models\Result;
+                  $quizTaken = \App\Models\Result::where('user_id', auth()->id())
+                      ->where('quiz_id', $quiz->id)
+                      ->exists();
+                @endphp
+                @if($quizTaken)
+                    <div class="alert alert-info"> You have already participated in this quiz.</div>
+                @else
                     <a href="{{route('QuizTake', $quiz->id)}}" class="btn btn-primary d-flex flex-column align-items-center">Start Quize</a>
+                @endif
                 @else
                     <div class="alert alert-info"> Your are the creator of this quiz and cannot participate.</div>
                 @endif
