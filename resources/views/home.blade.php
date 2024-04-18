@@ -64,15 +64,9 @@
           @endif
 
         </div><!-- End blog posts list -->
-        @if($quizzes->isNotEmpty())
-        <div class="pagination d-flex justify-content-center">
-          <ul>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-          </ul>
-        </div><!-- End pagination -->
-        @endif
+        <div class="d-flex justify-content-center">
+          {{ $quizzes->links() }}
+        </div>
       </div>
 
     </section><!-- End Blog Section -->
