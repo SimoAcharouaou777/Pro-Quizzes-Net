@@ -50,7 +50,6 @@
                 </div>
                 @if(Auth::id() != $quiz->user_id)
                 @php
-                // use App\Models\Result;
                   $quizTaken = \App\Models\Result::where('user_id', auth()->id())
                       ->where('quiz_id', $quiz->id)
                       ->exists();
