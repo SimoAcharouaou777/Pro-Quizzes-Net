@@ -43,7 +43,7 @@
                         <h3 class="card-title">{{$quiz->title}}</h3>
                         <p class="card-text">
                             <h4><i class="fas fa-question-circle"></i> Questions: {{$quiz->questions->count()}} </h4><br>
-                            <h4><i class="fas fa-clock"></i> Duration: {{$quiz->duration}} minutes </h4><br>
+                            <h4><i class="fas fa-clock"></i> Number Of Participant : {{$numberofparticipant}} </h4><br>
                             <h4><i class="fas fa-user"></i> Created by: {{$quiz->user->username}} </h4><br>
                         </p>
                     </div>
@@ -64,15 +64,23 @@
                                         <div>
                                             @if($user->hasRole('student'))
                                             @if($user->students->hasMedia('media/students'))
+                                            <a href="{{ route('showParticipantResults', ['user_id' => $user->id, 'quiz_id' => $quiz->id]) }}">
                                                 <img src="{{$user->students->getFirstMediaUrl('media/students')}}" class="avatar avatar-sm me-3" alt="" style="width: 50px; height: 50px; border-radius: 50%">
+                                                </a>
                                             @else
+                                            <a href="{{ route('showParticipantResults', ['user_id' => $user->id, 'quiz_id' => $quiz->id]) }}">
                                                 <img src="{{asset('assets/img/default-user.jpg')}}" class="avatar avatar-sm me-3 " alt="" style="width: 50px; height: 50px; border-radius :50%">
+                                                </a>
                                             @endif
                                         @else
                                             @if($user->hasMedia('media/users'))
+                                            <a href="{{ route('showParticipantResults', ['user_id' => $user->id, 'quiz_id' => $quiz->id]) }}">
                                                 <img src="{{$user->getFirstMediaUrl('media/users')}}" class="avatar avatar-sm me-3" alt="" style="width: 50px; height: 50px; border-radius: 50%">
+                                                </a>
                                             @else
+                                            <a href="{{ route('showParticipantResults', ['user_id' => $user->id, 'quiz_id' => $quiz->id]) }}">
                                                 <img src="{{asset('assets/img/default-user.jpg')}}" class="avatar avatar-sm me-3 " alt="" style="width: 50px; height: 50px; border-radius :50%">
+                                                </a>
                                             @endif
                                         @endif
                                         </div>
