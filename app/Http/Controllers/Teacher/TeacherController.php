@@ -112,8 +112,8 @@ class TeacherController extends Controller
             $quiz = Quize::find($id);
             $user_ids = Result::where('quiz_id', $id)->pluck('user_id');
             $users = User::whereIn('id', $user_ids)->get();
-            
-            return view('users.teacher.Participants', compact('users', 'quiz'));
+            $numberofparticipant =Result::where('quiz_id', $quiz->id)->distinct('user_id')->count('user_id');
+            return view('users.teacher.Participants', compact('users', 'quiz', 'numberofparticipant'));
         }
 
     }
