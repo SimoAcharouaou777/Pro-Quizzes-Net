@@ -22,7 +22,8 @@ class HomeController extends Controller
                 $query->where('name', 'representative');
             });
         })
-        ->with('user')->get();
+        ->whereDoesntHave('classes')
+        ->with('user')->paginate(10);
         
         return view('home', compact('quizzes', 'categories', 'quizzes', 'student', 'representative', 'user'));
     }   
