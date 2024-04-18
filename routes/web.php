@@ -94,3 +94,5 @@ Route::get('/MyResults/{id}', [QuizeTakeController::class, 'showMyResults'])->na
 // Company Quizzes
 Route::get('/companyQuizzes', [CompanyQuizzesController::class, 'index'])->name('companyQuizzes');
 Route::get('/showRepresentativeParticipants\{id}', [CompanyQuizzesController::class, 'showparticipants'])->name('showRepresentativeParticipants');
+// Show participants results
+Route::get('/showParticipantResults/{user_id}/{quiz_id}', [QuizeTakeController::class, 'showParticipantResults'])->name('showParticipantResults');
