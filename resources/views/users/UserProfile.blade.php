@@ -121,8 +121,14 @@
                                  @endif
                              @endif
                             <span
-                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> 
+                                </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit():">Logout</a>
+                                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -163,9 +169,6 @@
                         </li>
                         <li> <a class="waves-effect waves-dark" href="{{route('MyQuizzes')}}" aria-expanded="false"><i
                             class="fa fa-bookmark-o"></i><span class="hide-menu">My Quizzes</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i
-                                    class="fa fa-question-circle"></i><span class="hide-menu">404</span></a>
                         </li>
                     </ul>
                 </nav>
