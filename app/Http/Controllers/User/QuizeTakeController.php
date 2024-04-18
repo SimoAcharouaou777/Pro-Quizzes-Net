@@ -9,6 +9,7 @@ use App\Models\representative;
 use Illuminate\Http\Request;
 use App\Models\Result;
 use App\Models\Student;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -113,4 +114,19 @@ class QuizeTakeController extends Controller
         $results = Result::where('quiz_id', $id)->get();
         return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
     }
+
+    
+    public function showParticipantResults($user_id, $quiz_id)
+    {
+        $userId = $user_id;
+        $quiz = Quize::find($quiz_id);
+        $questions = $quiz->questions;
+        $userAnswers = Result::where('user_id', $userId)
+            ->where('quiz_id', $quiz_id)
+            ->pluck('answer_id', 'question_id');
+        $results = Result::where('quiz_id', $quiz_id)->get();
+        return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
+    }
+    
+
 }
