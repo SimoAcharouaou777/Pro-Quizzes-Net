@@ -100,29 +100,35 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if($user->hasRole('student'))
-                               @if($student->hasMedia('media/students'))
-                                <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
-                                @else
-                                <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
-                                width="150" />
-                                @endif
-                            @elseif($user->hasRole('representative'))
-                                @if($representative->hasMedia('media/representatives'))
-                                    <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
-                                @else
-                                    <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
-                                @endif
-                            @else
-                                @if(Auth::user()->hasMedia('media/users'))
-                                    <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
-                                @else
-                                <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
-                                width="150" />
-                                @endif
-                            @endif
+                                @if($student->hasMedia('media/students'))
+                                 <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                                 width="150" />
+                                 @endif
+                             @elseif($user->hasRole('representative'))
+                                 @if($representative->hasMedia('media/representatives'))
+                                     <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                     <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
+                                 @endif
+                             @else
+                                 @if(Auth::user()->hasMedia('media/users'))
+                                     <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
+                                 @else
+                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
+                                 width="150" />
+                                 @endif
+                             @endif
                             <span
-                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+                                    class="hidden-md-down">{{$user->username}} &nbsp;</span> 
+                                </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit():">Logout</a>
+                                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -164,9 +170,6 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('MyQuizzes')}}" aria-expanded="false"><i
                             class="fa fa-bookmark-o"></i><span class="hide-menu">My Quizzes</span></a>
                        </li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i
-                                    class="fa fa-question-circle"></i><span class="hide-menu">404</span></a>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
