@@ -19,13 +19,34 @@
       </div>
 
     </div><!-- End Page Title -->
+     <!-- Search and Filter Section -->
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" id="search" onkeyup="search()" placeholder="Search quizzes...">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <select class="form-control" id="categoryFilter" onchange="search()">
+            <option value="all">All Categories</option>
+            @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+    </div>
+    
+  </div><!-- End Search and Filter Section -->
 
     <!-- Blog Section - Blog Page -->
     <section id="blog" class="blog">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-4 posts-list">
+        <div class="row gy-4 posts-list" id="quezzz">
           @if($quizzes->isEmpty())
           <div class="d-flex justify-content-center align-items-center" style="height: 200px; background-color: #e0f7fa;">
             <h1>No Quizzes Yet</h1>
@@ -96,6 +117,44 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+   function search() {
+    var valueInput = document.getElementById('search').value;
+    var categoryFilter = document.getElementById('categoryFilter').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("quezzz").innerHTML = xhttp.responseText;
+      }
+    };
+    if (valueInput == '') {
+      var url = '/Searchquize/AllquizeSearch/all';
+    } else {
+      var url = '/Searchquize/' + valueInput + '/' + categoryFilter;
+    }
+    xhttp.open("GET", url, true);
+    xhttp.send();
+  }
+  search();
 
+
+function filter() {
+    var valueInput = document.getElementById('categoryFilter').value;  
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("eventsContainer").innerHTML = xhttp.responseText;
+        }
+    };
+    if (valueInput == 'all') {
+        var url = '/FilterEvent/AllEventFilter';
+    } else {
+        var url = '/FilterEvent/' + valueInput;
+    }
+
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+</script>
 
 @endsection
