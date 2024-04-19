@@ -96,3 +96,6 @@ Route::get('/companyQuizzes', [CompanyQuizzesController::class, 'index'])->name(
 Route::get('/showRepresentativeParticipants\{id}', [CompanyQuizzesController::class, 'showparticipants'])->name('showRepresentativeParticipants');
 // Show participants results
 Route::get('/showParticipantResults/{user_id}/{quiz_id}', [QuizeTakeController::class, 'showParticipantResults'])->name('showParticipantResults');
+
+//search
+Route::get('/Searchquize/{search}/{filter}', [HomeController::class, 'search'])->name('search');
