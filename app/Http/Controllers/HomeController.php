@@ -27,4 +27,24 @@ class HomeController extends Controller
         
         return view('home', compact('quizzes', 'categories', 'quizzes', 'student', 'representative', 'user'));
     }   
+
+    // method  search
+
+    public function search($search, $filter)
+    {
+        if ($search == "AllquizeSearch" && $filter == "all") {
+            $quizzes = Quize::where('status', 'published')->whereDoesntHave('classes')->get();
+            return view('search-result' , compact('quizzes'));
+        } else if($search != "AllquizeSearch" && $filter == "all") {
+           $quizzes = Quize::where('title', 'like', '%'.$search.'%')->where('status', 'published')->whereDoesntHave('classes')->get();          
+            return view('search-result' , compact('quizzes'));
+        }else if($search == "AllquizeSearch" && $filter != "all") {
+            $quizzes = Quize::where('category_id', $filter)->where('status', 'published')  ->whereDoesntHave('classes')->get();
+            return view('search-result' , compact('quizzes'));
+        }else {
+            $quizzes = Quize::where('title', 'like', '%'.$search.'%')->where('category_id', $filter)->where('status', 'published')->whereDoesntHave('classes')->get();
+            return view('search-result' , compact('quizzes'));
+        }
+    }
+    
 }
