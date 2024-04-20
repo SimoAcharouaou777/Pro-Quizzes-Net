@@ -79,6 +79,9 @@ class AuthController extends Controller
 
     public function assignRole($role){
         $user = User::find(session('user_id'));
+        if(!$user){
+            return redirect()->route('login')->with('error', 'User not found.');
+        }
         if($user->roles()->count() > 0){
             return redirect()->back()->with('error', 'User already has a role.');
         }
@@ -109,7 +112,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect(route('home'));
+        return redirect(route('login'));
     }
 
     public function CompanyStore(Request $request){
