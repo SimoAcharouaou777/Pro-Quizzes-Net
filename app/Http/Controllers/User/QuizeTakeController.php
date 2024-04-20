@@ -113,7 +113,7 @@ class QuizeTakeController extends Controller
         ->where('quiz_id', $id)
         ->pluck('answer_id', 'question_id');
         $results = Result::where('quiz_id', $id)->get();
-        return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
+        return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results', 'userId'));
     }
 
     
@@ -121,13 +121,21 @@ class QuizeTakeController extends Controller
     {
         $userId = $user_id;
         $quiz = Quize::find($quiz_id);
-        $questions = $quiz->questions;
-        $userAnswers = Result::where('user_id', $userId)
-            ->where('quiz_id', $quiz_id)
-            ->pluck('answer_id', 'question_id');
-        $results = Result::where('quiz_id', $quiz_id)->get();
-        return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
+        // $questions = $quiz->questions;
+        // $userAnswers = Result::where('user_id', $userId)
+        //     ->where('quiz_id', $quiz_id)
+        //     ->pluck('answer_id', 'question_id');
+        // $results = Result::where('quiz_id', $quiz_id)->get();
+
+        // return view('users.MyResults', compact('questions', 'quiz', 'userAnswers', 'results'));
+        return view('users.MyResults', compact('quiz','userId'));
     }
     
+    public function deleteQuiz($id)
+    {
+        $quiz = Quize::find($id);
+        $quiz->delete();
+        return redirect()->back()->with('success', 'Quize Deleted Successfully');
+    }
 
 }
