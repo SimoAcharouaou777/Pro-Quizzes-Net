@@ -63,7 +63,7 @@
                                     <div class="d-flex px-2 py-1">
                                         <div>
                                             @if($user->hasRole('student'))
-                                            @if($user->students->hasMedia('media/students'))
+                                            @if($user->students && $user->students->hasMedia('media/students'))
                                             <a href="{{ route('showParticipantResults', ['user_id' => $user->id, 'quiz_id' => $quiz->id]) }}">
                                                 <img src="{{$user->students->getFirstMediaUrl('media/students')}}" class="avatar avatar-sm me-3" alt="" style="width: 50px; height: 50px; border-radius: 50%">
                                                 </a>
