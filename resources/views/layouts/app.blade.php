@@ -50,13 +50,6 @@
             <li><a class="nav-link scrollto" href="{{route('MyClassQuizzes')}}">My Class Quizzes</a></li>
             @endif
             <li><a class="nav-link scrollto" href="{{route('companyQuizzes')}}">Company Quizzes</a></li>
-            <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
-              <ul>
-                @foreach($categories as $category)
-                <li><a href="#">{{$category->name}}</a></li>
-                @endforeach
-              </ul>
-            </li>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             <div class="mx-auto">
             @if (auth()->check())
