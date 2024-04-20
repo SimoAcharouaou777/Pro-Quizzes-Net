@@ -28,13 +28,17 @@
         <div class="row gy-4 posts-list">
         @if(isset($message))
             <p>{{ $message }}</p>
-        @else
-        @if($quizzes->count() == 0)
+        @elseif($student->classes->isEmpty())
+        <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">No Classes Available</h4>
+          <p>You are not enrolled in any classes. Please contact your teacher to enroll in a class.</p>
+        </div>
+        @elseif($quizzes->count() == 0)
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">No Quizzes Available</h4>
             <p>There are no quizzes available at the moment. Please check back later.</p>
         </div>
-        @endif
+        @else
           @foreach($quizzes as $quize)
           <div class="col-xl-4 col-lg-6">
             <article>
