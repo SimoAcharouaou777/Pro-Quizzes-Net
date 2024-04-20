@@ -106,8 +106,15 @@
                                    <img src="{{asset('assets/img/clients/profile.jpg')}}" alt="user" class="" />
                                 @endif
                             <span
-                                    class="hidden-md-down">{{$student->username}} &nbsp;</span> </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+                                class="hidden-md-down">{{$student->username}} &nbsp;</span> </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                                </a>
+                                <form id="logout-form" action="{{route('logout')}}" method="GET" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -133,9 +140,6 @@
                         </li>
                         <li> <a class="waves-effect waves-dark" href="{{route('usersettings.index')}}" aria-expanded="false"><i
                                     class="fa fa-table"></i><span class="hide-menu">Settings</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
-                                    class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="{{route('studentClass')}}" aria-expanded="false"><i
                                     class="fa fa-globe"></i><span class="hide-menu">My Class</span></a>
