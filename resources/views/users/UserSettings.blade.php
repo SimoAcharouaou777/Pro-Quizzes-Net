@@ -155,9 +155,11 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('usersettings.index')}}" aria-expanded="false"><i
                                     class="fa fa-table"></i><span class="hide-menu">Settings</span></a>
                         </li>
+                        @if($user->hasRole('teacher') || $user->hasRole('representative'))
                         <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
                                     class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
+                        @endif
                         <li> 
                             @if(Auth::user()->hasRole('teacher'))
                             <a class="waves-effect waves-dark" href="{{route('teacherClass')}}" aria-expanded="false"><i
