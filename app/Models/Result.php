@@ -11,5 +11,5 @@ class Result extends Model
     
     protected $fillable = ['user_id', 'quiz_id', 'question_id', 'answer_id', 'selected'];
     
-
+    
 }
