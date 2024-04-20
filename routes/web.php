@@ -51,7 +51,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
 // handle user authentication
 Route::post('store', [AuthController::class, 'store'])->name('store');
-Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole')->middleware('auth');
+Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
 Route::get('/assign-role/{role}', [AuthController::class, 'assignRole'])->name('assignRole');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 // hande Company Registration
