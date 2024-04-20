@@ -1,6 +1,4 @@
-@php
- use App\Models\Result;
-@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,14 +87,14 @@
 <body>
     <div class="card">
         <div class="title">{{ $quiz->title }}</div>
-        @foreach($questions as $question)
+        @foreach($quiz->questions as $question)
             <div class="question">
                 <div class="question-text">Question: {{ $question->question }}</div>
             @if($quiz->quiz_type == 'multiple_choice')
                 @foreach($question->answers as $answer)
                     <div class="answer-card">
                         <div class="answer-text">{{ $answer->response }}</div>
-                        @if($userAnswers[$question->id] == $answer->id)
+                        @if($question->results()->where('user_id',$userId)->first()->answer_id == $answer->id)
                             @if($answer->status == 'true')
                                 <div class="status correct">Your Answer (Correct)</div>
                             @else
@@ -109,10 +107,14 @@
                 @endforeach
             @elseif($quiz->quiz_type == 'true_false')  
                 @php
-                    $userAnswer = Result::where('user_id', auth()->id())
-                        ->where('question_id', $question->id)
-                        ->first();
+                    // $userAnswer = Result::where('user_id', auth()->id())
+                    //     ->where('question_id', $question->id)
+                    //     ->where('quiz_id', $quiz->id )
+                    //     ->first();
+                    $userAnswer = $question->results()->where('user_id',$userId)->first();
+                    
                     $correctAnswer = $question->answers->first()->response;
+                    // echo "<script>alert('".session('user_id')."')</script>";
                 @endphp
 
 
