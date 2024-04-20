@@ -91,6 +91,7 @@ Route::get('/QuizTake/{id}', [QuizeTakeController::class, 'take'])->name('QuizTa
 Route::post('/QuizSubmit/{id}', [QuizeTakeController::class, 'QuizSubmit'])->name('QuizSubmit');
 Route::get('/MyQuizzes', [QuizeTakeController::class, 'showMyQuizzes'])->name('MyQuizzes');
 Route::get('/MyResults/{id}', [QuizeTakeController::class, 'showMyResults'])->name('showMyResults');
+Route::delete('/DeleteQuize/{id}', [QuizeTakeController::class, 'deleteQuiz'])->name('DeleteQuize');
 // Company Quizzes
 Route::get('/companyQuizzes', [CompanyQuizzesController::class, 'index'])->name('companyQuizzes');
 Route::get('/showRepresentativeParticipants\{id}', [CompanyQuizzesController::class, 'showparticipants'])->name('showRepresentativeParticipants');
@@ -99,3 +100,4 @@ Route::get('/showParticipantResults/{user_id}/{quiz_id}', [QuizeTakeController::
 
 //search
 Route::get('/Searchquize/{search}/{filter}', [HomeController::class, 'search'])->name('search');
+Route::get('/getChartStatics', [UserDashboardController::class, 'getChartStatics'])->name('getChartStatics');
