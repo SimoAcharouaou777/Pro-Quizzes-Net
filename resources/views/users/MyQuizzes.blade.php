@@ -199,11 +199,18 @@
                 <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                     <div class="row gy-4 posts-list">
+                    
                       @if($quizzes->isEmpty())
+                      @if($unpublishedQuizzes->isNotEmpty())
+                        <div class="d-flex justify-content-center align-items-center" style="height: 200px; background-color: #e0f7fa;">
+                            <h1>You Have quizzes waiting for admin approval.</h1>
+                        </div>
+                    @else
                       <div class="d-flex justify-content-center align-items-center" style="height: 200px; background-color: #e0f7fa;">
                         <h1>No Quizzes Yet</h1>
                     </div>
-                      @else
+                    @endif
+                    @else
                       @foreach($quizzes as $quize)
                         <div class="col-xl-4 col-lg-6">
                             <article>
