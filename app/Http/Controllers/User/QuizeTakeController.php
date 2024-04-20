@@ -96,12 +96,13 @@ class QuizeTakeController extends Controller
         $representative = representative::where('user_id', $user->id)->first();
         $userid = auth()->id();
         if($user->hasRole('teacher') || $user->hasRole('representative')){
-            $quizzes = Quize::where('user_id', $userid)->get();
+            $quizzes = Quize::where('user_id', $userid)->where('status', 'published')->get();
         }else{
             $quizids = Result::where('user_id', $userid)->distinct('quiz_id')->pluck('quiz_id');
-            $quizzes = Quize::whereIn('id', $quizids)->get();
+            $quizzes = Quize::whereIn('id', $quizids)->where('status', 'published')->get();
         }
-        return view('users.MyQuizzes', compact('quizzes', 'user', 'student', 'representative'));
+        $unpublishedQuizzes = Quize::where('user_id', $userid)->where('status', 'draft')->get();
+        return view('users.MyQuizzes', compact('quizzes', 'user', 'student', 'representative','unpublishedQuizzes'));
     }
 
     public function showMyResults($id){
