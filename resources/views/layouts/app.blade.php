@@ -90,6 +90,8 @@
                   <li>
                     @if(Auth::user()->hasRole('admin'))
                     <a class="dropdown-item" href="{{route('admin.index')}}">Dashboard</a>
+                    @elseif(Auth::user()->hasRole('student','user'))
+                    <a class="dropdown-item" href="{{route('userprofile.index')}}">Dashboard</a>
                     @else
                     <a class="dropdown-item" href="{{route('userdashboard.index')}}">Dashboard</a>
                     @endif
