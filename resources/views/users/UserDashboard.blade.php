@@ -220,13 +220,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4 no-block">
-                                    <h5 class="card-title mb-0 align-self-center">Our Visitors</h5>
+                                    <h5 class="card-title mb-0 align-self-center">Quiz Statistiques</h5>
                                 </div>
                                 <div id="visitor" style="height:260px; width:100%;"></div>
                                 <ul class="list-inline mt-4 text-center font-12">
-                                    <li><i class="fa fa-circle text-purple"></i> Tablet</li>
-                                    <li><i class="fa fa-circle text-success"></i> Desktops</li>
-                                    <li><i class="fa fa-circle text-info"></i> Mobile</li>
+                                    <li><i class="fa fa-circle text-success"></i> Number Of created Quizzes</li>
+                                    <li><i class="fa fa-circle text-info"></i> Number Of participants</li>
                                 </ul>
                             </div>
                         </div>
@@ -280,6 +279,7 @@
                     </div>
                     <!-- Column -->
                     <!-- Column -->
+                @if($mostParticipatedQuiz != null)
                     <div class="col-lg-4 d-flex align-items-stretch">
                         <div class="card w-100">
                             @if($mostParticipatedQuiz->hasMedia('media/quizzes'))
@@ -295,6 +295,16 @@
                             </div>
                         </div>
                     </div>
+                @else
+                    <div class="col-lg-4 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h5 class=" card-title">No Quizze Yet</h5>
+                                <p class="mb-0 mt-3">You have not created any quiz yet</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Projects of the Month -->
