@@ -121,6 +121,7 @@
    function search() {
     var valueInput = document.getElementById('search').value;
     var categoryFilter = document.getElementById('categoryFilter').value;
+    console.log(categoryFilter);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -128,7 +129,7 @@
       }
     };
     if (valueInput == '') {
-      var url = '/Searchquize/AllquizeSearch/all';
+      var url = '/Searchquize/AllquizeSearch/'+ categoryFilter;
     } else {
       var url = '/Searchquize/' + valueInput + '/' + categoryFilter;
     }
@@ -138,23 +139,6 @@
   search();
 
 
-function filter() {
-    var valueInput = document.getElementById('categoryFilter').value;  
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("eventsContainer").innerHTML = xhttp.responseText;
-        }
-    };
-    if (valueInput == 'all') {
-        var url = '/FilterEvent/AllEventFilter';
-    } else {
-        var url = '/FilterEvent/' + valueInput;
-    }
-
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
 </script>
 
 @endsection
