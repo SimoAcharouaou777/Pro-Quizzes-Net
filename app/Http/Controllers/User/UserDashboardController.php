@@ -19,6 +19,7 @@ class UserDashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+        
         $student = Student::where('user_id', $user->id)->first();
         $representative = representative::where('user_id', $user->id)->first();
         $quizzes = Quize::where('user_id', $user->id)->get();
