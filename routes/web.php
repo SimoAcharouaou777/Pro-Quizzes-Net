@@ -43,12 +43,12 @@ Route::get('/userprofile',function(){
 
 
 // home route
-Route::get('/home',[HomeController::class, 'index'])->name('home');
+Route::get('/home',[HomeController::class, 'index'])->name('home')->middleware('auth');
 // handle view for user registration
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('guest');
+Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister')->middleware('guest');
 // handle user authentication
 Route::post('store', [AuthController::class, 'store'])->name('store');
 Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
