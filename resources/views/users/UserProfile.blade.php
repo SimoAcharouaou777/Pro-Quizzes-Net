@@ -146,9 +146,11 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                        @if($user->hasRole('teacher') || $user->hasRole('representative'))
                         <li> <a class="waves-effect waves-dark" href="{{route('userdashboard.index')}}" aria-expanded="false"><i
                                     class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
+                        @endif
                         <li> <a class="waves-effect waves-dark" href="{{route('userprofile.index')}}" aria-expanded="false"><i
                                     class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
                         </li>
