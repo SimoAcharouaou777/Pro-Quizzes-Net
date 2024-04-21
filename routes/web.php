@@ -69,7 +69,7 @@ Route::get('quizevalidate', [ValidateQuizeController::class, 'index'])->name('qu
 Route::put('/publishQuize/{id}', [ValidateQuizeController::class, 'publishQuize'])->name('publishQuize')->middleware('role:admin');
 Route::put('/unpublishQuize/{id}', [ValidateQuizeController::class, 'unpublishQuize'])->name('unpublishQuize')->middleware('role:admin');
 // user dashboard
-Route::resource('userdashboard', UserDashboardController::class);
+Route::resource('userdashboard', UserDashboardController::class)->middleware('role:teacher,representative');
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('usersettings', UserSettingsController::class);
 Route::resource('userquizzes',QuizzeController::class);
