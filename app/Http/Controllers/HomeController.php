@@ -34,38 +34,47 @@ class HomeController extends Controller
         public function search($search, $filter)
         {
             if ($search == "AllquizeSearch" && $filter == "all") {
-                $quizzes = Quize::where('status', 'published')
-                    ->whereDoesntHave('user', function($query){
-                        $query->where('role', 'representative');
-                    })
+                $quizzes = Quize::whereHas('user', function($query){
+                    $query->whereDoesntHave('roles', function($query){
+                        $query->where('name', 'representative');
+                    });
+                })->where('status', 'published')
+                    
                     ->whereDoesntHave('classes')
                     ->get();
             } else if($search != "AllquizeSearch" && $filter == "all") {
-                $quizzes = Quize::where('title', 'like', '%'.$search.'%')
+                $quizzes = Quize::whereHas('user', function($query){
+                    $query->whereDoesntHave('roles', function($query){
+                        $query->where('name', 'representative');
+                    });
+                })->where('title', 'like', '%'.$search.'%')
                     ->where('status', 'published')
-                    ->whereDoesntHave('user', function($query){
-                        $query->where('role', 'representative');
-                    })
+
                     ->whereDoesntHave('classes')
                     ->get();
             } else if($search == "AllquizeSearch" && $filter != "all") {
-                $quizzes = Quize::where('category_id', $filter)
+                $quizzes = Quize::whereHas('user', function($query){
+                    $query->whereDoesntHave('roles', function($query){
+                        $query->where('name', 'representative');
+                    });
+                })->where('category_id', $filter)
                     ->where('status', 'published')
-                    ->whereDoesntHave('user', function($query){
-                        $query->where('role', 'representative');
-                    })
+               
                     ->whereDoesntHave('classes')
                     ->get();
             } else {
-                $quizzes = Quize::where('title', 'like', '%'.$search.'%')
+                $quizzes = Quize::whereHas('user', function($query){
+                    $query->whereDoesntHave('roles', function($query){
+                        $query->where('name', 'representative');
+                    });
+                })->where('title', 'like', '%'.$search.'%')
                     ->where('category_id', $filter)
                     ->where('status', 'published')
-                    ->whereDoesntHave('user', function($query){
-                        $query->where('role', 'representative');
-                    })
+                    
                     ->whereDoesntHave('classes')
                     ->get();
             }
+            
 
             return view('search-result' , compact('quizzes'));
         }
