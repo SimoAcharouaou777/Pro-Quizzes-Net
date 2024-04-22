@@ -72,7 +72,7 @@ Route::put('/unpublishQuize/{id}', [ValidateQuizeController::class, 'unpublishQu
 Route::resource('userdashboard', UserDashboardController::class)->middleware('role:teacher,representative');
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('usersettings', UserSettingsController::class);
-Route::resource('userquizzes',QuizzeController::class)->middleware('role:teacher,representative');
+Route::resource('userquizzes',QuizzeController::class);
 Route::get('/showParticipants\{id}', [UserDashboardController::class, 'showUserParticipant'])->name('showUserParticipants');
 Route::get('/showMyQuizzesParticipant', [UserDashboardController::class, 'showMyQuizzesParticipant'])->name('showMyQuizzesParticipant');
 // teacher controller
