@@ -22,6 +22,15 @@ class QuizeTakeController extends Controller
     if(auth()->id() == $quiz->user_id){
         return redirect()->back()->with('error', 'You can not take your own quiz.');
     }
+    $hasTaken = Result::where('user_id', auth()->id())
+        ->where('quiz_id',$quiz->id)
+        ->exists();
+    if($hasTaken){
+        return redirect()->back()->with('error', 'You have already taken this quiz.');
+    }
+    if(auth()->user()->hasRole('admin')){
+        return redirect()->back()->with('error', 'Admin can not take quiz.');
+    }
     if($quiz->user->hasRole('representative')){
         $currentTime = Carbon::now('Africa/Casablanca');
     $startTime = new Carbon($quiz->start_time, 'Africa/Casablanca');
@@ -137,6 +146,9 @@ class QuizeTakeController extends Controller
     public function deleteQuiz($id)
     {
         $quiz = Quize::find($id);
+        if(auth()->id() != $quiz->user_id){
+            return redirect()->back()->with('error', 'You can not delete this quiz.');
+        }
         $quiz->delete();
         return redirect()->back()->with('success', 'Quize Deleted Successfully');
     }
