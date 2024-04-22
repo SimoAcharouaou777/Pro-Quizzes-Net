@@ -72,6 +72,9 @@ class TeacherController extends Controller
     public function updateClass(Request $request, $id)
     {
         $class = MyClass::find($id);
+        if(auth()->id() != $class->teacher_id){
+            return redirect()->back()->with('error', 'You can not update this class.');
+        }
         $request->validate([
             'name' => 'sometimes|required',
             'level' => 'sometimes|required',
@@ -103,6 +106,9 @@ class TeacherController extends Controller
         
         public function deleteClass($id){
             $class = MyClass::find($id);
+            if(auth()->id() != $class->teacher_id){
+                return redirect()->back()->with('error', 'You can not delete this class.');
+            }
             $class->delete();
             return redirect()->back()->with('success', 'Class deleted successfully');
         }
