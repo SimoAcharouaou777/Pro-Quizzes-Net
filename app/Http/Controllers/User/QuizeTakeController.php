@@ -19,6 +19,9 @@ class QuizeTakeController extends Controller
     public function take($id)
 {
     $quiz = Quize::find($id);
+    if(auth()->id() == $quiz->user_id){
+        return redirect()->back()->with('error', 'You can not take your own quiz.');
+    }
     if($quiz->user->hasRole('representative')){
         $currentTime = Carbon::now('Africa/Casablanca');
     $startTime = new Carbon($quiz->start_time, 'Africa/Casablanca');
