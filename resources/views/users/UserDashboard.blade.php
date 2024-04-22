@@ -216,7 +216,7 @@
 
                     
                     <!-- Column -->
-                    <div class="col-lg-4">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4 no-block">
@@ -252,7 +252,14 @@
                                         <thead>
                                             <tr>
                                                 <th colspan="2">Quizze</th>
+                                                @if($user->hasRole('representative'))
+                                                <th>Started At</th>
+                                                @else
                                                 <th>Created At</th>
+                                                @endif
+                                                @if($user->hasRole('representative'))
+                                                <th>Ended At</th>
+                                                @endif
                                                 <th>Number of Participant</th>
                                             </tr>
                                         </thead>
@@ -267,7 +274,14 @@
                                                 <td>
                                                     <h6>{{$quiz->title}}</h6><small class="text-muted">{{$quiz->quiz_type}}</small>
                                                 </td>
+                                                @if($user->hasRole('representative'))
+                                                <td>{{$quiz->start_time}}</td>
+                                                @else
                                                 <td>{{$quiz->created_at->format('M d, Y')}}</td>
+                                                @endif
+                                                @if($user->hasRole('representative'))
+                                                <td>{{$quiz->end_time}}</td>
+                                                @endif
                                                 <td>{{$participants}}</td>
                                             </tr>
                                             @endforeach
@@ -314,7 +328,7 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <!-- Start Notification -->
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-12">
                         <div class="card card-body mailbox">
                             <h5 class="card-title">Notification</h5>
                             <div class="message-center" style="height: 420px !important;">
@@ -371,43 +385,6 @@
                     </div>
                     <!-- End Notification -->
                     <!-- Start Feeds -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Feeds</h5>
-                                <ul class="feeds">
-                                    <li>
-                                        <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have 4 pending
-                                        tasks. <span class="text-muted">Just Now</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-success"><i class="fa fa-server"></i></div> Server #1
-                                        overloaded.<span class="text-muted">2 Hours ago</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-warning"><i class="fa fa-shopping-cart"></i></div> New
-                                        order received.<span class="text-muted">31 May</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-danger"><i class="fa fa-user"></i></div> New user
-                                        registered.<span class="text-muted">30 May</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-inverse"><i class="fa fa-bell-o"></i></div> New Version
-                                        just arrived. <span class="text-muted">27 May</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have 4 pending
-                                        tasks. <span class="text-muted">Just Now</span>
-                                    </li>
-                                    <li>
-                                        <div class="bg-light-danger"><i class="fa fa-user"></i></div> New user
-                                        registered.<span class="text-muted">30 May</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <!-- End Feeds -->
                 </div>
                 <!-- ============================================================== -->

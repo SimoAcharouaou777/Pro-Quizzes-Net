@@ -152,7 +152,7 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('usersettings.index')}}" aria-expanded="false"><i
                                     class="fa fa-table"></i><span class="hide-menu">Settings</span></a>
                         </li>
-                        @if($user->hasRole('teacher') || $user->hasRole('representative') )
+                        @if($user->hasRole('teacher') || $user->hasRole('representative') || $user->hasRole('user'))
                         <li> <a class="waves-effect waves-dark" href="{{route('userquizzes.index')}}" aria-expanded="false"><i
                                     class="fa fa-smile-o"></i><span class="hide-menu">Quizzes</span></a>
                         </li>
@@ -169,6 +169,12 @@
                         <li> <a class="waves-effect waves-dark" href="{{route('MyQuizzes')}}" aria-expanded="false"><i
                                     class="fa fa-bookmark-o"></i><span class="hide-menu">My Quizzes</span></a>
                         </li>
+                        @if(Auth::user()->hasRole('user'))
+                        <li>
+                            <a class="waves-effect waves-dark" href="" aria-expanded="false"><i
+                                class="fa fa-check"></i><span class="hide-menu">My Participated Quizzes</span></a>
+                        </li>
+                        @endif
                     </ul>
 
                 </nav>
@@ -226,6 +232,10 @@
                                     </a>
                                     @elseif($user->hasRole('representative'))
                                     <a href="{{ route('showRepresentativeParticipants', $quize->id) }}">
+                                        <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
+                                    </a>
+                                    @elseif($user->hasRole('user'))
+                                    <a href="{{ route('showUserParticipants', $quize->id) }}">
                                         <img src="{{$quize->getFirstMediaUrl('media/quizzes')}}" alt="" class="img-fluid">
                                     </a>
                                     @else

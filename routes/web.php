@@ -45,10 +45,10 @@ Route::get('/userprofile',function(){
 // home route
 Route::get('/home',[HomeController::class, 'index'])->name('home')->middleware('auth');
 // handle view for user registration
-Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
-Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('guest');
-Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister')->middleware('guest');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/CompanyRegister', [AuthController::class, 'CompanyRegister'])->name('CompanyRegister');
 // handle user authentication
 Route::post('store', [AuthController::class, 'store'])->name('store');
 Route::get('UserRole', [AuthController::class, 'UserRole'])->name('UserRole');
@@ -72,7 +72,9 @@ Route::put('/unpublishQuize/{id}', [ValidateQuizeController::class, 'unpublishQu
 Route::resource('userdashboard', UserDashboardController::class)->middleware('role:teacher,representative');
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('usersettings', UserSettingsController::class);
-Route::resource('userquizzes',QuizzeController::class);
+Route::resource('userquizzes',QuizzeController::class)->middleware('role:teacher,representative');
+Route::get('/showParticipants\{id}', [UserDashboardController::class, 'showUserParticipant'])->name('showUserParticipants');
+Route::get('/showMyQuizzesParticipant', [UserDashboardController::class, 'showMyQuizzesParticipant'])->name('showMyQuizzesParticipant');
 // teacher controller
 Route::post('/addClass',[TeacherController::class, 'addClass'])->name('addClass')->middleware('role:teacher');
 Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherClass')->middleware('role:teacher');
