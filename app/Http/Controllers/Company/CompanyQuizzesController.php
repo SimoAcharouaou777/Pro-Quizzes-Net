@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Quize;
 use App\Models\representative;
 use App\Models\Student;
+use App\Models\User;
+use App\Models\Result;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,5 +31,14 @@ class CompanyQuizzesController extends Controller
         ->get();
     
         return view('Company.CompanyQuizzes', compact('quizzes', 'categories','student','representative','user'));
+    }
+
+    public function showparticipants($id){
+        $quiz = Quize::find($id);
+        $user_ids = Result::where('quiz_id', $id)->pluck('user_id');
+        $users = User::whereIn('id', $user_ids)->get();
+        $numberofparticipant =Result::where('quiz_id', $quiz->id)->distinct('user_id')->count('user_id');
+        return view('
+        Company.CompanyQuizPartisipant', compact('users', 'quiz', 'numberofparticipant'));
     }
 }
