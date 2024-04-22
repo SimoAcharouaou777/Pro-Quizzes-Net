@@ -9,6 +9,7 @@ use App\Models\Quize;
 use App\Models\representative;
 use App\Models\Student;
 use App\Models\Result;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
@@ -136,4 +137,5 @@ class UserDashboardController extends Controller
     {
         //
     }
+
 }
