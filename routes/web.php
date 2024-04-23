@@ -81,7 +81,7 @@ Route::get('/teacherClass', [TeacherController::class, 'index'])->name('teacherC
 Route::get('/classDetials\{id}', [TeacherController::class, 'showDetails'])->name('classDetials')->middleware('role:teacher');
 Route::put('/updateClass/{id}', [TeacherController::class, 'updateClass'])->name('updateClass')->middleware('role:teacher');
 Route::delete('/deleteClass\{id}', [TeacherController::class, 'deleteClass'])->name('deleteClass')->middleware('role:teacher');
-Route::delete('/deleteStudent\{id}', [TeacherController::class, 'deleteStudent'])->name('deleteStudent')->middleware('role:teacher');
+Route::put('/BanStudent\{id}', [TeacherController::class, 'banuser'])->name('BanStudent')->middleware('role:teacher');
 Route::get('/showTeacherParticipants\{id}', [TeacherController::class, 'showparticipants'])->name('showTeacherParticipants')->middleware('role:teacher');
 // student controller
 Route::get('/studentClass', [StudentController::class, 'index'])->name('studentClass')->middleware('role:student');
