@@ -26,6 +26,9 @@ class StudentController extends Controller
         $class = MyClass::where('class_code', $request->input('pass_code'))->first();
         if($class){
             $student = auth()->user()->students;
+            if($class->students()->count() >= $class->learners){
+                return redirect()->back()->with('error', 'Class is full');
+            }
             $class->students()->attach($student);
             return redirect()->back()->with('success', 'You have successfully joined the class');
         }else{
@@ -38,7 +41,11 @@ class StudentController extends Controller
         $user = Auth::user();
         $students = $class->students;
         $student = Student::where('user_id', $user->id)->first();
+        if($student->status == 'banned'){
+            return redirect()->back()->with('error', 'You are banned from this class');
+        }else{
         return view('users.student.StudentClassDetails', compact('class',  'students','student'));
+        }
     }   
 
    
