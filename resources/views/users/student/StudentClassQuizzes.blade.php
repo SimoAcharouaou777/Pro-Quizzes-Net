@@ -4,7 +4,7 @@
 
 
   <main id="main">
-
+    
     <!-- Blog Page Title & Breadcrumbs -->
     <div data-aos="fade" class="page-title">
       <div class="heading">
@@ -18,11 +18,19 @@
         </div>
       </div>
 
-    </div><!-- End Page Title -->
+    </div>
 
-    <!-- Blog Section - Blog Page -->
     <section id="blog" class="blog">
-
+      @if(session('success'))
+    <div class="alert alert-success">
+        {{session('success')}}
+    </div>
+    @endif
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{session('error')}}
+    </div>
+    @endif
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         
         <div class="row gy-4 posts-list">
