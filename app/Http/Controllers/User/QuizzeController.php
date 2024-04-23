@@ -20,6 +20,9 @@ class QuizzeController extends Controller
     public function index()
     {
         $user = auth()->user();
+        if($user->hasRole('admin')){
+            return redirect()->back()->with('error', 'You are not authorized to view this page.');
+        }
         $student = Student::where('user_id', $user->id)->first();
         $representative = representative::where('user_id', $user->id)->first();
         $categories = Category::all();
@@ -131,6 +134,9 @@ class QuizzeController extends Controller
         $answers = Answer::all();
         $categories = Category::all();
         $user = auth()->user();
+        if($user->hasRole('admin')){
+            return redirect()->back()->with('error', 'you are not allowed to see this page');
+        }
         $representative = representative::where('user_id', $user->id)->first();
         $student = Student::where('user_id', $user->id)->first();
         if($student->status == "banned"){
