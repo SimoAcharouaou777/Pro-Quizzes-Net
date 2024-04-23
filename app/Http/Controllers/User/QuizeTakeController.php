@@ -31,6 +31,12 @@ class QuizeTakeController extends Controller
     if(auth()->user()->hasRole('admin')){
         return redirect()->back()->with('error', 'Admin can not take quiz.');
     }
+    if(auth()->user()->hasRole('student')){
+        $student = Student::where('user_id', auth()->id())->first();
+        if($student->status == 'banned'){
+            return redirect()->back()->with('error', 'You are banned from this quiz.');
+        }
+    }
     if($quiz->user->hasRole('representative')){
         $currentTime = Carbon::now('Africa/Casablanca');
     $startTime = new Carbon($quiz->start_time, 'Africa/Casablanca');
