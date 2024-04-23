@@ -99,7 +99,7 @@
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href=""
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if($user->hasRole('student'))
+                                @if($user->hasRole('student') && $student)
                                 @if($student->hasMedia('media/students'))
                                  <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
                                  @else
@@ -219,7 +219,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <center class="mt-4">
-                            @if($user->hasRole('student'))
+                            @if($user->hasRole('student') && $student)
                                @if($student->hasMedia('media/students'))
                                 <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
                                 @else
@@ -297,7 +297,7 @@
                                                 class="form-control form-control-line">
                                         </div>
                                     </div>
-                                    @if($user->hasRole('student'))
+                                    @if($user->hasRole('student') && $student)
                                     <div class="form-group">
                                         <label class="col-md-12">Student ID</label>
                                         <div class="col-md-12">
