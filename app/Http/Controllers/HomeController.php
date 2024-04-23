@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $user = auth()->user();
         $student = Student::where('user_id', $user->id)->first();
-        $representative = representative::where('user_id', $user->id)->first();
+        $representative = Representative::where('user_id', $user->id)->first();
         $categories = Category::all();
         $quizzes = Quize::where('status', 'published')
         ->whereDoesntHave('user', function($query){
