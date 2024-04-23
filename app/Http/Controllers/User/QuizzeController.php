@@ -133,7 +133,11 @@ class QuizzeController extends Controller
         $user = auth()->user();
         $representative = representative::where('user_id', $user->id)->first();
         $student = Student::where('user_id', $user->id)->first();
+        if($student->status == "banned"){
+            return redirect()->back()->with('error', 'You are banned from this class');
+        }else{
         return view('users.UserQuizDetails', compact('quiz', 'questions', 'answers','categories', 'user', 'student','representative'));
+        }
     }
 
     /**
