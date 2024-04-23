@@ -63,24 +63,21 @@ class TeacherController extends Controller
         return view('users.teacher.ClassDetails', compact('class', 'user', 'students'));
     }
 
-    public function deleteStudent($id){
+    public function banuser($id){
         $student = Student::find($id);
-        $student->delete();
-        return redirect()->back()->with('success', 'Student deleted successfully');
+        $status = "banned";
+        $student->status = $status;
+        $student->save();
+        return redirect()->back()->with('success', 'Student banned successfully');
     }
 
     public function updateClass(Request $request, $id)
     {
         $class = MyClass::find($id);
-        if(auth()->id() != $class->teacher_id){
+        
+        if(auth()->user()->hasRole('teacher') && auth()->user()->teacher->id != $class->teacher_id){
             return redirect()->back()->with('error', 'You can not update this class.');
         }
-        $request->validate([
-            'name' => 'sometimes|required',
-            'level' => 'sometimes|required',
-            'learners' => 'sometimes|required',
-            'campus' => 'sometimes|required',
-        ]);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             if ($image->isValid()) {
@@ -96,12 +93,16 @@ class TeacherController extends Controller
             $class->level = $request->input('level');
         }
         if($request->has('learners')){
+            if($request->input('learners') < $class->learners){
+                return redirect()->back()->with('error', 'You can not reduce the number of learners');
+            }
             $class->learners = $request->input('learners');
         }
         if($request->has('campus')){
             $class->campus = $request->input('campus');
         }
-        $class->update();
+        $class->update($request->all());
+        return redirect()->back()->with('success', 'Class updated successfully');
         }
         
         public function deleteClass($id){
