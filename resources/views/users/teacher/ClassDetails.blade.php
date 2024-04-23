@@ -185,7 +185,15 @@
                 <!-- Start Page Content -->
                 
                 <!-- Row -->
-
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <!-- Left column for class info -->
@@ -240,10 +248,14 @@
                                             <p class="mb-0 text-muted">{{$student->email}}</p>
                                         </div>
                                         <div class="ms-auto">
-                                            <form action="{{route('deleteStudent', $student->id)}}" method="POST">
+                                            <form action="{{route('BanStudent', $student->id)}}" method="POST">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                @method('PUT')
+                                            @if($student->status == 'banned')
+                                                <button type="submit" class="btn btn-success btn-sm">Unban </button>
+                                            @else
+                                                <button type="submit" class="btn btn-danger btn-sm">Ban </button>
+                                            @endif
                                             </form>
                                         </div>
                                     </div>
@@ -277,7 +289,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="className">Class Name</label>
-              <input type="text" class="form-control" id="className" name="name">
+              <input type="text" class="form-control" id="className" name="name" value="{{$class->name}}">
             </div>
             <div class="form-group">
               <label for="classImage">Class Image</label>
@@ -285,15 +297,15 @@
             </div>
             <div class="form-group">
               <label for="classUsers">Number of Users</label>
-              <input type="number" class="form-control" id="classUsers" name="learners">
+              <input type="number" class="form-control" id="classUsers" name="learners" value="{{$class->learners}}">
             </div>
             <div class="form-group">
               <label for="classLevel">Level</label>
-              <input type="text" class="form-control" id="classLevel" name="level">
+              <input type="text" class="form-control" id="classLevel" name="level" value="{{$class->level}}">
             </div>
             <div class="form-group">
               <label for="classCampus">Campus</label>
-              <input type="text" class="form-control" id="classCampus" name="campus">
+              <input type="text" class="form-control" id="classCampus" name="campus" value="{{$class->campus}}">
             </div>
           </div>
           <div class="modal-footer">
