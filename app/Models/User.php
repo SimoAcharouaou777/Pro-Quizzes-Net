@@ -82,5 +82,12 @@ class User extends Authenticatable implements HasMedia
         return $this->hasOne(Student::class);
     }
 
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    
+
 
 }
