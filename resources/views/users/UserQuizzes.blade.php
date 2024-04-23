@@ -251,6 +251,7 @@
                                     <option value="{{$class->id}}">{{$class->name}}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">If you don't select a class ,the quiz will be public.</small>
                         </div>
                         @endif
                         @endif
