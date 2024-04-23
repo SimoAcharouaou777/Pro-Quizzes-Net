@@ -53,7 +53,9 @@ class StudentController extends Controller
     {
         $categories = Category::all();
         $user = auth()->user();
-
+        if($user->hasRole('admin')){
+            return redirect()->back()->with('error', 'You are not authorized to view this page.');
+        }
         if ($user->hasRole('student')) {
             $student = Student::where('user_id', $user->id)->first();
             $classes = $student->classes; 
