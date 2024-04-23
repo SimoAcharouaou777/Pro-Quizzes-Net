@@ -25,23 +25,14 @@ class UserDashboardController extends Controller
         $representative = representative::where('user_id', $user->id)->first();
         $quizzes = Quize::where('user_id', $user->id)->get();
         $participants = Result::whereIn('quiz_id', $quizzes->pluck('id'))->distinct('user_id')->count('user_id');
-     
-        $mostParticipatedQuizIdResult = Result::select('quiz_id')
-            ->where('user_id', $user->id)
-            ->groupBy('quiz_id')
-            ->selectRaw('COUNT(user_id) as count')
-            ->orderBy('count', 'desc')
-            ->first();
-
-        $mostParticipatedQuiz = null;
-
-        if ($mostParticipatedQuizIdResult) {
-            $mostParticipatedQuizId = $mostParticipatedQuizIdResult->quiz_id;
-            $mostParticipatedQuiz = Quize::find($mostParticipatedQuizId);
-        }
+        $lastParticipant = Result::whereIn('quiz_id', $quizzes->pluck('id'))->with('user','quiz')->latest()->get()->unique(function($item){
+            return $item['user_id'].$item['quiz_id'];
+        })
+        ->values()->take(6);
 
 
-        return view('users.UserDashboard', compact('user', 'student','representative', 'quizzes', 'participants', 'mostParticipatedQuiz'));
+
+        return view('users.UserDashboard', compact('user', 'student','representative', 'quizzes', 'participants','lastParticipant'));
     }
 
     /**
