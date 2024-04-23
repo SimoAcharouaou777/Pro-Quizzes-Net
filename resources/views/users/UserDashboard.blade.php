@@ -239,7 +239,7 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <!-- Column -->
-                    <div class="col-lg-8 d-flex align-items-stretch">
+                    <div class="col-12 ">
                         <div class="card w-100">
                             <div class="card-body">
                                 <div class="d-flex">
@@ -293,32 +293,6 @@
                     </div>
                     <!-- Column -->
                     <!-- Column -->
-                @if($mostParticipatedQuiz != null)
-                    <div class="col-lg-4 d-flex align-items-stretch">
-                        <div class="card w-100">
-                            @if($mostParticipatedQuiz->hasMedia('media/quizzes'))
-                            <div  class="card-img-top" >
-                                <img src="{{ $mostParticipatedQuiz->getFirstMedia('media/quizzes')->getUrl() }}" alt="Quiz Image" style="width: 100%; height:200px; object-fit: cover;">
-                            </div>
-                            @endif
-                            
-                            <div class="card-body">
-                                <h5 class=" card-title">{{$mostParticipatedQuiz->title}}</h5>
-                                <span class="label label-info label-rounded">{{$mostParticipatedQuiz->category->name}}</span>
-                                <p class="mb-0 mt-3">{{$mostParticipatedQuiz->description}}</p>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="col-lg-4 d-flex align-items-stretch">
-                        <div class="card w-100">
-                            <div class="card-body">
-                                <h5 class=" card-title">No Quizze Yet</h5>
-                                <p class="mb-0 mt-3">You have not created any quiz yet</p>
-                            </div>
-                        </div>
-                    </div>
-                @endif
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Projects of the Month -->
@@ -330,80 +304,27 @@
                     <!-- Start Notification -->
                     <div class="col-12">
                         <div class="card card-body mailbox">
-                            <h5 class="card-title">Notification</h5>
+                            <h5 class="card-title">Last Participated Users</h5>
                             <div class="message-center" style="height: 420px !important;">
-                                <!-- Message -->
+                                @foreach($lastParticipant as $participant)
                                 <a href="#">
-                                    <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                    @if($participant->user->hasMedia('media/users'))
+                                        <img src="{{$participant->user->getFirstMediaUrl('media/users')}}" alt="user image" class="img-circle" width="50">
+                                    @elseif($participant->user->students->hasMedia('media/students'))
+                                        <img src="{{$participant->user->students->getFirstMediaUrl('media/students')}}" alt="user image" class="img-circle" width="50">
+                                    @endif
                                     <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Luanch Admin</h6> <span class="mail-desc">Just see the my new admin!</span>
-                                        <span class="time">9:30 AM</span>
+                                        <h6 class="text-dark font-medium mb-0">{{$participant->user->username}}</h6> <span class="mail-desc">{{$participant->user->email}}</span>
+                                        <span class="time">{{$participant->user->roles->first()->name}}</span>
+                                        <span class="quiz-title">{{$participant->quiz->title}}</span>
                                     </div>
                                 </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-success btn-circle"><i class="fa fa-calendar-check-o"></i></div>
-                                    <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Event today</h6> <span class="mail-desc">Just a reminder that you have
-                                            event</span> <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-info btn-circle"><i class="fa fa-cog text-white"></i></div>
-                                    <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Settings</h6> <span class="mail-desc">You can customize this template as you
-                                            want</span> <span class="time">9:08 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-primary btn-circle"><i class="fa fa-user"></i></div>
-                                    <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Pavan kumar</h6> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:02 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-info btn-circle"><i class="fa fa-cog text-white"></i></div>
-                                    <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Customize Themes</h6> <span class="mail-desc">You can customize this template as you
-                                            want</span> <span class="time">9:08 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-primary btn-circle"><i class="fa fa-user"></i></div>
-                                    <div class="mail-contnet">
-                                        <h6 class="text-dark font-medium mb-0">Pavan kumar</h6> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:02 AM</span>
-                                    </div>
-                                </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <!-- End Notification -->
-                    <!-- Start Feeds -->
-                    <!-- End Feeds -->
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Notification And Feeds -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- End Page Content -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer"> © 2021 Adminwrap by <a href="https://www.wrappixel.com/">wrappixel.com</a> </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
