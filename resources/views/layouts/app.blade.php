@@ -54,7 +54,7 @@
             <div class="mx-auto">
             @if (auth()->check())
             <li class="nav-item dropdown">
-              @if($user->hasRole('student'))
+              @if($user->hasRole('student') && $student)
               @if($student->hasMedia('media/students'))
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="{{$student->getFirstMediaUrl('media/students')}}" width="30" height="30" class="rounded-circle">
