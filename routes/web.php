@@ -70,9 +70,9 @@ Route::put('/publishQuize/{id}', [ValidateQuizeController::class, 'publishQuize'
 Route::put('/unpublishQuize/{id}', [ValidateQuizeController::class, 'unpublishQuize'])->name('unpublishQuize')->middleware('role:admin');
 // user dashboard
 Route::resource('userdashboard', UserDashboardController::class)->middleware('role:teacher,representative');
-Route::resource('userprofile', UserProfileController::class);
-Route::resource('usersettings', UserSettingsController::class);
-Route::resource('userquizzes',QuizzeController::class);
+Route::resource('userprofile', UserProfileController::class)->middleware('auth','banned');
+Route::resource('usersettings', UserSettingsController::class)->middleware('auth','banned');
+Route::resource('userquizzes',QuizzeController::class)->middleware('auth');
 Route::get('/showParticipants\{id}', [UserDashboardController::class, 'showUserParticipant'])->name('showUserParticipants');
 Route::get('/showMyQuizzesParticipant', [UserDashboardController::class, 'showMyQuizzesParticipant'])->name('showMyQuizzesParticipant');
 // teacher controller
