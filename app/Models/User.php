@@ -56,15 +56,7 @@ class User extends Authenticatable implements HasMedia
         return $this->roles->contains('name', $role);
     }
 
-    public function educations()
-    {
-        return $this->hasMany(Education::class);
-    }
     
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class);
-    }
     public function quizzes()
     {
         return $this->belongsToMany(Quize::class);
