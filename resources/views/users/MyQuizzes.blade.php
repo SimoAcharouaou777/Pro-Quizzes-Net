@@ -68,7 +68,7 @@
                             <!-- dark Logo text -->
                             <img src="" alt="" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="" class="light-logo" alt=" /></span>
+                            <img src="" class="light-logo" alt="" /></span>
                     </a>
                 </div>
                 <!-- ============================================================== -->
