@@ -126,6 +126,9 @@ class QuizeTakeController extends Controller
     public function showMyResults($id){
         $userId = auth()->id();
         $quiz = Quize::find($id);
+        if( $quiz === null || $quiz->id != $id){
+            return redirect()->back()->with('error', 'You can not view this result.');
+        }
         $questions = $quiz->questions;
         $userAnswers = Result::where('user_id', $userId)
         ->where('quiz_id', $id)
