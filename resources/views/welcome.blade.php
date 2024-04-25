@@ -171,33 +171,7 @@
 
       <div class="row gy-4">
 
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="654" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Clients</p>
-          </div>
-        </div><!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="67568" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Events</p>
-          </div>
-        </div><!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="241" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Partisipant</p>
-          </div>
-        </div><!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="8754" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Events Reserved</p>
-          </div>
-        </div><!-- End Stats Item -->
+        
 
       </div>
 
@@ -370,7 +344,7 @@
           <div class="text-center">
             <h3>Get Involved</h3>
             <p>Join us for an engaging quiz experience! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-            <a class="cta-btn" href="#">Start Quizzing</a>
+            <a class="cta-btn" href="{{route('register')}}">Start Quizzing</a>
           </div>
         </div>
       </div>
