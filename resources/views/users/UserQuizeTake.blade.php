@@ -56,7 +56,7 @@
         <div class="card-body">
             <h5 class="card-title">Questionnaire</h5>
 
-            <form action="{{route('QuizSubmit', $quiz->id)}}" method="POST">
+            <form action="{{route('QuizSubmit', $quiz->id)}}" method="POST" id="quiz-form">
                 @csrf
                 <h2>{{ $quiz->title }}</h2>
                 @foreach($quiz->questions as $question)
@@ -84,5 +84,19 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('quiz-form').addEventListener('submit', function(event) {
+        var questions = document.querySelectorAll('.form-group');
+        for (var i = 0; i < questions.length; i++) {
+            var checkboxes = questions[i].querySelectorAll('.custom-control-input');
+            var checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            if (!checked) {
+                event.preventDefault();
+                alert('Please answer all questions.');
+                return;
+            }
+        }
+    });
+    </script>
 </body>
 </html>
