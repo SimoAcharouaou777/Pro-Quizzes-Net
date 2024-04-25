@@ -388,7 +388,7 @@
         var questionCount = 1;
         document.getElementById('addQuestion').addEventListener('click', function() {
         questionCount++;
-        choiceCount[questionCount] = 2; // Defaulting to 2 choices for each new question
+        choiceCount[questionCount] = 2; 
         var container = document.getElementById('questions-container');
         var questionDiv = document.createElement('div');
         questionDiv.className = 'question';
