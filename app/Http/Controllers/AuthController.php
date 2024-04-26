@@ -38,6 +38,7 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        
 
         if (Auth::attempt($credentials, $request->has('remembetrMe'))) {
             if(Auth::user()->status == 'banned'){
