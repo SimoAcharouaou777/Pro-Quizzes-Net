@@ -101,7 +101,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if($user->hasRole('student') && $student)
                                 @if($student->hasMedia('media/students'))
-                                 <img src="{{$student->getFirstMediaUrl('media/students')}}" alt="profile_image" class="img-circle" width="150">
+                                <img src="{{ asset($student->getFirstMediaUrl('media/students')) }}" alt="profile_image" class="img-circle" width="150">
                                  @else
                                  <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
                                  width="150" />
@@ -110,7 +110,7 @@
                                  @if($representative->hasMedia('media/representatives'))
                                      <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
                                  @else
-                                     <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
+                                 <img src="{{ asset('assets/img/clients/profile.jpg') }}" class="img-circle" width="150" />
                                  @endif
                              @else
                                  @if(Auth::user()->hasMedia('media/users'))
@@ -228,13 +228,13 @@
                                 @endif
                             @elseif($user->hasRole('representative'))
                                 @if($representative->hasMedia('media/representatives'))
-                                    <img src="{{$representative->getFirstMediaUrl('media/representatives')}}" alt="profile_image" class="img-circle" width="150">
+                                <img src="{{ asset($representative->getFirstMediaUrl('media/representatives')) }}" alt="profile_image" class="img-circle" width="150">
                                 @else
                                     <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle" width="150" />
                                 @endif
                             @else
                                 @if(Auth::user()->hasMedia('media/users'))
-                                    <img src="{{Auth::user()->getFirstMediaUrl('media/users')}}" alt="profile_image" class="img-circle" width="150">
+                                <img src="{{ asset(Auth::user()->getFirstMediaUrl('media/users')) }}" alt="profile_image" class="img-circle" width="150">
                                 @else
                                 <img src="{{asset('assets/img/clients/profile.jpg')}}" class="img-circle"
                                 width="150" />
